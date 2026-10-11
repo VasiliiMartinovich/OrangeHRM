@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrangeHRM.Tests", "OrangeHRM.Tests\OrangeHRM.Tests.csproj", "{5D8D85A2-BEFB-4536-A079-F971E8420A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrangeHRM.Framework.Core", "OrangeHRM.Framework.Core\OrangeHRM.Framework.Core.csproj", "{3DD82A45-3D0F-4B22-8DE9-BC2E3BA5DA71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrangeHRM.Framework.UI", "OrangeHRM.Framework.UI\OrangeHRM.Framework.UI.csproj", "{F952F243-FAE7-4832-A4A4-FEB185CEFCBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D8D85A2-BEFB-4536-A079-F971E8420A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8D85A2-BEFB-4536-A079-F971E8420A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8D85A2-BEFB-4536-A079-F971E8420A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8D85A2-BEFB-4536-A079-F971E8420A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DD82A45-3D0F-4B22-8DE9-BC2E3BA5DA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD82A45-3D0F-4B22-8DE9-BC2E3BA5DA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD82A45-3D0F-4B22-8DE9-BC2E3BA5DA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD82A45-3D0F-4B22-8DE9-BC2E3BA5DA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F952F243-FAE7-4832-A4A4-FEB185CEFCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F952F243-FAE7-4832-A4A4-FEB185CEFCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F952F243-FAE7-4832-A4A4-FEB185CEFCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F952F243-FAE7-4832-A4A4-FEB185CEFCBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
