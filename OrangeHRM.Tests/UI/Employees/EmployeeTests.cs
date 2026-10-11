@@ -89,6 +89,14 @@ public class EmployeeTests : UiTestBase
             firstName: firstName,
             lastName: lastName,
             middleName: middleName);
-        Assert.That(addEmployeePage.IsEmployeeProfileDisplayed(), Is.True);
+        var personalDetailsPage = new PersonalDetailsPage();
+        Assert.That(personalDetailsPage.IsDisplayed(), Is.True,
+            "Personal Details page should be displayed after saving.");
+        var actualFirstName = personalDetailsPage.WaitForFirstName();
+        var actualLastName = personalDetailsPage.GetLastName();
+        Assert.That(actualFirstName, Is.EqualTo(firstName),
+            "First Name should match the value entered during employee creation.");
+        Assert.That(actualLastName, Is.EqualTo(lastName),
+            "Last Name should match the value entered during employee creation.");
     }
 }
