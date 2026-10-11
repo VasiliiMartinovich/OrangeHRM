@@ -73,4 +73,22 @@ public class EmployeeTests : UiTestBase
         Assert.That(resetCount, Is.EqualTo(initialCount),
             "Reset should restore the initial employee list.");
     }
+    
+    [Test]
+    public void AddEmployee()
+    {
+        var dashboardPage = new DashboardPage();
+        dashboardPage.OpenPim();
+        var employeePage = new EmployeePage();
+        employeePage.ClickAddEmployee();
+        var addEmployeePage = new AddEmployeePage();
+        var firstName = "Test" + DateTime.Now.ToString("HHmmss");
+        var middleName = "Ivanov";
+        var lastName = "Employee";
+        addEmployeePage.CreateEmployee(
+            firstName: firstName,
+            lastName: lastName,
+            middleName: middleName);
+        Assert.That(addEmployeePage.IsEmployeeProfileDisplayed(), Is.True);
+    }
 }

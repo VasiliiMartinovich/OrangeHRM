@@ -13,6 +13,7 @@ public class EmployeePage : LoadablePage
     private static readonly By SearchSuggestions = By.CssSelector(".oxd-autocomplete-option");
     private static readonly By ResetButton = By.CssSelector("button[type='reset']");
     private static readonly By NoRecordsMessage = By.XPath("//*[normalize-space()='No Records Found']");
+    private static readonly By AddEmployeeButton = By.XPath("//button[normalize-space()='Add']");
     
     public EmployeePage() : base(EmployeeListHeader)
     {
@@ -188,5 +189,9 @@ public class EmployeePage : LoadablePage
             });
         });
         return GetSearchResultCount();
+    }
+    public void ClickAddEmployee()
+    {
+        Click(AddEmployeeButton);
     }
 }
