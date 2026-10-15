@@ -26,13 +26,19 @@
 
     <ItemGroup>
       <ProjectReference Include="..\OrangeHRM.Framework.Core\OrangeHRM.Framework.Core.csproj" />
-      <ProjectReference Include="..\OrangeHRM.Framework.UI\OrangeHRM.Framework.UI.csproj" />
     </ItemGroup>
 
 <ItemGroup>
   <None Update="appsettings.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
+</ItemGroup>
+
+<ItemGroup>
+  <None Remove="TestData\candidate-cv.pdf" />
+  <Content Include="TestData\candidate-cv.pdf">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
 </ItemGroup>
 
 </Project>

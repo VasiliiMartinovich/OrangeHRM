@@ -7,7 +7,10 @@ namespace OrangeHRM.Framework.UI.Pages.Employees;
 public class EmployeePage : LoadablePage
 {
     private static readonly By EmployeeListHeader = By.CssSelector("a[href='/web/index.php/pim/viewPimModule']");
-    private static readonly By EmployeeNameInput = By.XPath("//label[text()='Employee Name']/../following-sibling::div//input");
+
+    private static readonly By EmployeeNameInput =
+        By.XPath("//label[text()='Employee Name']/../following-sibling::div//input");
+
     private static readonly By SearchButton = By.CssSelector("button[type='submit']");
     private static readonly By EmployeeTableRows = By.CssSelector(".oxd-table-body .oxd-table-card");
     private static readonly By SearchSuggestions = By.CssSelector(".oxd-autocomplete-option");
@@ -32,7 +35,7 @@ public class EmployeePage : LoadablePage
         WaitForSearchResults();
     }
 
-   public void SearchByNonExistingEmployeeName(string employeeName)
+    public void SearchByNonExistingEmployeeName(string employeeName)
     {
         TypeText(EmployeeNameInput, employeeName);
         Click(SearchButton);
@@ -82,6 +85,7 @@ public class EmployeePage : LoadablePage
             {
             }
         }
+
         return null;
     }
 
@@ -91,31 +95,32 @@ public class EmployeePage : LoadablePage
         {
             var rows = driver.FindElements(EmployeeTableRows);
             return rows.Any(row =>
-            {
-                try
-                {
-                    return row.Displayed &&
-                           !row.Text.Contains("No Records Found");
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return false;
-                }
-            }) ||
-            driver.FindElements(NoRecordsMessage)
-                .Any(element =>
-                {
-                    try
-                    {
-                        return element.Displayed;
-                    }
-                    catch (StaleElementReferenceException)
-                    {
-                        return false;
-                    }
-                });
+                   {
+                       try
+                       {
+                           return row.Displayed &&
+                                  !row.Text.Contains("No Records Found");
+                       }
+                       catch (StaleElementReferenceException)
+                       {
+                           return false;
+                       }
+                   }) ||
+                   driver.FindElements(NoRecordsMessage)
+                       .Any(element =>
+                       {
+                           try
+                           {
+                               return element.Displayed;
+                           }
+                           catch (StaleElementReferenceException)
+                           {
+                               return false;
+                           }
+                       });
         });
     }
+
     public int GetSearchResultCount()
     {
         return Driver.FindElements(EmployeeTableRows)
@@ -132,24 +137,26 @@ public class EmployeePage : LoadablePage
                 }
             });
     }
+
     public void ResetSearch()
     {
         Click(ResetButton);
-       Wait.Until(driver => string.IsNullOrWhiteSpace(driver.FindElement(EmployeeNameInput).GetAttribute("value")));
-        
+        Wait.Until(driver => string.IsNullOrWhiteSpace(driver.FindElement(EmployeeNameInput).GetAttribute("value")));
+
         Wait.Until(driver => driver.FindElements(EmployeeTableRows).Any(row =>
-                {
-                    try
-                    {
-                        return row.Displayed &&
-                               !row.Text.Contains("No Records Found");
-                    }
-                    catch (StaleElementReferenceException)
-                    {
-                        return false;
-                    }
-                }));
+        {
+            try
+            {
+                return row.Displayed &&
+                       !row.Text.Contains("No Records Found");
+            }
+            catch (StaleElementReferenceException)
+            {
+                return false;
+            }
+        }));
     }
+
     public int WaitForEmployeeList()
     {
         Wait.Until(driver =>
@@ -168,7 +175,7 @@ public class EmployeePage : LoadablePage
                 }));
         return GetSearchResultCount();
     }
-    
+
     public int WaitForSearchResultCount()
     {
         Wait.Until(driver =>
@@ -190,6 +197,7 @@ public class EmployeePage : LoadablePage
         });
         return GetSearchResultCount();
     }
+
     public void ClickAddEmployee()
     {
         Click(AddEmployeeButton);

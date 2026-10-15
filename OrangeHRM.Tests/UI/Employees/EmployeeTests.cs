@@ -5,6 +5,7 @@ using OrangeHRM.Framework.Core.Drivers;
 using OrangeHRM.Framework.UI.Pages;
 using OrangeHRM.Framework.UI.Pages.Authentication;
 using OrangeHRM.Framework.UI.Pages.Employees;
+using OrangeHRM.Framework.UI.Pages.Components;
 using OrangeHRM.Tests.Infrastructure;
 using OrangeHRM.Tests.Configuration;
 
@@ -24,7 +25,7 @@ public class EmployeeTests : UiTestBase
     public void OpenEmployeeListPage()
     {
         var dashboardPage = new DashboardPage();
-        dashboardPage.OpenPim();
+        dashboardPage.SidePanel.OpenPim();
         var employeePage = new EmployeePage();
         Assert.That(employeePage.IsDisplayed(), Is.True, "Employee Information should be displayed.");
     }
@@ -33,7 +34,7 @@ public class EmployeeTests : UiTestBase
     public void SearchEmployeeWithExistingName()
     {
         var dashboardPage = new DashboardPage();
-        dashboardPage.OpenPim();
+        dashboardPage.SidePanel.OpenPim();
     
         var employeePage = new EmployeePage();
         employeePage.SearchByEmployeeName("John");
@@ -50,7 +51,7 @@ public class EmployeeTests : UiTestBase
     public void SearchEmployeeWithNonExistingName()
     {
         var dashboardPage = new DashboardPage();
-        dashboardPage.OpenPim();
+        dashboardPage.SidePanel.OpenPim();
         var employeePage = new EmployeePage();
         employeePage.SearchByNonExistingEmployeeName("NonExistingEmployee123");
         Assert.That(employeePage.GetSearchResultCount(), Is.EqualTo(0),
@@ -61,7 +62,7 @@ public class EmployeeTests : UiTestBase
     public void ResetSearchShouldClearFilters()
     {
         var dashboardPage = new DashboardPage();
-        dashboardPage.OpenPim();
+        dashboardPage.SidePanel.OpenPim();
         var employeePage = new EmployeePage();
         var initialCount = employeePage.WaitForEmployeeList();
         employeePage.SearchByEmployeeName("John");
@@ -78,12 +79,12 @@ public class EmployeeTests : UiTestBase
     public void AddEmployee()
     {
         var dashboardPage = new DashboardPage();
-        dashboardPage.OpenPim();
+        dashboardPage.SidePanel.OpenPim();
         var employeePage = new EmployeePage();
         employeePage.ClickAddEmployee();
         var addEmployeePage = new AddEmployeePage();
         var firstName = "Test" + DateTime.Now.ToString("HHmmss");
-        var middleName = "Ivanov";
+        var middleName = "Ivanovich";
         var lastName = "Employee";
         addEmployeePage.CreateEmployee(
             firstName: firstName,
