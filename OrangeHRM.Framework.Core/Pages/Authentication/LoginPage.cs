@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OrangeHRM.Framework.Core.Pages;
 
-namespace OrangeHRM.Framework.UI.Pages.Authentication;
+namespace OrangeHRM.Framework.Core.Pages.Authentication;
 
 public class LoginPage : LoadablePage
 {

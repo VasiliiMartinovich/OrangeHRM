@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using OrangeHRM.Framework.Core.Drivers;
 
-namespace OrangeHRM.Framework.UI.Pages;
+namespace OrangeHRM.Framework.Core.Pages;
 
 public class BasePage
 {
@@ -18,20 +18,54 @@ public class BasePage
     {
         return Wait.Until(driver =>
         {
-            var element = driver.FindElement(locator);
-            return element.Displayed ? element : null;
+            var elements = driver.FindElements(locator);
+
+            foreach (var element in elements)
+            {
+                if (element.Displayed)
+                    return element;
+            }
+
+            return null;
         })!;
     }
 
     protected void Click(By locator)
     {
-        FindVisibleElement(locator).Click();
+        Wait.Until(driver =>
+        {
+            var elements = driver.FindElements(locator);
+
+            foreach (var element in elements)
+            {
+                if (element.Displayed && element.Enabled)
+                {
+                    element.Click();
+                    return true;
+                }
+            }
+
+            return false;
+        });
     }
 
     protected void TypeText(By locator, string text)
     {
-        var element = FindVisibleElement(locator);
-        element.Clear();
-        element.SendKeys(text);
+        Wait.Until(driver =>
+        {
+            var elements = driver.FindElements(locator);
+
+            foreach (var element in elements)
+            {
+                if (element.Displayed && element.Enabled)
+                {
+                    element.Clear();
+                    element.SendKeys(text);
+                    return true;
+                }
+            }
+
+            return false;
+        });
     }
 }

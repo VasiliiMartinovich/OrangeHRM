@@ -1,5 +1,6 @@
-﻿using OrangeHRM.Framework.UI.Pages;
-using OrangeHRM.Framework.UI.Pages.Authentication;
+﻿using OrangeHRM.Framework.Core.Pages;
+using OrangeHRM.Framework.Core.Pages.Authentication;
+using OrangeHRM.Tests.Configuration;
 using OrangeHRM.Tests.Infrastructure;
 
 namespace OrangeHRM.Tests.UI;
@@ -11,7 +12,7 @@ public class LogoutTests : UiTestBase
     public void SetUp()
     {
         var loginPage = new LoginPage();
-        loginPage.Login("Admin", "admin123");
+        loginPage.Login(TestSettings.Username, TestSettings.Password);
     }
     
     [Test]

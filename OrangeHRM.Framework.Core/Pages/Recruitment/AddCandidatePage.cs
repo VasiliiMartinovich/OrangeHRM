@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OrangeHRM.Framework.Core.Pages.Recruitment;
 
-namespace OrangeHRM.Framework.UI.Pages.Recruitment;
+namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class AddCandidatePage : LoadablePage
 {
@@ -38,13 +39,27 @@ public class AddCandidatePage : LoadablePage
     {
         Click(VacancyDropdown);
 
+        var options = By.XPath(
+            "//div[contains(@class,'oxd-select-option')]");
+
+        Wait.Until(driver =>
+            driver.FindElements(options)
+                .Any(element => element.Displayed));
+
+        var visibleOptions = Driver.FindElements(options)
+            .Where(element => element.Displayed)
+            .Select(element => element.Text.Trim())
+            .ToList();
+
+        Console.WriteLine(
+            $"Requested vacancy: {vacancyName}");
+
+        Console.WriteLine(
+            $"Available vacancies: {string.Join(", ", visibleOptions)}");
+
         var vacancyOption = By.XPath(
             "//div[contains(@class,'oxd-select-option')]" +
             $"[normalize-space()={ToXPathLiteral(vacancyName)}]");
-
-        Wait.Until(driver =>
-            driver.FindElements(vacancyOption)
-                .Any(element => element.Displayed));
 
         Click(vacancyOption);
     }

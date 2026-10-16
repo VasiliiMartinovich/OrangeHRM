@@ -5,23 +5,33 @@ using OpenQA.Selenium.Safari;
 
 namespace OrangeHRM.Framework.Core.Drivers;
 
-public  class DriverFactory
+public class DriverFactory
 {
-    public static IWebDriver CreateDriver(BrowserType browsertype, bool headless = false)
+    public static IWebDriver CreateDriver(
+        BrowserType browserType,
+        bool headless = false)
     {
-        return browsertype switch
+        return browserType switch
         {
             BrowserType.Chrome => CreateChrome(headless),
             BrowserType.Firefox => CreateFirefox(headless),
             BrowserType.Safari => CreateSafari(),
-            _ => throw new ArgumentOutOfRangeException(nameof(browsertype), browsertype, "Unsupported browser type")
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(browserType),
+                browserType,
+                "Unsupported browser type")
         };
     }
+
     private static IWebDriver CreateChrome(bool headless)
     {
         var options = new ChromeOptions();
 
-        options.AddArgument("--headless=new");
+        if (headless)
+        {
+            options.AddArgument("--headless=new");
+        }
+
         options.AddArgument("--no-sandbox");
         options.AddArgument("--disable-dev-shm-usage");
         options.AddArgument("--disable-gpu");
@@ -29,17 +39,23 @@ public  class DriverFactory
 
         return new ChromeDriver(options);
     }
-        
+
     private static IWebDriver CreateFirefox(bool headless)
     {
         var options = new FirefoxOptions();
+
+        if (headless)
+        {
+            options.AddArgument("-headless");
+        }
+
         return new FirefoxDriver(options);
     }
-        
+
     private static IWebDriver CreateSafari()
     {
         var options = new SafariOptions();
+
         return new SafariDriver(options);
     }
-    
 }

@@ -1,9 +1,12 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.UI.Pages;
-using OrangeHRM.Framework.UI.Pages.Authentication;
-using OrangeHRM.Framework.UI.Pages.Recruitment;
+using OrangeHRM.Framework.Core.Pages;
+using OrangeHRM.Framework.Core.Pages.Authentication;
+using OrangeHRM.Framework.Core.Pages.Recruitment;
 using OrangeHRM.Tests.Infrastructure;
+using OrangeHRM.Tests.TestData;
 using OrangeHRM.Framework.Core.Drivers;
+using OrangeHRM.Tests.Configuration;
+using OrangeHRM.Tests.Infrastructure;
 
 namespace OrangeHRM.Tests.UI.Recruitment;
 
@@ -14,54 +17,60 @@ public class RecruitmentTests : UiTestBase
     public void SetUp()
     {
         var loginPage = new LoginPage();
-        loginPage.Login("Admin", "admin123");
+        loginPage.Login(TestSettings.Username, TestSettings.Password);
     }
 
     [Test]
     public void CreateCandidate()
     {
-        var firstName = "Candidate" + DateTime.Now.ToString("HHmmss");
+        var firstName = CandidateTestData.FirstName;
+        var lastName = CandidateTestData.LastName;
+        var email = CandidateTestData.Email;
         var middleName = "Ivanov";
-        var lastName = "Automation";
-        var email = $"candidate{DateTime.Now:HHmmssfff}@example.com";
-        var vacancyName = "QA Automation TMS";
         var cvFileName = "candidate-cv.pdf";
+        
         var cvFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", cvFileName);
 
         Assert.That(File.Exists(cvFilePath), Is.True,
             $"CV file was not found: {cvFilePath}");
+
+        var testDataSetup = new TestDataSetup();
+        var vacancyName = testDataSetup.CreateVacancyForHiringManager();
         
-       var dashboardPage = new DashboardPage();
-       dashboardPage.SidePanel.OpenRecruitment();
+        DriverManager.Driver.Navigate().GoToUrl(
+            new Uri(new Uri(TestSettings.BaseUrl),
+                    "web/index.php/dashboard/index").ToString());
+
+        var dashboardPage = new DashboardPage();
+        dashboardPage.SidePanel.OpenRecruitment();
 
         var recruitmentPage = new RecruitmentPage();
         var candidatesPage = recruitmentPage.OpenCandidates();
         var addCandidatePage = candidatesPage.ClickAdd();
-        
+
         addCandidatePage.FillCandidateForm(
-            firstName,
-            middleName,
-            lastName,
-            email);
-        
+        firstName,
+        middleName,
+        lastName,
+        email);
+
         addCandidatePage.SelectVacancy(vacancyName);
         addCandidatePage.UploadCv(cvFilePath);
 
         Assert.That(addCandidatePage.IsCvSelected(cvFileName), Is.True,
-            "CV was not selected in the form.");
-        
+        "CV was not selected in the form.");
+
         var candidateDetailsPage = addCandidatePage.Save();
-        
         Assert.That(candidateDetailsPage.GetFirstName(), Is.EqualTo(firstName));
         Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(middleName));
         Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(lastName));
-        Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email)); 
+        Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email));
         Assert.That(candidateDetailsPage.IsResumeDisplayed(cvFileName), Is.True,
-            "Uploaded CV was not displayed on the candidate details page.");
+        "Uploaded CV was not displayed on the candidate details page.");
         Assert.That(candidateDetailsPage.GetJobVacancy(), Is.EqualTo(vacancyName),
-            "Selected job vacancy does not match.");
+        "Selected job vacancy does not match.");
     }
-
+    
     [Test]
     public void DeleteCreatedCandidate()
     {
@@ -70,22 +79,25 @@ public class RecruitmentTests : UiTestBase
         var lastName = "Automation";
         var email = $"candidate{DateTime.Now:HHmmssfff}@example.com";
 
-        var vacancyName = "QA Automation TMS";
-
         var cvFileName = "candidate-cv.pdf";
         var cvFilePath = Path.Combine(
             TestContext.CurrentContext.TestDirectory,
-            "TestData",
-            cvFileName);
+            "TestData", cvFileName);
 
         Assert.That(File.Exists(cvFilePath), Is.True,
             $"CV file was not found: {cvFilePath}");
-
-        var dashboardPage = new DashboardPage();
+        var testDataSetup = new TestDataSetup();
+        var vacancyName = testDataSetup.CreateVacancyForHiringManager();
+    
+        DriverManager.Driver.Navigate().GoToUrl(new Uri(new Uri(TestSettings.BaseUrl),
+            "web/index.php/dashboard/index").ToString());
+        var dashboardPage = new DashboardPage(); 
         dashboardPage.SidePanel.OpenRecruitment();
+
         var recruitmentPage = new RecruitmentPage();
         var candidatesPage = recruitmentPage.OpenCandidates();
         var addCandidatePage = candidatesPage.ClickAdd();
+
         addCandidatePage.FillCandidateForm(
             firstName,
             middleName,
@@ -97,31 +109,31 @@ public class RecruitmentTests : UiTestBase
 
         Assert.That(addCandidatePage.IsCvSelected(cvFileName), Is.True,
             "CV was not selected in the form.");
-
+        
         var candidateDetailsPage = addCandidatePage.Save();
-
         Assert.Multiple(() =>
         {
             Assert.That(candidateDetailsPage.GetFirstName(), Is.EqualTo(firstName));
             Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(middleName));
             Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(lastName));
             Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email));
+
             Assert.That(candidateDetailsPage.IsResumeDisplayed(cvFileName), Is.True,
                 "Uploaded CV was not displayed on the candidate details page.");
+
             Assert.That(candidateDetailsPage.GetJobVacancy(), Is.EqualTo(vacancyName),
                 "Selected job vacancy does not match.");
-        });
-
+    });
         dashboardPage.SidePanel.OpenRecruitment();
         recruitmentPage = new RecruitmentPage();
         candidatesPage = recruitmentPage.OpenCandidates();
         candidatesPage.SearchCandidate(firstName);
-
+        
         Assert.That(candidatesPage.IsCandidateDisplayed(firstName), Is.True,
             $"Candidate '{firstName}' was not found after filtering.");
-
+        
         candidatesPage.DeleteCandidate(firstName);
-
+        
         Assert.Multiple(() =>
         {
             Assert.That(candidatesPage.IsSuccessToastDisplayed(), Is.True,
@@ -132,9 +144,10 @@ public class RecruitmentTests : UiTestBase
 
             Assert.That(candidatesPage.GetSuccessToastMessage(), Is.EqualTo("Successfully Deleted"),
                 "Unexpected alert message.");
-        });
-        candidatesPage.SearchCandidate(firstName);
+            });
 
+        candidatesPage.SearchCandidate(firstName);
+        
         Assert.That(candidatesPage.IsCandidateDisplayed(firstName), Is.False,
             $"Candidate '{firstName}' is still displayed after deletion.");
     }
@@ -142,24 +155,25 @@ public class RecruitmentTests : UiTestBase
     [Test]
     public void CreateVacancy()
     {
-        var vacancyName = $"QA Automation Vacancy {DateTime.Now:yyyyMMddHHmmss}";
+        var testDataSetup = new TestDataSetup();
+        var hiringManager = testDataSetup.CreateEmployeeForHiringManager();
+        var vacancyName = $"QA Automation Vacancy {DateTime.Now:yyyyMMddHHmmssfff}";
         var jobTitle = "Software Engineer";
-        var hiringManager = "QA Test Manager";
+        DriverManager.Driver.Navigate().GoToUrl(
+            new Uri(new Uri(TestSettings.BaseUrl),
+                "web/index.php/dashboard/index").ToString());
         
         var dashboardPage = new DashboardPage();
         dashboardPage.SidePanel.OpenRecruitment();
-
         var recruitmentPage = new RecruitmentPage();
         var vacanciesPage = recruitmentPage.OpenVacancies();
-
         var addVacancyPage = vacanciesPage.ClickAdd();
 
         addVacancyPage.EnterVacancyName(vacancyName);
         addVacancyPage.SelectJobTitle(jobTitle);
         addVacancyPage.SelectHiringManager(hiringManager);
-        
         addVacancyPage.Save();
-
+        
         var editVacancyPage = new EditVacancyPage();
 
         Assert.Multiple(() =>

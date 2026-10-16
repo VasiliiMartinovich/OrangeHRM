@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace OrangeHRM.Framework.UI.Pages.Employees;
+namespace OrangeHRM.Framework.Core.Pages.Employees;
 
 public class AddEmployeePage : LoadablePage
 {

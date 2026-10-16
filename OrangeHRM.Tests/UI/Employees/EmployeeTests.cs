@@ -2,10 +2,10 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OrangeHRM.Framework.Core.Drivers;
-using OrangeHRM.Framework.UI.Pages;
-using OrangeHRM.Framework.UI.Pages.Authentication;
-using OrangeHRM.Framework.UI.Pages.Employees;
-using OrangeHRM.Framework.UI.Pages.Components;
+using OrangeHRM.Framework.Core.Pages;
+using OrangeHRM.Framework.Core.Pages.Authentication;
+using OrangeHRM.Framework.Core.Pages.Employees;
+using OrangeHRM.Framework.Core.Pages.Components;
 using OrangeHRM.Tests.Infrastructure;
 using OrangeHRM.Tests.Configuration;
 
@@ -18,7 +18,7 @@ public class EmployeeTests : UiTestBase
     public void SetUp()
     {
         var loginPage = new LoginPage();
-        loginPage.Login("Admin", "admin123");
+        loginPage.Login(TestSettings.Username, TestSettings.Password);
     }
     
     [Test]

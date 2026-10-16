@@ -2,8 +2,8 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OrangeHRM.Framework.Core.Drivers;
-using OrangeHRM.Framework.UI.Pages;
-using OrangeHRM.Framework.UI.Pages.Authentication;
+using OrangeHRM.Framework.Core.Pages;
+using OrangeHRM.Framework.Core.Pages.Authentication;
 using OrangeHRM.Tests.Infrastructure;
 using OrangeHRM.Tests.Configuration;
 
@@ -23,7 +23,9 @@ public class LoginPageTests : UiTestBase
     public void SuccessLogin()
     {
         var loginPage = new LoginPage();
-        var dashboardPage = loginPage.Login("Admin", "admin123");
+        var dashboardPage = loginPage.Login(
+            TestSettings.Username,
+            TestSettings.Password);
         Assert.That(dashboardPage.IsDisplayed(), Is.True);
     }
     
@@ -43,7 +45,6 @@ public class LoginPageTests : UiTestBase
             Is.EqualTo("https://opensource-demo.orangehrmlive.com/"));
 
         Assert.That(TestSettings.Browser, Is.EqualTo("Chrome"));
-        Assert.That(TestSettings.Headless, Is.False);
         Assert.That(TestSettings.TimeoutSeconds, Is.EqualTo(10));
     }
 }

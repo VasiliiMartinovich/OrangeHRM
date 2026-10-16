@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace OrangeHRM.Framework.UI.Pages;
+namespace OrangeHRM.Framework.Core.Pages;
 
 public abstract class LoadablePage : BasePage
 {

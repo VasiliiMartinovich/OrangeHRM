@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.UI.Pages.Authentication;
-using OrangeHRM.Framework.UI.Pages.Components;
+using OrangeHRM.Framework.Core.Pages.Authentication;
+using OrangeHRM.Framework.Core.Pages.Components;
 
-namespace OrangeHRM.Framework.UI.Pages;
+namespace OrangeHRM.Framework.Core.Pages;
 
 public class DashboardPage : LoadablePage
 {

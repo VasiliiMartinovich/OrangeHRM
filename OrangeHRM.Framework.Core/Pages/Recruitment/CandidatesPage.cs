@@ -1,8 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-
-namespace OrangeHRM.Framework.UI.Pages.Recruitment;
+namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class CandidatesPage : LoadablePage
 {

@@ -8,15 +8,28 @@ public static class TestSettings
         new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false)
+            .AddEnvironmentVariables()
             .Build();
+
+    public static string Username =>
+        Configuration["Credentials:Username"]
+        ?? throw new InvalidOperationException(
+            "Credentials:Username is missing in configuration.");
+
+    public static string Password =>
+        Configuration["Credentials:Password"]
+        ?? throw new InvalidOperationException(
+            "Credentials:Password is missing in configuration.");
 
     public static string BaseUrl =>
         Configuration["BaseUrl"]
-        ?? throw new InvalidOperationException("BaseUrl is missing in appsettings.json");
+        ?? throw new InvalidOperationException(
+            "BaseUrl is missing in appsettings.json");
 
     public static string Browser =>
         Configuration["Browser"]
-        ?? throw new InvalidOperationException("Browser is missing in appsettings.json");
+        ?? throw new InvalidOperationException(
+            "Browser is missing in appsettings.json");
 
     public static bool Headless =>
         Configuration.GetValue<bool>("Headless");
