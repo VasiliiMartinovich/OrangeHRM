@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OrangeHRM.Framework.Core.Wrappers;
 
 
 namespace OrangeHRM.Framework.Core.Pages.Employees;
@@ -6,13 +7,13 @@ namespace OrangeHRM.Framework.Core.Pages.Employees;
 public class EmployeePage : LoadablePage
 {
     private static readonly By EmployeeListHeader = By.CssSelector("a[href='/web/index.php/pim/viewPimModule']");
-    private static readonly By EmployeeNameInput = By.XPath("//label[text()='Employee Name']/../following-sibling::div//input");
-    private static readonly By SearchButton = By.CssSelector("button[type='submit']");
+    private static readonly TextBox _employeeNameInput = new (By.XPath("//label[text()='Employee Name']/../following-sibling::div//input"));
+    private readonly Button _searchButton = new(By.CssSelector("button[type='submit']"));
     private static readonly By EmployeeTableRows = By.CssSelector(".oxd-table-body .oxd-table-card");
     private static readonly By SearchSuggestions = By.CssSelector(".oxd-autocomplete-option");
-    private static readonly By ResetButton = By.CssSelector("button[type='reset']");
+    private readonly Button _resetButton = new(By.CssSelector("button[type='reset']"));
     private static readonly By NoRecordsMessage = By.XPath("//*[normalize-space()='No Records Found']");
-    private static readonly By AddEmployeeButton = By.XPath("//button[normalize-space()='Add']");
+    private readonly Button _addEmployeeButton = new(By.XPath("//button[normalize-space()='Add']"));
 
     public EmployeePage() : base(EmployeeListHeader)
     {
@@ -24,16 +25,16 @@ public class EmployeePage : LoadablePage
 
     public void SearchByEmployeeName(string employeeName)
     {
-        TypeText(EmployeeNameInput, employeeName);
+        _employeeNameInput.SetValue(employeeName);
         SelectFirstEmployeeSuggestion();
-        Click(SearchButton);
+        _searchButton.Click();
         WaitForSearchResults();
     }
 
     public void SearchByNonExistingEmployeeName(string employeeName)
     {
-        TypeText(EmployeeNameInput, employeeName);
-        Click(SearchButton);
+        _employeeNameInput.SetValue(employeeName);
+        _searchButton.Click();
         Wait.Until(driver => HasNoRecordsMessage(driver));
     }
 
@@ -170,13 +171,14 @@ public class EmployeePage : LoadablePage
 
     public void ResetSearch()
     {
-        Click(ResetButton);
+        _resetButton.Click();
 
         Wait.Until(driver =>
         {
             try
             {
-                var input = driver.FindElement(EmployeeNameInput);
+                var input = driver.FindElement(
+                    By.XPath("//label[text()='Employee Name']/../following-sibling::div//input"));
 
                 return string.IsNullOrWhiteSpace(
                     input.GetAttribute("value"));
@@ -206,6 +208,6 @@ public class EmployeePage : LoadablePage
 
     public void ClickAddEmployee()
     {
-        Click(AddEmployeeButton);
+        _addEmployeeButton.Click();
     }
 }

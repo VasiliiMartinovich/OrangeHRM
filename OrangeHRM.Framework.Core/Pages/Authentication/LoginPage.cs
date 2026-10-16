@@ -1,14 +1,24 @@
 ﻿using OpenQA.Selenium;
 using OrangeHRM.Framework.Core.Pages;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Authentication;
 
 public class LoginPage : LoadablePage
 {
     private static readonly By UsernameField = By.Name("username");
-    private readonly By _passwordField = By.Name("password");
-    private readonly By _loginButton = By.CssSelector("button[type='submit']");
-    private readonly By _errorMessage = By.CssSelector(".oxd-alert-content");
+
+    private readonly TextBox _usernameField =
+        new(By.Name("username"));
+
+    private readonly TextBox _passwordField =
+        new(By.Name("password"));
+
+    private readonly Button _loginButton =
+        new(By.CssSelector("button[type='submit']"));
+
+    private readonly Label _errorMessage =
+        new(By.CssSelector(".oxd-alert-content"));
 
     public LoginPage() : base(UsernameField)
     {
@@ -16,28 +26,28 @@ public class LoginPage : LoadablePage
 
     public LoginPage EnterUsername(string username)
     {
-        TypeText(UsernameField, username);
+        _usernameField.SetValue(username);
         return this;
     }
 
     public LoginPage EnterPassword(string password)
     {
-        TypeText(_passwordField, password);
+        _passwordField.SetValue(password);
         return this;
     }
 
     public LoginPage ClickLoginButton()
     {
-        Click(_loginButton);
+        _loginButton.Click();
         return this;
     }
-    
+
     public bool IsDisplayed()
     {
-        return FindVisibleElement(UsernameField).Displayed
-               && FindVisibleElement(_passwordField).Displayed;
+        return _usernameField.IsDisplayed()
+               && _passwordField.IsDisplayed();
     }
-    
+
     public DashboardPage Login(string username, string password)
     {
         EnterUsername(username);
@@ -46,14 +56,23 @@ public class LoginPage : LoadablePage
 
         return new DashboardPage();
     }
-    
+
     public bool IsErrorMessageDisplayed()
     {
-        return FindVisibleElement(_errorMessage).Displayed;
+        try
+        {
+            return Wait.Until(driver =>
+                driver.FindElements(By.CssSelector(".oxd-alert-content"))
+                    .Any(element => element.Displayed));
+        }
+        catch (WebDriverTimeoutException)
+        {
+            return false;
+        }
     }
 
     public string GetErrorMessage()
     {
-        return FindVisibleElement(_errorMessage).Text;
-    }   
+        return _errorMessage.GetText();
+    }
 }
