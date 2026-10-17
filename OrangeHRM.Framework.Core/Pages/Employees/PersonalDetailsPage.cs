@@ -1,16 +1,21 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.Core.Wrappers;
+using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Employees;
 
 public class PersonalDetailsPage : LoadablePage
 {
     private static readonly By PersonalDetailsHeader = By.XPath("//h6[text()='Personal Details']");
-    private readonly TextBox _firstNameInput = new(By.Name("firstName"));
-    private readonly TextBox _lastNameInput = new(By.Name("lastName"));
+
+    [FindsBy(How = How.Name, Using = "firstName")]
+    private IWebElement _firstNameInput = null!;
+
+    [FindsBy(How = How.Name, Using = "lastName")]
+    private IWebElement _lastNameInput = null!;
 
     public PersonalDetailsPage() : base(PersonalDetailsHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
 
     public bool IsDisplayed()
@@ -20,33 +25,33 @@ public class PersonalDetailsPage : LoadablePage
 
     public string GetFirstName()
     {
-        return _firstNameInput.GetValue();
+        return _firstNameInput.GetAttribute("value") ?? string.Empty;
     }
 
     public string GetLastName()
     {
-        return _lastNameInput.GetValue();
+        return _lastNameInput.GetAttribute("value") ?? string.Empty;
     }
 
     public string WaitForFirstName()
     {
         return Wait.Until(driver =>
         {
-            var elements = driver.FindElements(
-                By.Name("firstName"));
-
-            foreach (var element in elements)
+            foreach (var element in driver.FindElements(By.Name("firstName")))
             {
                 if (!element.Displayed)
                 {
                     continue;
                 }
+
                 var value = element.GetAttribute("value");
+
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     return value;
                 }
             }
+
             return null;
         })!;
     }

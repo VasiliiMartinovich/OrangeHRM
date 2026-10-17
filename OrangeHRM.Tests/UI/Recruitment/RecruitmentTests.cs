@@ -20,56 +20,73 @@ public class RecruitmentTests : UiTestBase
         loginPage.Login(TestSettings.Username, TestSettings.Password);
     }
 
-    [Test]
-    public void CreateCandidate()
-    {
-        var firstName = CandidateTestData.FirstName;
-        var lastName = CandidateTestData.LastName;
-        var email = CandidateTestData.Email;
-        var middleName = "Ivanov";
-        var cvFileName = "candidate-cv.pdf";
-        
-        var cvFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", cvFileName);
+    
+[Test]
+public void CreateCandidate()
+{
+    var firstName = CandidateTestData.FirstName;
+    var lastName = CandidateTestData.LastName;
+    var email = CandidateTestData.Email;
+    var middleName = "Ivanov";
+    var cvFileName = "candidate-cv.pdf";
 
-        Assert.That(File.Exists(cvFilePath), Is.True,
-            $"CV file was not found: {cvFilePath}");
+    var cvFilePath = Path.Combine(
+        TestContext.CurrentContext.TestDirectory,
+        "TestData",
+        cvFileName);
 
-        var testDataSetup = new TestDataSetup();
-        var vacancyName = testDataSetup.CreateVacancyForHiringManager();
-        
-        DriverManager.Driver.Navigate().GoToUrl(
-            new Uri(new Uri(TestSettings.BaseUrl),
-                    "web/index.php/dashboard/index").ToString());
+    Assert.That(
+        File.Exists(cvFilePath),
+        Is.True,
+        $"CV file was not found: {cvFilePath}");
 
-        var dashboardPage = new DashboardPage();
-        dashboardPage.SidePanel.OpenRecruitment();
+    var testDataSetup = new TestDataSetup();
+    var vacancyName = testDataSetup.CreateVacancyForHiringManager();
 
-        var recruitmentPage = new RecruitmentPage();
-        var candidatesPage = recruitmentPage.OpenCandidates();
-        var addCandidatePage = candidatesPage.ClickAdd();
+    DriverManager.Driver.Navigate().GoToUrl(
+        new Uri(
+            new Uri(TestSettings.BaseUrl),
+            "web/index.php/dashboard/index").ToString());
 
-        addCandidatePage.FillCandidateForm(
+    var dashboardPage = new DashboardPage();
+    dashboardPage.SidePanel.OpenRecruitment();
+
+    var recruitmentPage = new RecruitmentPage();
+    var candidatesPage = recruitmentPage.OpenCandidates();
+    var addCandidatePage = candidatesPage.ClickAdd();
+
+    addCandidatePage.FillCandidateForm(
         firstName,
         middleName,
         lastName,
         email);
 
-        addCandidatePage.SelectVacancy(vacancyName);
-        addCandidatePage.UploadCv(cvFilePath);
+    addCandidatePage.SelectVacancy(vacancyName);
+    addCandidatePage.UploadCv(cvFilePath);
 
-        Assert.That(addCandidatePage.IsCvSelected(cvFileName), Is.True,
+    Assert.That(
+        addCandidatePage.IsCvSelected(cvFileName),
+        Is.True,
         "CV was not selected in the form.");
 
-        var candidateDetailsPage = addCandidatePage.Save();
-        Assert.That(candidateDetailsPage.GetFirstName(), Is.EqualTo(firstName));
-        Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(middleName));
-        Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(lastName));
-        Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email));
-        Assert.That(candidateDetailsPage.IsResumeDisplayed(cvFileName), Is.True,
+    var candidateDetailsPage = addCandidatePage.Save();
+
+    Assert.That(candidateDetailsPage.GetFirstName(), Is.EqualTo(firstName));
+    Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(middleName));
+    Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(lastName));
+    Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email));
+
+    Assert.That(
+        candidateDetailsPage.IsResumeDisplayed(cvFileName),
+        Is.True,
         "Uploaded CV was not displayed on the candidate details page.");
-        Assert.That(candidateDetailsPage.GetJobVacancy(), Is.EqualTo(vacancyName),
+
+    Assert.That(
+        candidateDetailsPage.GetJobVacancy(),
+        Is.EqualTo(vacancyName),
         "Selected job vacancy does not match.");
-    }
+}
+
     
     [Test]
     public void DeleteCreatedCandidate()

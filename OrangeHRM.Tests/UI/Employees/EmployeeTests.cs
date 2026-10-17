@@ -1,11 +1,6 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using OrangeHRM.Framework.Core.Drivers;
-using OrangeHRM.Framework.Core.Pages;
+﻿using OrangeHRM.Framework.Core.Pages;
 using OrangeHRM.Framework.Core.Pages.Authentication;
 using OrangeHRM.Framework.Core.Pages.Employees;
-using OrangeHRM.Framework.Core.Pages.Components;
 using OrangeHRM.Tests.Infrastructure;
 using OrangeHRM.Tests.Configuration;
 
@@ -85,11 +80,13 @@ public class EmployeeTests : UiTestBase
         var addEmployeePage = new AddEmployeePage();
         var firstName = "Test" + DateTime.Now.ToString("HHmmss");
         var middleName = "Ivanovich";
-        var lastName = "Employee";
+        var lastName = "Employee"; 
+        var employeeId = DateTime.Now.ToString("HHmmssfff");
         addEmployeePage.CreateEmployee(
             firstName: firstName,
             lastName: lastName,
-            middleName: middleName);
+            middleName: middleName,
+            employeeId: employeeId);
         var personalDetailsPage = new PersonalDetailsPage();
         Assert.That(personalDetailsPage.IsDisplayed(), Is.True,
             "Personal Details page should be displayed after saving.");

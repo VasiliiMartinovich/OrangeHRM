@@ -1,23 +1,23 @@
 ﻿using OpenQA.Selenium;
+using SeleniumExtras.PageObjects;
 using OrangeHRM.Framework.Core.Pages.Authentication;
 using OrangeHRM.Framework.Core.Pages.Components;
-using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages;
 
 public class DashboardPage : LoadablePage
 {
-    private static readonly By DashboardHeader =
-        By.XPath("//h6[text()='Dashboard']");
+    private static readonly By DashboardHeader = By.XPath("//h6[text()='Dashboard']");
 
-    private readonly Button _navigationMenu =
-        new(By.CssSelector("span.oxd-userdropdown-tab"));
+    [FindsBy(How = How.CssSelector, Using = "span.oxd-userdropdown-tab")]
+    private IWebElement _navigationMenu = null!;
 
-    private readonly Button _logoutButton =
-        new(By.XPath("//a[normalize-space()='Logout']"));
+    [FindsBy(How = How.XPath, Using = "//a[normalize-space()='Logout']")]
+    private IWebElement _logoutButton = null!;
 
     public DashboardPage() : base(DashboardHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
 
     public SidePanel SidePanel => new SidePanel();
@@ -29,13 +29,17 @@ public class DashboardPage : LoadablePage
 
     public DashboardPage OpenNavigationMenu()
     {
+        Wait.Until(driver => _navigationMenu.Displayed);
         _navigationMenu.Click();
+
         return this;
     }
 
     public LoginPage Logout()
     {
+        Wait.Until(driver => _logoutButton.Displayed);
         _logoutButton.Click();
+
         return new LoginPage();
     }
 }

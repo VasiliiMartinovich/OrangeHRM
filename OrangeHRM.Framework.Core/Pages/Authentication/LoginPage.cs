@@ -1,38 +1,40 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.Core.Pages;
-using OrangeHRM.Framework.Core.Wrappers;
+using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Authentication;
 
 public class LoginPage : LoadablePage
 {
-    private static readonly By UsernameField = By.Name("username");
+    private static readonly By UsernameLocator = By.Name("username");
 
-    private readonly TextBox _usernameField =
-        new(By.Name("username"));
+    [FindsBy(How = How.Name, Using = "username")]
+    private IWebElement _usernameField = null!;
 
-    private readonly TextBox _passwordField =
-        new(By.Name("password"));
+    [FindsBy(How = How.Name, Using = "password")]
+    private IWebElement _passwordField = null!;
 
-    private readonly Button _loginButton =
-        new(By.CssSelector("button[type='submit']"));
+    [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
+    private IWebElement _loginButton = null!;
 
-    private readonly Label _errorMessage =
-        new(By.CssSelector(".oxd-alert-content"));
+    [FindsBy(How = How.CssSelector, Using = ".oxd-alert-content")]
+    private IWebElement _errorMessage = null!;
 
-    public LoginPage() : base(UsernameField)
+    public LoginPage() : base(UsernameLocator)
     {
+        PageFactory.InitElements(Driver, this);
     }
 
     public LoginPage EnterUsername(string username)
     {
-        _usernameField.SetValue(username);
+        _usernameField.Clear();
+        _usernameField.SendKeys(username);
         return this;
     }
 
     public LoginPage EnterPassword(string password)
     {
-        _passwordField.SetValue(password);
+        _passwordField.Clear();
+        _passwordField.SendKeys(password);
         return this;
     }
 
@@ -44,8 +46,8 @@ public class LoginPage : LoadablePage
 
     public bool IsDisplayed()
     {
-        return _usernameField.IsDisplayed()
-               && _passwordField.IsDisplayed();
+        return Wait.Until(driver =>
+            _usernameField.Displayed && _passwordField.Displayed);
     }
 
     public DashboardPage Login(string username, string password)
@@ -59,20 +61,13 @@ public class LoginPage : LoadablePage
 
     public bool IsErrorMessageDisplayed()
     {
-        try
-        {
-            return Wait.Until(driver =>
-                driver.FindElements(By.CssSelector(".oxd-alert-content"))
-                    .Any(element => element.Displayed));
-        }
-        catch (WebDriverTimeoutException)
-        {
-            return false;
-        }
+        return Wait.Until(driver =>
+            driver.FindElements(By.CssSelector(".oxd-alert-content")).Any(element => element.Displayed));
     }
 
     public string GetErrorMessage()
     {
-        return _errorMessage.GetText();
+        return Wait.Until(driver =>
+            driver.FindElements(By.CssSelector(".oxd-alert-content")).FirstOrDefault(element => element.Displayed)?.Text);
     }
 }

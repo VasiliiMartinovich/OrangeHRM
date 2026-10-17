@@ -1,28 +1,71 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.Core.Wrappers;
+using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Employees;
 
 public class AddEmployeePage : LoadablePage
 {
     private static readonly By AddEmployeeHeader = By.XPath("//h6[text()='Add Employee']");
-    private readonly TextBox _firstName = new(By.Name("firstName"));
-    private readonly TextBox _middleName = new(By.Name("middleName"));
-    private readonly TextBox _lastName = new(By.Name("lastName"));
-    private readonly Button _saveButton = new(By.CssSelector("button[type='submit']"));
+
+    [FindsBy(How = How.Name, Using = "firstName")]
+    private IWebElement _firstName = null!;
+
+    [FindsBy(How = How.Name, Using = "middleName")]
+    private IWebElement _middleName = null!;
+
+    [FindsBy(How = How.Name, Using = "lastName")]
+    private IWebElement _lastName = null!;
+
+    [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
+    private IWebElement _saveButton = null!;
+    
+    [FindsBy(
+        How = How.XPath,
+        Using = "//label[normalize-space()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
+    private IWebElement _employeeIdInput = null!;
 
     public AddEmployeePage() : base(AddEmployeeHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
 
     public void CreateEmployee(
         string firstName,
         string lastName,
-        string middleName = "")
+        string middleName = "",
+        string employeeId = "")
     {
-        _firstName.SetValue(firstName);
-        _middleName.SetValue(middleName);
-        _lastName.SetValue(lastName);
+        Wait.Until(driver =>
+            _firstName.Displayed && _firstName.Enabled);
+
+        _firstName.Clear();
+        _firstName.SendKeys(firstName);
+
+        _middleName.Clear();
+        _middleName.SendKeys(middleName);
+
+        _lastName.Clear();
+        _lastName.SendKeys(lastName);
+
+        if (!string.IsNullOrWhiteSpace(employeeId))
+        {
+            EnterEmployeeId(employeeId);
+        }
+
+        Wait.Until(driver =>
+            _saveButton.Displayed && _saveButton.Enabled);
+
         _saveButton.Click();
+    }
+    
+    public void EnterEmployeeId(string employeeId)
+    {
+        var employeeIdInput = Driver.FindElement(
+            By.XPath("//label[normalize-space()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
+
+        employeeIdInput.Click();
+        employeeIdInput.SendKeys(Keys.Control + "a");
+        employeeIdInput.SendKeys(Keys.Backspace);
+        employeeIdInput.SendKeys(employeeId);
     }
 }

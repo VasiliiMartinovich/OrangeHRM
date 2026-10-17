@@ -1,23 +1,34 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.Core.Wrappers;
-
+using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Employees;
 
 public class EmployeePage : LoadablePage
 {
     private static readonly By EmployeeListHeader = By.CssSelector("a[href='/web/index.php/pim/viewPimModule']");
-    private static readonly TextBox _employeeNameInput = new (By.XPath("//label[text()='Employee Name']/../following-sibling::div//input"));
-    private readonly Button _searchButton = new(By.CssSelector("button[type='submit']"));
     private static readonly By EmployeeTableRows = By.CssSelector(".oxd-table-body .oxd-table-card");
     private static readonly By SearchSuggestions = By.CssSelector(".oxd-autocomplete-option");
-    private readonly Button _resetButton = new(By.CssSelector("button[type='reset']"));
     private static readonly By NoRecordsMessage = By.XPath("//*[normalize-space()='No Records Found']");
-    private readonly Button _addEmployeeButton = new(By.XPath("//button[normalize-space()='Add']"));
+
+    [FindsBy(
+        How = How.XPath,
+        Using = "//label[text()='Employee Name']/../following-sibling::div//input")]
+    private IWebElement _employeeNameInput = null!;
+
+    [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
+    private IWebElement _searchButton = null!;
+
+    [FindsBy(How = How.CssSelector, Using = "button[type='reset']")]
+    private IWebElement _resetButton = null!;
+
+    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Add']")]
+    private IWebElement _addEmployeeButton = null!;
 
     public EmployeePage() : base(EmployeeListHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
+
     public bool IsDisplayed()
     {
         return FindVisibleElement(EmployeeListHeader).Displayed;
@@ -25,16 +36,34 @@ public class EmployeePage : LoadablePage
 
     public void SearchByEmployeeName(string employeeName)
     {
-        _employeeNameInput.SetValue(employeeName);
+        Wait.Until(driver =>
+            _employeeNameInput.Displayed && _employeeNameInput.Enabled);
+
+        _employeeNameInput.Clear();
+        _employeeNameInput.SendKeys(employeeName);
+
         SelectFirstEmployeeSuggestion();
+
+        Wait.Until(driver =>
+            _searchButton.Displayed && _searchButton.Enabled);
+
         _searchButton.Click();
+
         WaitForSearchResults();
     }
 
     public void SearchByNonExistingEmployeeName(string employeeName)
     {
-        _employeeNameInput.SetValue(employeeName);
+        Wait.Until(driver =>
+            _employeeNameInput.Displayed && _employeeNameInput.Enabled);
+
+        _employeeNameInput.Clear();
+        _employeeNameInput.SendKeys(employeeName);
+
+        Wait.Until(driver => _searchButton.Displayed && _searchButton.Enabled);
+
         _searchButton.Click();
+
         Wait.Until(driver => HasNoRecordsMessage(driver));
     }
 
@@ -47,29 +76,32 @@ public class EmployeePage : LoadablePage
                 try
                 {
                     if (!suggestion.Displayed)
+                    {
                         continue;
+                    }
 
                     var text = suggestion.Text.Trim();
 
                     if (string.IsNullOrWhiteSpace(text) ||
-                        text.Contains("Searching",
-                            StringComparison.OrdinalIgnoreCase) ||
-                        text.Contains("No Records Found",
-                            StringComparison.OrdinalIgnoreCase))
+                        text.Contains("Searching", StringComparison.OrdinalIgnoreCase) ||
+                        text.Contains("No Records Found", StringComparison.OrdinalIgnoreCase))
                     {
                         continue;
                     }
-                  
+
                     suggestion.Click();
                     return true;
                 }
                 catch (StaleElementReferenceException)
                 {
+                    
                 }
                 catch (ElementClickInterceptedException)
                 {
+                    
                 }
             }
+
             return false;
         });
     }
@@ -100,6 +132,7 @@ public class EmployeePage : LoadablePage
                 return false;
             }
         }
+
         return false;
     }
 
@@ -110,18 +143,39 @@ public class EmployeePage : LoadablePage
             try
             {
                 if (element.Displayed)
+                {
                     return true;
+                }
             }
             catch (StaleElementReferenceException)
             {
                 return false;
             }
         }
+
         return false;
     }
 
+    
     public int GetSearchResultCount()
     {
+        Wait.Until(driver =>
+        {
+            try
+            {
+                foreach (var row in driver.FindElements(EmployeeTableRows))
+                {
+                    _ = row.Displayed;
+                }
+
+                return true;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return false;
+            }
+        });
+
         var count = 0;
 
         foreach (var row in Driver.FindElements(EmployeeTableRows))
@@ -138,50 +192,27 @@ public class EmployeePage : LoadablePage
             }
             catch (StaleElementReferenceException)
             {
-                return Wait.Until(driver =>
-                {
-                    var rows = driver.FindElements(EmployeeTableRows);
-                    var currentCount = 0;
-
-                    try
-                    {
-                        foreach (var currentRow in rows)
-                        {
-                            if (currentRow.Displayed &&
-                                !currentRow.Text.Contains(
-                                    "No Records Found",
-                                    StringComparison.OrdinalIgnoreCase))
-                            {
-                                currentCount++;
-                            }
-                        }
-
-                        return currentCount;
-                    }
-                    catch (StaleElementReferenceException)
-                    {
-                        return -1;
-                    }
-                });
+                return GetSearchResultCount();
             }
         }
 
         return count;
     }
 
+
     public void ResetSearch()
     {
+        Wait.Until(driver =>
+            _resetButton.Displayed && _resetButton.Enabled);
+
         _resetButton.Click();
 
         Wait.Until(driver =>
         {
             try
             {
-                var input = driver.FindElement(
-                    By.XPath("//label[text()='Employee Name']/../following-sibling::div//input"));
-
                 return string.IsNullOrWhiteSpace(
-                    input.GetAttribute("value"));
+                    _employeeNameInput.GetAttribute("value"));
             }
             catch (StaleElementReferenceException)
             {
@@ -195,19 +226,20 @@ public class EmployeePage : LoadablePage
     public int WaitForEmployeeList()
     {
         WaitForSearchResults();
-
         return GetSearchResultCount();
     }
 
     public int WaitForSearchResultCount()
     {
         WaitForSearchResults();
-
         return GetSearchResultCount();
     }
 
     public void ClickAddEmployee()
     {
+        Wait.Until(driver =>
+            _addEmployeeButton.Displayed && _addEmployeeButton.Enabled);
+
         _addEmployeeButton.Click();
     }
 }
