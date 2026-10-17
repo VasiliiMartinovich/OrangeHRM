@@ -6,5 +6,6 @@
     &lt;TestId&gt;NUnit3x::5D8D85A2-BEFB-4536-A079-F971E8420A59::net10.0::OrangeHRM.Tests.UI.Employees.EmployeeTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::5D8D85A2-BEFB-4536-A079-F971E8420A59::net10.0::OrangeHRM.Tests.UI.LogoutTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::5D8D85A2-BEFB-4536-A079-F971E8420A59::net10.0::OrangeHRM.Tests.UI.Recruitment.RecruitmentTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5D8D85A2-BEFB-4536-A079-F971E8420A59::net10.0::OrangeHRM.Tests.API.EmployeesApiTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

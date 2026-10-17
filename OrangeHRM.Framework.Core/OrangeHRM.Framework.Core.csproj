@@ -9,8 +9,14 @@
     <ItemGroup>
       <PackageReference Include="DotNetSeleniumExtras.PageObjects.Core" Version="4.48.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="11.0.0-rc.2.26504.105" />
+      <PackageReference Include="RestSharp" Version="114.0.1-alpha.0.10" />
       <PackageReference Include="Selenium.Support" Version="4.51.0" />
       <PackageReference Include="Selenium.WebDriver" Version="4.51.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="API\Models\Requests\" />
+      <Folder Include="API\Models\Responses\" />
     </ItemGroup>
 
 </Project>
