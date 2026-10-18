@@ -68,4 +68,12 @@ public class AddEmployeePage : LoadablePage
         employeeIdInput.SendKeys(Keys.Backspace);
         employeeIdInput.SendKeys(employeeId);
     }
+    
+    public string GetEmployeeId()
+    {
+        Wait.Until(driver =>
+            _employeeIdInput.Displayed);
+
+        return _employeeIdInput.GetAttribute("value") ?? string.Empty;
+    }
 }

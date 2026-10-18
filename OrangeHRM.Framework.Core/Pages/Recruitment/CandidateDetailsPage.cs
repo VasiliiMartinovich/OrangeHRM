@@ -1,11 +1,12 @@
 ﻿using OpenQA.Selenium;
+using OrangeHRM.Framework.Core.Drivers;
 using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class CandidateDetailsPage : LoadablePage
 {
-    private static readonly By CandidateDetailsHeader = By.XPath("//h6[text()='Application Stage']");
+    private static readonly By CandidateDetailsHeader = By.XPath("//h6[text()='Candidate Profile']");
     private static readonly By ResumeFile = By.CssSelector("p.orangehrm-file-name[title='candidate-cv.pdf']");
 
     [FindsBy(How = How.CssSelector, Using = "input[name='firstName']")]
@@ -26,6 +27,24 @@ public class CandidateDetailsPage : LoadablePage
         How = How.XPath,
         Using = "//label[normalize-space()='Job Vacancy']/ancestor::div[contains(@class,'oxd-input-group')]//div[contains(@class,'oxd-select-text-input')]")]
     private IWebElement _jobVacancy = null!;
+    
+    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Shortlist']")]
+    private IWebElement _shortlistButton = null!;
+    
+    [FindsBy(How = How.CssSelector, Using = ".orangehrm-recruitment-status p")]
+    private By _candidateStatus = null!;
+    
+    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Schedule Interview']")]
+    private IWebElement _scheduleInterviewButton = null!;
+    
+    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Mark Interview Passed']")]
+    private IWebElement _markInterviewPassedButton = null!;
+    
+    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Offer Job']")]
+    private IWebElement _offerJobButton = null!;
+    
+    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Hire']")]
+    private IWebElement _hireButton = null!;
 
     public CandidateDetailsPage() : base(CandidateDetailsHeader)
     {
@@ -66,5 +85,43 @@ public class CandidateDetailsPage : LoadablePage
     {
         var file = FindVisibleElement(ResumeFile);
         return file.GetAttribute("title") == fileName;
+    }
+
+    public ShortlistCandidatePage ShortlistButtonClick()
+    {
+        _shortlistButton.Click();
+        return new ShortlistCandidatePage();
+    }
+    
+    public string GetCandidateStatus()
+    {
+        return DriverManager.Driver.FindElement(_candidateStatus)
+            .Text
+            .Replace("Status:", "")
+            .Trim();
+    }
+
+    public ScheduleInterviewPage ScheduleInterviewButtonClick()
+    {
+        _scheduleInterviewButton.Click();
+        return new ScheduleInterviewPage();
+    }
+    
+    public MarkInterviewPassedPage MarkInterviewPassedButtonClick()
+    {
+        _markInterviewPassedButton.Click();
+        return new MarkInterviewPassedPage();
+    }
+    
+    public OfferJobPage OfferJobPage()
+    {
+        _offerJobButton.Click();
+        return new OfferJobPage();
+    }
+    
+    public HireCandidatePage HireCandidatePage()
+    {
+        _hireButton.Click();
+        return new HireCandidatePage();
     }
 }
