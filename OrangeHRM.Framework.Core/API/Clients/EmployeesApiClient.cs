@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using OrangeHRM.Framework.Core.Api.Models.Requests;
+using RestSharp;
 
 namespace OrangeHRM.Framework.Core.Api.Clients;
 
@@ -30,6 +31,31 @@ public class EmployeesApiClient : IDisposable
         var request = new RestRequest(
             "/web/index.php/api/v2/pim/employees",
             Method.Get);
+
+        return _client.Execute(request);
+    }
+    
+    public RestResponse CreateEmployee(CreateEmployeeRequest employee)
+    {
+        var request = new RestRequest(
+            "/web/index.php/api/v2/pim/employees",
+            Method.Post);
+
+        request.AddJsonBody(employee);
+
+        return _client.Execute(request);
+    }
+
+    public RestResponse DeleteEmployee(int employeeId)
+    {
+        var request = new RestRequest(
+            "/web/index.php/api/v2/pim/employees",
+            Method.Delete);
+
+        request.AddJsonBody(new
+        {
+            ids = new[] { employeeId }
+        });
 
         return _client.Execute(request);
     }
