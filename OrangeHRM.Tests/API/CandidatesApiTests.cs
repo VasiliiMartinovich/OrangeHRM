@@ -98,20 +98,71 @@ public class CandidatesApiTests : BaseApiTest
     {
         using var client = new CandidatesApiClient(AccessToken);
 
-        var response = client.GetCandidates(89);
+        var uniqueId = Guid.NewGuid().ToString("N")[..8];
 
-        Assert.That((int)response.StatusCode, Is.EqualTo(200));
-        Assert.That(response.Content, Is.Not.Null.And.Not.Empty);
-
-        var result = JsonSerializer.Deserialize<CandidatesResponse>(response.Content!);
-
-        Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Data, Is.Not.Empty);
-
-        foreach (var candidate in result.Data)
+        var candidateRequest = new CreateCandidateRequest
         {
-            Assert.That(candidate.Id, Is.EqualTo(89),
-                "The API returned a candidate with a different ID.");
+            FirstName = $"Api{uniqueId}",
+            MiddleName = "",
+            LastName = "TestCandidate",
+            Email = $"candidate{uniqueId}@example.com"
+        };
+
+        int? candidateId = null;
+
+        try
+        {
+            // Arrange: create a candidate.
+            var createResponse = client.CreateCandidate(candidateRequest);
+
+            Assert.That(createResponse.IsSuccessful, Is.True,
+                $"Candidate creation failed. " +
+                $"Status: {(int)createResponse.StatusCode}. " +
+                $"Body: {createResponse.Content}");
+
+            var createdCandidate =
+                JsonSerializer.Deserialize<CreateCandidateResponse>(
+                    createResponse.Content!);
+
+            Assert.That(createdCandidate?.Data, Is.Not.Null,
+                "The API did not return the created candidate.");
+
+            candidateId = createdCandidate!.Data!.Id;
+
+            Assert.That(candidateId, Is.GreaterThan(0),
+                "The created candidate ID should be greater than zero.");
+
+            // Act: retrieve the candidate by the ID returned by the API.
+            var response = client.GetCandidates(candidateId.Value);
+
+            Assert.That(response.IsSuccessful, Is.True,
+                $"Get candidate failed. " +
+                $"Status: {(int)response.StatusCode}. " +
+                $"Body: {response.Content}");
+
+            var result = JsonSerializer.Deserialize<CandidatesResponse>(
+                response.Content!);
+
+            // Assert: verify the returned candidate.
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.Data, Is.Not.Empty);
+
+            Assert.That(result.Data, Has.All.Matches<CandidateDto>(candidate => candidate.Id == candidateId.Value));
+
+            Assert.That(result.Data.Any(candidate =>
+                    candidate.FirstName == candidateRequest.FirstName &&
+                    candidate.LastName == candidateRequest.LastName &&
+                    candidate.Email == candidateRequest.Email),
+                Is.True,
+                "The response did not contain the candidate that was created.");
+        }
+        finally
+        {
+            // Cleanup: delete the candidate created by this test.
+            TestDataCleanup.TryDelete(
+                "candidate",
+                candidateId,
+                client.DeleteCandidate);
         }
     }
 
@@ -278,7 +329,6 @@ public class CandidatesApiTests : BaseApiTest
         var candidateId = createdCandidate.Data!.Id;
         try
         {
-
             var updateRequest = new UpdateCandidateRequest
             {
                 FirstName = $"Updated{Guid.NewGuid().ToString("N")[..6]}",
@@ -510,7 +560,7 @@ public class CandidatesApiTests : BaseApiTest
             var candidateId = candidate.Data!.Id;
             var response = candidatesClient.GetCandidateHistory(candidateId);
 
-            
+
             Assert.That((int)response.StatusCode, Is.EqualTo(200),
                 $"Request failed: {response.Content}");
             Assert.That(response.Content, Is.Not.Null.And.Not.Empty);
@@ -592,7 +642,7 @@ public class CandidatesApiTests : BaseApiTest
             Assert.That(historyResponse.Content, Is.Not.Null.And.Not.Empty,
                 "Candidate history response body should not be empty.");
 
-           using var document = JsonDocument.Parse(historyResponse.Content!);
+            using var document = JsonDocument.Parse(historyResponse.Content!);
 
             var root = document.RootElement;
             var historyData = root.GetProperty("data");

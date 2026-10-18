@@ -105,7 +105,7 @@ public class CandidateDetailsPage : LoadablePage
         return new ScheduleInterviewPage();
     }
     
-    public MarkInterviewPassedPage CLickMarkInterviewPassedButton()
+    public MarkInterviewPassedPage ClickMarkInterviewPassedButton()
     {
         _markInterviewPassedButton.Click();
         return new MarkInterviewPassedPage();

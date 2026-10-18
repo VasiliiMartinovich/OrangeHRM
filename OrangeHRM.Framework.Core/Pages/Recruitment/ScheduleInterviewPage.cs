@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OrangeHRM.Framework.Core.Drivers;
 using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
@@ -10,6 +11,9 @@ public class ScheduleInterviewPage : LoadablePage
         By.XPath(
             "//label[normalize-space()='Date']" +
             "/ancestor::div[contains(@class,'oxd-input-group')]//input");
+    
+    private readonly By _interviewTitleInput =
+        By.XPath("//label[text()='Interview Title']/ancestor::div[contains(@class,'oxd-input-group')]//input");
     
     [FindsBy(
         How = How.XPath,
@@ -34,12 +38,15 @@ public class ScheduleInterviewPage : LoadablePage
         _interviewerInput.Clear();
         _interviewerInput.SendKeys(employeeName);
 
-        var managerOption = By.XPath(
+        var interviewerOption = By.XPath(
             "//div[contains(@class,'oxd-autocomplete-option') and " +
             $"normalize-space()={ToXPathLiteral(employeeName)}]");
 
         Wait.Until(driver =>
-            driver.FindElements(managerOption).Any(element => element.Displayed)); Click(managerOption);
+            driver.FindElements(interviewerOption)
+                .Any(element => element.Displayed));
+
+        Click(interviewerOption);
     }
     
     private static string ToXPathLiteral(string value)
@@ -84,5 +91,23 @@ public class ScheduleInterviewPage : LoadablePage
     {
         _saveButton.Click();
         return new CandidateDetailsPage();
+    }
+    
+    public ScheduleInterviewPage EnterInterviewTitle(string title)
+    {
+        var titleInput = FindVisibleElement(_interviewTitleInput);
+        titleInput.Clear();
+        titleInput.SendKeys(title);
+
+        return this;
+    }
+    
+    public string GetInterviewer()
+    {
+        var interviewer = _interviewerInput.GetAttribute("value") ?? string.Empty;
+
+        return string.Join(
+            " ",
+            interviewer.Split(' ', StringSplitOptions.RemoveEmptyEntries));
     }
 }
