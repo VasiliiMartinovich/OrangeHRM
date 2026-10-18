@@ -60,13 +60,13 @@ public class AddEmployeePage : LoadablePage
     
     public void EnterEmployeeId(string employeeId)
     {
-        var employeeIdInput = Driver.FindElement(
-            By.XPath("//label[normalize-space()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
+        // var employeeIdInput = Driver.FindElement(
+        //     By.XPath("//label[normalize-space()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
-        employeeIdInput.Click();
-        employeeIdInput.SendKeys(Keys.Control + "a");
-        employeeIdInput.SendKeys(Keys.Backspace);
-        employeeIdInput.SendKeys(employeeId);
+        _employeeIdInput.Click();
+        _employeeIdInput.SendKeys(Keys.Control + "a");
+        _employeeIdInput.SendKeys(Keys.Backspace);
+        _employeeIdInput.SendKeys(employeeId);
     }
     
     public string GetEmployeeId()

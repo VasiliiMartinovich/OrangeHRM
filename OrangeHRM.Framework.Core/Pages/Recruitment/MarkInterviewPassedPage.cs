@@ -24,6 +24,7 @@ public class MarkInterviewPassedPage : LoadablePage
 
     public MarkInterviewPassedPage() : base(MarkInterviewPassedHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
 
     public CandidateDetailsPage SaveButtonClick()

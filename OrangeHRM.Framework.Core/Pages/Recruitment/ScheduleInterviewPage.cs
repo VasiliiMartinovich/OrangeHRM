@@ -6,22 +6,22 @@ namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 public class ScheduleInterviewPage : LoadablePage
 {
     private static readonly By ScheduleInterviewHeader = By.XPath("//h6[text()='Schedule Interview']");
+    private static readonly By DateInput =
+        By.XPath(
+            "//label[normalize-space()='Date']" +
+            "/ancestor::div[contains(@class,'oxd-input-group')]//input");
     
     [FindsBy(
         How = How.XPath,
         Using = "//label[normalize-space()='Interviewer']/ancestor::div[contains(@class,'oxd-input-group')]//input[@placeholder='Type for hints...']")]
     private IWebElement _interviewerInput = null!;
     
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Date']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private By _dateInput = null!;
-    
     [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
     private IWebElement _saveButton = null!;
     
     public ScheduleInterviewPage() : base(ScheduleInterviewHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
     
     public bool IsDisplayed()
@@ -29,7 +29,7 @@ public class ScheduleInterviewPage : LoadablePage
         return FindVisibleElement(ScheduleInterviewHeader).Displayed;
     }
     
-    public void SelectInterviewe(string employeeName)
+    public void SelectInterviewer(string employeeName)
     {
         _interviewerInput.Clear();
         _interviewerInput.SendKeys(employeeName);
@@ -67,7 +67,7 @@ public class ScheduleInterviewPage : LoadablePage
 
         var dateInput = Wait.Until(driver =>
         {
-            var element = driver.FindElement(_dateInput);
+            var element = driver.FindElement(DateInput);
 
             return element.Displayed && element.Enabled
                 ? element

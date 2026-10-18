@@ -12,6 +12,7 @@ public class ShortlistCandidatePage : LoadablePage
     
     public ShortlistCandidatePage() : base(ShortlistCandidateHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
     
     public bool IsDisplayed()

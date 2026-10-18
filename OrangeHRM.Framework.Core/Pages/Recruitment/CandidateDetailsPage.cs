@@ -8,6 +8,7 @@ public class CandidateDetailsPage : LoadablePage
 {
     private static readonly By CandidateDetailsHeader = By.XPath("//h6[text()='Candidate Profile']");
     private static readonly By ResumeFile = By.CssSelector("p.orangehrm-file-name[title='candidate-cv.pdf']");
+    private static readonly By CandidateStatus = By.CssSelector(".orangehrm-recruitment-status p");
 
     [FindsBy(How = How.CssSelector, Using = "input[name='firstName']")]
     private IWebElement _firstName = null!;
@@ -30,9 +31,6 @@ public class CandidateDetailsPage : LoadablePage
     
     [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Shortlist']")]
     private IWebElement _shortlistButton = null!;
-    
-    [FindsBy(How = How.CssSelector, Using = ".orangehrm-recruitment-status p")]
-    private By _candidateStatus = null!;
     
     [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Schedule Interview']")]
     private IWebElement _scheduleInterviewButton = null!;
@@ -95,31 +93,31 @@ public class CandidateDetailsPage : LoadablePage
     
     public string GetCandidateStatus()
     {
-        return DriverManager.Driver.FindElement(_candidateStatus)
+        return FindVisibleElement(CandidateStatus)
             .Text
             .Replace("Status:", "")
             .Trim();
     }
 
-    public ScheduleInterviewPage ScheduleInterviewButtonClick()
+    public ScheduleInterviewPage ClickScheduleInterviewButton()
     {
         _scheduleInterviewButton.Click();
         return new ScheduleInterviewPage();
     }
     
-    public MarkInterviewPassedPage MarkInterviewPassedButtonClick()
+    public MarkInterviewPassedPage CLickMarkInterviewPassedButton()
     {
         _markInterviewPassedButton.Click();
         return new MarkInterviewPassedPage();
     }
     
-    public OfferJobPage OfferJobPage()
+    public OfferJobPage ClickOfferJobButton()
     {
         _offerJobButton.Click();
         return new OfferJobPage();
     }
     
-    public HireCandidatePage HireCandidatePage()
+    public HireCandidatePage ClickHireButton()
     {
         _hireButton.Click();
         return new HireCandidatePage();

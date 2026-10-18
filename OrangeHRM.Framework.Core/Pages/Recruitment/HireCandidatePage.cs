@@ -24,6 +24,7 @@ public class HireCandidatePage : LoadablePage
     
     public HireCandidatePage() : base(HireCandidateHeader)
     {
+        PageFactory.InitElements(Driver, this);
     }
     
     public CandidateDetailsPage SaveButtonClick()

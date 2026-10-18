@@ -24,7 +24,7 @@ public class OfferJobPage : LoadablePage
 
     public OfferJobPage() : base(OfferJobHeader)
     {
-
+        PageFactory.InitElements(Driver, this);
     }
     public CandidateDetailsPage SaveButtonClick()
     {
