@@ -42,8 +42,6 @@ public class EmployeePage : LoadablePage
         _employeeNameInput.Clear();
         _employeeNameInput.SendKeys(employeeName);
 
-        SelectFirstEmployeeSuggestion();
-
         Wait.Until(driver =>
             _searchButton.Displayed && _searchButton.Enabled);
 
