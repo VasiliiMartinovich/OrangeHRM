@@ -43,19 +43,14 @@ public class VacanciesApiTests : BaseApiTest
                     return employeesClient.CreateEmployee(employeeRequest);
                 });
 
-            Log.Info(
-                $"Create employee returned HTTP {(int)employeeResponse.StatusCode}.");
+            Log.Info($"Create employee returned HTTP {(int)employeeResponse.StatusCode}.");
 
             AllureApi.Step("Verify employee creation response", () =>
             {
-                Assert.That(
-                    employeeResponse.IsSuccessful,
-                    Is.True,
+                Assert.That(employeeResponse.IsSuccessful, Is.True,
                     $"Employee creation failed. HTTP status: {(int)employeeResponse.StatusCode}.");
 
-                Assert.That(
-                    employeeResponse.Content,
-                    Is.Not.Null.And.Not.Empty,
+                Assert.That(employeeResponse.Content, Is.Not.Null.And.Not.Empty,
                     "Employee creation response body was empty.");
             });
 
@@ -65,15 +60,12 @@ public class VacanciesApiTests : BaseApiTest
                 {
                     Log.Info("Deserializing created employee response.");
 
-                    return JsonSerializer.Deserialize<CreateEmployeeResponse>(
-                        employeeResponse.Content!);
+                    return JsonSerializer.Deserialize<CreateEmployeeResponse>(employeeResponse.Content!);
                 });
 
             AllureApi.Step("Verify created employee information", () =>
             {
-                Assert.That(
-                    createdEmployee?.Data,
-                    Is.Not.Null,
+                Assert.That(createdEmployee?.Data, Is.Not.Null,
                     "The API did not return the created employee.");
             });
 
@@ -81,14 +73,11 @@ public class VacanciesApiTests : BaseApiTest
 
             AllureApi.Step("Verify employee number is valid", () =>
             {
-                Assert.That(
-                    employeeNumber,
-                    Is.GreaterThan(0),
+                Assert.That(employeeNumber, Is.GreaterThan(0),
                     "The created employee number should be greater than zero.");
             });
 
-            Log.Info(
-                $"Employee created successfully. Employee number: {employeeNumber.Value}.");
+            Log.Info($"Employee created successfully. Employee number: {employeeNumber.Value}.");
 
             var vacancyRequest = new CreateVacancyRequest
             {
@@ -109,19 +98,14 @@ public class VacanciesApiTests : BaseApiTest
                     return vacanciesClient.CreateVacancy(vacancyRequest);
                 });
 
-            Log.Info(
-                $"Create vacancy returned HTTP {(int)vacancyResponse.StatusCode}.");
+            Log.Info($"Create vacancy returned HTTP {(int)vacancyResponse.StatusCode}.");
 
             AllureApi.Step("Verify vacancy creation response", () =>
             {
-                Assert.That(
-                    vacancyResponse.IsSuccessful,
-                    Is.True,
+                Assert.That(vacancyResponse.IsSuccessful, Is.True,
                     $"Vacancy creation failed. HTTP status: {(int)vacancyResponse.StatusCode}.");
 
-                Assert.That(
-                    vacancyResponse.Content,
-                    Is.Not.Null.And.Not.Empty,
+                Assert.That(vacancyResponse.Content, Is.Not.Null.And.Not.Empty,
                     "Vacancy creation response body was empty.");
             });
 
@@ -131,15 +115,12 @@ public class VacanciesApiTests : BaseApiTest
                 {
                     Log.Info("Deserializing created vacancy response.");
 
-                    return JsonSerializer.Deserialize<CreateVacancyResponse>(
-                        vacancyResponse.Content!);
+                    return JsonSerializer.Deserialize<CreateVacancyResponse>(vacancyResponse.Content!);
                 });
 
             AllureApi.Step("Verify created vacancy response contains data", () =>
             {
-                Assert.That(
-                    createdVacancy?.Data,
-                    Is.Not.Null,
+                Assert.That(createdVacancy?.Data, Is.Not.Null,
                     "The API did not return the created vacancy.");
             });
 
@@ -147,34 +128,21 @@ public class VacanciesApiTests : BaseApiTest
 
             AllureApi.Step("Verify created vacancy information", () =>
             {
-                Assert.That(
-                    vacancyId,
-                    Is.GreaterThan(0),
+                Assert.That(vacancyId, Is.GreaterThan(0),
                     "The created vacancy ID should be greater than zero.");
 
-                Assert.That(
-                    createdVacancy.Data.Name,
-                    Is.EqualTo(vacancyRequest.Name));
+                Assert.That(createdVacancy.Data.Name, Is.EqualTo(vacancyRequest.Name));
 
-                Assert.That(
-                    createdVacancy.Data.Status,
-                    Is.EqualTo(vacancyRequest.Status));
+                Assert.That(createdVacancy.Data.Status, Is.EqualTo(vacancyRequest.Status));
 
-                Assert.That(
-                    createdVacancy.Data.IsPublished,
-                    Is.EqualTo(vacancyRequest.IsPublished));
+                Assert.That(createdVacancy.Data.IsPublished, Is.EqualTo(vacancyRequest.IsPublished));
 
-                Assert.That(
-                    createdVacancy.Data.JobTitle?.Id,
-                    Is.EqualTo(vacancyRequest.JobTitleId));
+                Assert.That(createdVacancy.Data.JobTitle?.Id, Is.EqualTo(vacancyRequest.JobTitleId));
 
-                Assert.That(
-                    createdVacancy.Data.HiringManager?.Id,
-                    Is.EqualTo(employeeNumber.Value));
+                Assert.That(createdVacancy.Data.HiringManager?.Id, Is.EqualTo(employeeNumber.Value));
             });
 
-            Log.Info(
-                $"Test passed: vacancy information was verified. Vacancy ID: {vacancyId.Value}.");
+            Log.Info($"Test passed: vacancy information was verified. Vacancy ID: {vacancyId.Value}.");
         }
         finally
         {
@@ -184,8 +152,7 @@ public class VacanciesApiTests : BaseApiTest
 
                 if (vacancyId.HasValue)
                 {
-                    Log.Info(
-                        $"Deleting test vacancy. Vacancy ID: {vacancyId.Value}.");
+                    Log.Info($"Deleting test vacancy. Vacancy ID: {vacancyId.Value}.");
 
                     TestDataCleanup.TryDelete(
                         "vacancy",
@@ -194,14 +161,12 @@ public class VacanciesApiTests : BaseApiTest
                 }
                 else
                 {
-                    Log.Warn(
-                        "Vacancy cleanup skipped because no vacancy ID was obtained.");
+                    Log.Warn("Vacancy cleanup skipped because no vacancy ID was obtained.");
                 }
 
                 if (employeeNumber.HasValue)
                 {
-                    Log.Info(
-                        $"Deleting test employee. Employee number: {employeeNumber.Value}.");
+                    Log.Info($"Deleting test employee. Employee number: {employeeNumber.Value}.");
 
                     TestDataCleanup.TryDelete(
                         "employee",
@@ -210,8 +175,7 @@ public class VacanciesApiTests : BaseApiTest
                 }
                 else
                 {
-                    Log.Warn(
-                        "Employee cleanup skipped because no employee number was obtained.");
+                    Log.Warn("Employee cleanup skipped because no employee number was obtained.");
                 }
 
                 Log.Info("Vacancy test data cleanup attempts completed.");

@@ -39,8 +39,7 @@ public class EditVacancyPage : LoadablePage
 
     public string GetVacancyName()
     {
-        return _vacancyNameInput.GetAttribute("value")
-               ?? string.Empty;
+        return _vacancyNameInput.GetAttribute("value") ?? string.Empty;
     }
 
     public string GetJobTitle()
@@ -50,7 +49,6 @@ public class EditVacancyPage : LoadablePage
 
     public string GetHiringManager()
     {
-        return _hiringManagerInput.GetAttribute("value")
-               ?? string.Empty;
+        return _hiringManagerInput.GetAttribute("value") ?? string.Empty;
     }
 }

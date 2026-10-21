@@ -47,9 +47,7 @@ public class LogoutTests : UiTestBase
 
         Log.Info("Opening the navigation menu.");
 
-        AllureApi.Step(
-            "Open navigation menu",
-            () => dashboardPage.OpenNavigationMenu());
+        AllureApi.Step("Open navigation menu", () => dashboardPage.OpenNavigationMenu());
 
         Log.Info("Logging out.");
 
@@ -61,9 +59,7 @@ public class LogoutTests : UiTestBase
 
         AllureApi.Step("Verify Login Page is displayed", () =>
         {
-            Assert.That(
-                loginPage.IsDisplayed(),
-                Is.True,
+            Assert.That(loginPage.IsDisplayed(), Is.True,
                 "Login page should be displayed.");
         });
 

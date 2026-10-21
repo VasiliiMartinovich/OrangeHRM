@@ -14,28 +14,21 @@ public class EmployeesApiClient : IDisposable
     {
         if (string.IsNullOrWhiteSpace(accessToken))
         {
-            throw new ArgumentException(
-                "Access token cannot be empty.",
-                nameof(accessToken));
+            throw new ArgumentException("Access token cannot be empty.", nameof(accessToken));
         }
 
-        var options = new RestClientOptions(
-            "https://opensource-demo.orangehrmlive.com");
+        var options = new RestClientOptions("https://opensource-demo.orangehrmlive.com");
 
         _client = new RestClient(options);
 
-        _client.AddDefaultHeader(
-            "Authorization",
-            $"Bearer {accessToken}");
+        _client.AddDefaultHeader("Authorization", $"Bearer {accessToken}");
 
-        // Токен намеренно не записывается в лог.
         _log.Info("Employees API client initialized.");
     }
 
     public RestResponse GetEmployees()
     {
-        var request = new RestRequest(
-            "/web/index.php/api/v2/pim/employees",
+        var request = new RestRequest("/web/index.php/api/v2/pim/employees",
             Method.Get);
 
         return ExecuteWithLogging(request);
@@ -45,8 +38,7 @@ public class EmployeesApiClient : IDisposable
     {
         ArgumentNullException.ThrowIfNull(employee);
 
-        var request = new RestRequest(
-            "/web/index.php/api/v2/pim/employees",
+        var request = new RestRequest("/web/index.php/api/v2/pim/employees",
             Method.Post);
 
         request.AddJsonBody(employee);
@@ -56,8 +48,7 @@ public class EmployeesApiClient : IDisposable
 
     public RestResponse DeleteEmployee(int employeeId)
     {
-        var request = new RestRequest(
-            "/web/index.php/api/v2/pim/employees",
+        var request = new RestRequest("/web/index.php/api/v2/pim/employees",
             Method.Delete);
 
         request.AddJsonBody(new
@@ -72,8 +63,7 @@ public class EmployeesApiClient : IDisposable
     {
         var stopwatch = Stopwatch.StartNew();
 
-        _log.Info(
-            $"Sending API request: {request.Method} {request.Resource}");
+        _log.Info($"Sending API request: {request.Method} {request.Resource}");
 
         try
         {

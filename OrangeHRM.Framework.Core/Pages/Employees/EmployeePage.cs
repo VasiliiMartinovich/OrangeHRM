@@ -36,24 +36,19 @@ public class EmployeePage : LoadablePage
 
     public void SearchByEmployeeName(string employeeName)
     {
-        Wait.Until(driver =>
-            _employeeNameInput.Displayed && _employeeNameInput.Enabled);
+        Wait.Until(driver => _employeeNameInput.Displayed && _employeeNameInput.Enabled);
 
         _employeeNameInput.Clear();
         _employeeNameInput.SendKeys(employeeName);
 
-        Wait.Until(driver =>
-            _searchButton.Displayed && _searchButton.Enabled);
+        Wait.Until(driver => _searchButton.Displayed && _searchButton.Enabled);
 
         _searchButton.Click();
-
         WaitForSearchResults();
     }
-
     public void SearchByNonExistingEmployeeName(string employeeName)
     {
-        Wait.Until(driver =>
-            _employeeNameInput.Displayed && _employeeNameInput.Enabled);
+        Wait.Until(driver => _employeeNameInput.Displayed && _employeeNameInput.Enabled);
 
         _employeeNameInput.Clear();
         _employeeNameInput.SendKeys(employeeName);
@@ -154,7 +149,6 @@ public class EmployeePage : LoadablePage
         return false;
     }
 
-    
     public int GetSearchResultCount()
     {
         Wait.Until(driver =>
@@ -196,7 +190,6 @@ public class EmployeePage : LoadablePage
 
         return count;
     }
-
 
     public void ResetSearch()
     {

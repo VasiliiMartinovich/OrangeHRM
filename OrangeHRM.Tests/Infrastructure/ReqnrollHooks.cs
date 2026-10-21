@@ -29,8 +29,7 @@ public sealed class ReqnrollHooks
         {
             Log4NetConfig.Configure();
 
-            _log.Info(
-                $"Starting BDD scenario: {_scenarioContext.ScenarioInfo.Title}");
+            _log.Info($"Starting BDD scenario: {_scenarioContext.ScenarioInfo.Title}");
 
             DriverManager.TimeoutSeconds = TestSettings.TimeoutSeconds;
 
@@ -38,31 +37,19 @@ public sealed class ReqnrollHooks
                 TestSettings.Browser,
                 ignoreCase: true);
 
-            // Создаём браузер.
-            driver = DriverFactory.CreateDriver(
-                browserType,
-                TestSettings.Headless);
+            driver = DriverFactory.CreateDriver(browserType, TestSettings.Headless);
 
-            // Регистрируем его в DriverManager.
             DriverManager.SetDriver(driver);
             driverRegistered = true;
 
-            // Настраиваем браузер.
-            DriverManager.Driver.Manage().Window.Size =
-                new System.Drawing.Size(1920, 1080);
+            DriverManager.Driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
+           DriverManager.Driver.Navigate().GoToUrl(TestSettings.BaseUrl);
 
-            // Открываем приложение.
-            DriverManager.Driver.Navigate().GoToUrl(
-                TestSettings.BaseUrl);
-
-            _log.Info(
-                "BDD scenario browser started and application opened.");
+            _log.Info("BDD scenario browser started and application opened.");
         }
         catch (Exception setupException)
         {
-            _log.Error(
-                "Failed to initialize browser for BDD scenario.",
-                setupException);
+            _log.Error("Failed to initialize browser for BDD scenario.", setupException);
 
             try
             {
@@ -77,16 +64,12 @@ public sealed class ReqnrollHooks
             }
             catch (Exception cleanupException)
             {
-                _log.Error(
-                    "Could not close WebDriver after setup failure.",
-                    cleanupException);
+                _log.Error("Could not close WebDriver after setup failure.", cleanupException);
             }
 
-            // Не скрываем исходную ошибку настройки.
             throw;
         }
     }
-
 
     [AfterScenario]
     public void AfterScenario()
@@ -120,8 +103,7 @@ public sealed class ReqnrollHooks
             }
             else
             {
-                _log.Info(
-                    $"BDD scenario passed: {_scenarioContext.ScenarioInfo.Title}");
+                _log.Info($"BDD scenario passed: {_scenarioContext.ScenarioInfo.Title}");
             }
         }
         finally

@@ -7,9 +7,7 @@ namespace OrangeHRM.Framework.Core.Drivers;
 
 public class DriverFactory
 {
-    public static IWebDriver CreateDriver(
-        BrowserType browserType,
-        bool headless = false)
+    public static IWebDriver CreateDriver(BrowserType browserType, bool headless = false)
     {
         return browserType switch
         {

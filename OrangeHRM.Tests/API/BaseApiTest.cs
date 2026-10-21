@@ -20,18 +20,13 @@ public class BaseApiTest
 
         Log.Info($"Starting API test: {TestContext.CurrentContext.Test.Name}");
 
-        var options = new RestClientOptions(
-            "https://opensource-demo.orangehrmlive.com");
+        var options = new RestClientOptions("https://opensource-demo.orangehrmlive.com");
 
         Client = new RestClient(options);
 
-        AccessToken =
-            Environment.GetEnvironmentVariable("ORANGEHRM_ACCESS_TOKEN")
-            ?? string.Empty;
+        AccessToken = Environment.GetEnvironmentVariable("ORANGEHRM_ACCESS_TOKEN") ?? string.Empty;
 
-        Assert.That(
-            AccessToken,
-            Is.Not.Empty,
+        Assert.That(AccessToken, Is.Not.Empty,
             "Environment variable ORANGEHRM_ACCESS_TOKEN is not set.");
 
         Log.Info("API test setup completed.");

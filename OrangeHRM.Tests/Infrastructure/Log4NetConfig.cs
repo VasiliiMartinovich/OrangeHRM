@@ -7,9 +7,7 @@ public static class Log4NetConfig
 {
     private static readonly Lazy<bool> Configuration = new(() =>
     {
-        var logDirectory = Path.Combine(
-            AppContext.BaseDirectory,
-            "Logs");
+        var logDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
 
         Directory.CreateDirectory(logDirectory);
 
@@ -22,13 +20,10 @@ public static class Log4NetConfig
 
         if (!configFile.Exists)
         {
-            throw new FileNotFoundException(
-                "log4net.config was not found.",
-                configFile.FullName);
+            throw new FileNotFoundException("log4net.config was not found.", configFile.FullName);
         }
 
-        var repository = LogManager.GetRepository(
-            typeof(Log4NetConfig).Assembly);
+        var repository = LogManager.GetRepository(typeof(Log4NetConfig).Assembly);
 
         XmlConfigurator.Configure(repository, configFile);
 

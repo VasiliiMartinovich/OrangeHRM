@@ -60,9 +60,6 @@ public class AddEmployeePage : LoadablePage
     
     public void EnterEmployeeId(string employeeId)
     {
-        // var employeeIdInput = Driver.FindElement(
-        //     By.XPath("//label[normalize-space()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
-
         _employeeIdInput.Click();
         _employeeIdInput.SendKeys(Keys.Control + "a");
         _employeeIdInput.SendKeys(Keys.Backspace);
@@ -71,9 +68,7 @@ public class AddEmployeePage : LoadablePage
     
     public string GetEmployeeId()
     {
-        Wait.Until(driver =>
-            _employeeIdInput.Displayed);
-
+        Wait.Until(driver => _employeeIdInput.Displayed);
         return _employeeIdInput.GetAttribute("value") ?? string.Empty;
     }
 }

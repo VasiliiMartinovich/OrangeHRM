@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OrangeHRM.Tests.TestData;
+﻿namespace OrangeHRM.Tests.TestData;
 
 public static class CandidateTestData
 {

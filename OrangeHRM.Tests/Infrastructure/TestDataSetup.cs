@@ -34,8 +34,7 @@ public class TestDataSetup
 
         if (!personalDetailsPage.IsDisplayed())
         {
-            throw new InvalidOperationException(
-                "Employee was not created successfully.");
+            throw new InvalidOperationException("Employee was not created successfully.");
         }
 
         return $"{firstName} {middleName} {lastName}";
@@ -45,8 +44,7 @@ public class TestDataSetup
     {
         var hiringManager = CreateEmployeeForHiringManager();
 
-        DriverManager.Driver.Navigate().GoToUrl(new Uri(new Uri(TestSettings.BaseUrl),
-                "web/index.php/dashboard/index").ToString());
+        DriverManager.Driver.Navigate().GoToUrl(new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString());
 
         var vacancyName = $"QA Automation Vacancy {DateTime.Now:yyyyMMddHHmmssfff}";
         var jobTitle = "Software Engineer";

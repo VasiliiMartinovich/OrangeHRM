@@ -1,10 +1,7 @@
-﻿
-using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using OrangeHRM.Framework.Core.Api.Clients;
 using OrangeHRM.Framework.Core.Api.Models.Requests;
 using OrangeHRM.Framework.Core.Api.Models.Responses;
-using NUnit.Framework;
 
 namespace OrangeHRM.Tests.Helpers;
 
@@ -42,29 +39,24 @@ public class CandidateVacancyTestDataFactory
 
         var response = _employeesClient.CreateEmployee(request);
 
-        Assert.That(
-            response.IsSuccessful,
-            Is.True,
+        Assert.That(response.IsSuccessful, Is.True,
             $"Employee creation failed. HTTP: {(int)response.StatusCode}. " +
             $"Body: {response.Content}");
 
-        var result =
-            JsonSerializer.Deserialize<CreateEmployeeResponse>(
-                response.Content!);
+        var result = JsonSerializer.Deserialize<CreateEmployeeResponse>(response.Content!);
 
         Assert.That(result?.Data, Is.Not.Null);
 
         EmployeeId = result!.Data!.EmpNumber;
 
-        TestContext.WriteLine($"Created employee ID: {EmployeeId}");
+        Console.WriteLine($"Created employee ID: {EmployeeId}");
 
         return EmployeeId.Value;
     }
 
     public int CreateVacancy(int employeeId)
     {
-        VacancyName =
-            $"ApiTest Vacancy {Guid.NewGuid().ToString("N")[..8]}";
+        VacancyName = $"ApiTest Vacancy {Guid.NewGuid().ToString("N")[..8]}";
 
         var request = new CreateVacancyRequest
         {
@@ -79,22 +71,17 @@ public class CandidateVacancyTestDataFactory
 
         var response = _vacanciesClient.CreateVacancy(request);
 
-        Assert.That(
-            response.IsSuccessful,
-            Is.True,
+        Assert.That(response.IsSuccessful, Is.True,
             $"Vacancy creation failed. HTTP: {(int)response.StatusCode}. " +
             $"Body: {response.Content}");
 
-        var result =
-            JsonSerializer.Deserialize<CreateVacancyResponse>(
-                response.Content!);
+        var result = JsonSerializer.Deserialize<CreateVacancyResponse>(response.Content!);
 
         Assert.That(result?.Data, Is.Not.Null);
 
         VacancyId = result!.Data!.Id;
 
-        TestContext.WriteLine(
-            $"Created vacancy ID: {VacancyId}, name: {VacancyName}");
+        Console.WriteLine($"Created vacancy ID: {VacancyId}, name: {VacancyName}");
 
         return VacancyId.Value;
     }
@@ -115,27 +102,21 @@ public class CandidateVacancyTestDataFactory
             ConsentToKeepData = true
         };
 
-        var response =
-            _candidatesClient.CreateCandidate(CandidateRequest);
+        var response = _candidatesClient.CreateCandidate(CandidateRequest);
 
-        TestContext.WriteLine(
-            $"Candidate creation HTTP status: {(int)response.StatusCode}");
+        Console.WriteLine($"Candidate creation HTTP status: {(int)response.StatusCode}");
 
-        Assert.That(
-            response.IsSuccessful,
-            Is.True,
+        Assert.That(response.IsSuccessful, Is.True,
             $"Candidate creation failed. HTTP: {(int)response.StatusCode}. " +
             $"Body: {response.Content}");
 
-        var result =
-            JsonSerializer.Deserialize<CreateCandidateResponse>(
-                response.Content!);
+        var result = JsonSerializer.Deserialize<CreateCandidateResponse>(response.Content!);
 
         Assert.That(result?.Data, Is.Not.Null);
 
         CandidateId = result!.Data!.Id;
 
-        TestContext.WriteLine($"Created candidate ID: {CandidateId}");
+        Console.WriteLine($"Created candidate ID: {CandidateId}");
 
         return result;
     }

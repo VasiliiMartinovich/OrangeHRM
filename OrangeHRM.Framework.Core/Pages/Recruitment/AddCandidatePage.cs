@@ -1,5 +1,4 @@
-﻿
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
@@ -63,8 +62,7 @@ public class AddCandidatePage : LoadablePage
 
     public void SelectVacancy(string vacancyName)
     {
-        Wait.Until(driver =>
-            _vacancyDropdown.Displayed && _vacancyDropdown.Enabled);
+        Wait.Until(driver => _vacancyDropdown.Displayed && _vacancyDropdown.Enabled);
 
         _vacancyDropdown.Click();
 
@@ -104,8 +102,7 @@ public class AddCandidatePage : LoadablePage
 
     public CandidateDetailsPage Save()
     {
-        Wait.Until(driver =>
-            _saveButton.Displayed && _saveButton.Enabled);
+        Wait.Until(driver => _saveButton.Displayed && _saveButton.Enabled);
 
         _saveButton.Click();
 

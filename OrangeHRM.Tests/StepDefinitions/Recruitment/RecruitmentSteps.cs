@@ -48,9 +48,7 @@ public class RecruitmentSteps
         Assert.That(File.Exists(_cvFilePath), Is.True,
             $"CV file was not found: {_cvFilePath}");
 
-        var dashboardUrl = new Uri(
-            new Uri(TestSettings.BaseUrl),
-            "web/index.php/dashboard/index").ToString();
+        var dashboardUrl = new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString();
 
         DriverManager.Driver.Navigate().GoToUrl(dashboardUrl);
 
@@ -70,9 +68,7 @@ public class RecruitmentSteps
         addCandidatePage.SelectVacancy(_vacancyName);
         addCandidatePage.UploadCv(_cvFilePath);
 
-        Assert.That(
-            addCandidatePage.IsCvSelected(_cvFileName),
-            Is.True,
+        Assert.That(addCandidatePage.IsCvSelected(_cvFileName), Is.True,
             "CV was not selected in the form.");
 
         _candidateDetailsPage = addCandidatePage.Save();
@@ -83,21 +79,10 @@ public class RecruitmentSteps
     {
         Assert.Multiple(() =>
         {
-            Assert.That(
-                _candidateDetailsPage.GetFirstName(),
-                Is.EqualTo(_firstName));
-
-            Assert.That(
-                _candidateDetailsPage.GetMiddleName(),
-                Is.EqualTo(_middleName));
-
-            Assert.That(
-                _candidateDetailsPage.GetLastName(),
-                Is.EqualTo(_lastName));
-
-            Assert.That(
-                _candidateDetailsPage.GetEmail(),
-                Is.EqualTo(_email));
+            Assert.That(_candidateDetailsPage.GetFirstName(), Is.EqualTo(_firstName));
+            Assert.That(_candidateDetailsPage.GetMiddleName(), Is.EqualTo(_middleName));
+            Assert.That(_candidateDetailsPage.GetLastName(), Is.EqualTo(_lastName));
+            Assert.That(_candidateDetailsPage.GetEmail(), Is.EqualTo(_email));
         });
     }
 
@@ -106,14 +91,10 @@ public class RecruitmentSteps
     {
         Assert.Multiple(() =>
         {
-            Assert.That(
-                _candidateDetailsPage.IsResumeDisplayed(_cvFileName),
-                Is.True,
+            Assert.That(_candidateDetailsPage.IsResumeDisplayed(_cvFileName), Is.True,
                 "Uploaded CV was not displayed on the candidate details page.");
 
-            Assert.That(
-                _candidateDetailsPage.GetJobVacancy(),
-                Is.EqualTo(_vacancyName),
+            Assert.That(_candidateDetailsPage.GetJobVacancy(), Is.EqualTo(_vacancyName),
                 "Selected vacancy does not match.");
         });
     }
@@ -138,9 +119,7 @@ public class RecruitmentSteps
         Assert.That(File.Exists(_cvFilePath), Is.True,
             $"CV file was not found: {_cvFilePath}");
 
-        var dashboardUrl = new Uri(
-            new Uri(TestSettings.BaseUrl),
-            "web/index.php/dashboard/index").ToString();
+        var dashboardUrl = new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString();
 
         DriverManager.Driver.Navigate().GoToUrl(dashboardUrl);
 
@@ -160,9 +139,7 @@ public class RecruitmentSteps
         addCandidatePage.SelectVacancy(_vacancyName);
         addCandidatePage.UploadCv(_cvFilePath);
 
-        Assert.That(
-            addCandidatePage.IsCvSelected(_cvFileName),
-            Is.True,
+        Assert.That(addCandidatePage.IsCvSelected(_cvFileName), Is.True,
             "CV was not selected in the form.");
 
         _candidateDetailsPage = addCandidatePage.Save();
@@ -171,9 +148,7 @@ public class RecruitmentSteps
     [When("I delete the candidate from the candidates list")]
     public void WhenIDeleteCandidateFromCandidatesList()
     {
-        var dashboardUrl = new Uri(
-            new Uri(TestSettings.BaseUrl),
-            "web/index.php/dashboard/index").ToString();
+        var dashboardUrl = new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString();
 
         DriverManager.Driver.Navigate().GoToUrl(dashboardUrl);
 
@@ -185,9 +160,7 @@ public class RecruitmentSteps
 
         _candidatesPage.SearchCandidate(_firstName);
 
-        Assert.That(
-            _candidatesPage.IsCandidateDisplayed(_firstName),
-            Is.True,
+        Assert.That(_candidatesPage.IsCandidateDisplayed(_firstName), Is.True,
             $"Candidate '{_firstName}' was not found before deletion.");
 
         _candidatesPage.DeleteCandidate(_firstName);
@@ -198,18 +171,12 @@ public class RecruitmentSteps
     {
         Assert.Multiple(() =>
         {
-            Assert.That(
-                _candidatesPage.IsSuccessToastDisplayed(),
-                Is.True,
+            Assert.That(_candidatesPage.IsSuccessToastDisplayed(), Is.True,
                 "Success notification was not displayed.");
 
-            Assert.That(
-                _candidatesPage.GetSuccessToastTitle(),
-                Is.EqualTo("Success"));
+            Assert.That(_candidatesPage.GetSuccessToastTitle(), Is.EqualTo("Success"));
 
-            Assert.That(
-                _candidatesPage.GetSuccessToastMessage(),
-                Is.EqualTo("Successfully Deleted"));
+            Assert.That(_candidatesPage.GetSuccessToastMessage(), Is.EqualTo("Successfully Deleted"));
         });
     }
 
@@ -218,9 +185,7 @@ public class RecruitmentSteps
     {
         _candidatesPage.SearchCandidate(_firstName);
 
-        Assert.That(
-            _candidatesPage.IsCandidateDisplayed(_firstName),
-            Is.False,
+        Assert.That(_candidatesPage.IsCandidateDisplayed(_firstName), Is.False,
             $"Candidate '{_firstName}' is still displayed after deletion.");
     }
 
@@ -237,9 +202,7 @@ public class RecruitmentSteps
         _jobTitle = jobTitle;
         _vacancyName = $"QA Automation Vacancy {DateTime.Now:yyyyMMddHHmmssfff}";
 
-        var dashboardUrl = new Uri(
-            new Uri(TestSettings.BaseUrl),
-            "web/index.php/dashboard/index").ToString();
+        var dashboardUrl = new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString();
 
         DriverManager.Driver.Navigate().GoToUrl(dashboardUrl);
 
@@ -263,19 +226,13 @@ public class RecruitmentSteps
     {
         Assert.Multiple(() =>
         {
-            Assert.That(
-                _editVacancyPage.GetVacancyName(),
-                Is.EqualTo(_vacancyName),
+            Assert.That(_editVacancyPage.GetVacancyName(), Is.EqualTo(_vacancyName),
                 "Vacancy name does not match.");
 
-            Assert.That(
-                _editVacancyPage.GetJobTitle(),
-                Is.EqualTo(_jobTitle),
+            Assert.That(_editVacancyPage.GetJobTitle(), Is.EqualTo(_jobTitle),
                 "Job title does not match.");
 
-            Assert.That(
-                _editVacancyPage.GetHiringManager(),
-                Is.EqualTo(_hiringManager),
+            Assert.That(_editVacancyPage.GetHiringManager(), Is.EqualTo(_hiringManager),
                 "Hiring manager does not match.");
         });
     }

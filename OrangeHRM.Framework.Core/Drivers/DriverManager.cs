@@ -1,31 +1,30 @@
-﻿    using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
-    namespace OrangeHRM.Framework.Core.Drivers;
+namespace OrangeHRM.Framework.Core.Drivers;
 
-    public static class DriverManager
+public static class DriverManager
+{
+    [ThreadStatic] private static IWebDriver? _driver;
+    public static int TimeoutSeconds { get; set; } = 10;
+
+    public static IWebDriver Driver => _driver ?? throw new InvalidOperationException(
+        "WebDriver has not been initialized for the current thread.");
+
+    public static void SetDriver(IWebDriver driver)
     {
-        [ThreadStatic]
-        private static IWebDriver? _driver;
-        public static int TimeoutSeconds { get; set; } = 10;
+        ArgumentNullException.ThrowIfNull(driver);
+        _driver = driver;
+    }
 
-        public static IWebDriver Driver => _driver ?? throw new InvalidOperationException(
-                "WebDriver has not been initialized for the current thread.");
-
-        public static void SetDriver(IWebDriver driver)
+    public static void QuitDriver()
+    {
+        try
         {
-            ArgumentNullException.ThrowIfNull(driver);
-            _driver = driver;
+            _driver?.Quit();
         }
-
-        public static void QuitDriver()
+        finally
         {
-            try
-            {
-                _driver?.Quit();
-            }
-            finally
-            {
-                _driver = null;
-            }
+            _driver = null;
         }
     }
+}

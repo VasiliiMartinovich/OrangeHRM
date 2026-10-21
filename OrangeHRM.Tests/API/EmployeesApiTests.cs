@@ -36,14 +36,10 @@ public class EmployeesApiTests : BaseApiTest
 
         AllureApi.Step("Verify employees API response", () =>
         {
-            Assert.That(
-                response.ErrorException,
-                Is.Null,
+            Assert.That(response.ErrorException, Is.Null,
                 "An exception occurred while sending the request.");
 
-            Assert.That(
-                (int)response.StatusCode,
-                Is.EqualTo(200),
+            Assert.That((int)response.StatusCode, Is.EqualTo(200),
                 "Expected HTTP 200 from the employees API.");
         });
 
@@ -80,19 +76,14 @@ public class EmployeesApiTests : BaseApiTest
                     return client.CreateEmployee(employeeRequest);
                 });
 
-            Log.Info(
-                $"Create employee response received. HTTP status: {(int)response.StatusCode}.");
+            Log.Info($"Create employee response received. HTTP status: {(int)response.StatusCode}.");
 
             AllureApi.Step("Verify employee creation response", () =>
             {
-                Assert.That(
-                    response.IsSuccessful,
-                    Is.True,
+                Assert.That(response.IsSuccessful, Is.True,
                     $"Employee creation failed. HTTP status: {(int)response.StatusCode}.");
 
-                Assert.That(
-                    response.Content,
-                    Is.Not.Null.And.Not.Empty,
+                Assert.That(response.Content, Is.Not.Null.And.Not.Empty,
                     "Employee creation response body was empty.");
             });
 
@@ -100,23 +91,17 @@ public class EmployeesApiTests : BaseApiTest
                 "Deserialize created employee response",
                 () =>
                 {
-                    Log.Info(
-                        "Employee creation request succeeded. Deserializing response.");
+                    Log.Info("Employee creation request succeeded. Deserializing response.");
 
-                    return JsonSerializer.Deserialize<CreateEmployeeResponse>(
-                        response.Content!);
+                    return JsonSerializer.Deserialize<CreateEmployeeResponse>(response.Content!);
                 });
 
             AllureApi.Step("Verify employee data is present", () =>
             {
-                Assert.That(
-                    createdEmployee,
-                    Is.Not.Null,
+                Assert.That(createdEmployee, Is.Not.Null,
                     "Could not deserialize employee creation response.");
 
-                Assert.That(
-                    createdEmployee!.Data,
-                    Is.Not.Null,
+                Assert.That(createdEmployee!.Data, Is.Not.Null,
                     "Employee data was missing from the response.");
             });
 
@@ -124,24 +109,17 @@ public class EmployeesApiTests : BaseApiTest
 
             AllureApi.Step("Verify created employee information", () =>
             {
-                Assert.That(
-                    employeeNumber,
-                    Is.GreaterThan(0),
+                Assert.That(employeeNumber, Is.GreaterThan(0),
                     "Expected a positive employee ID.");
 
-                Assert.That(
-                    createdEmployee.Data.FirstName,
-                    Is.EqualTo(employeeRequest.FirstName),
+                Assert.That(createdEmployee.Data.FirstName, Is.EqualTo(employeeRequest.FirstName),
                     "The returned first name did not match the request.");
 
-                Assert.That(
-                    createdEmployee.Data.LastName,
-                    Is.EqualTo(employeeRequest.LastName),
+                Assert.That(createdEmployee.Data.LastName, Is.EqualTo(employeeRequest.LastName),
                     "The returned last name did not match the request.");
             });
 
-            Log.Info(
-                "Test passed: employee was created and returned an ID greater than zero.");
+            Log.Info("Test passed: employee was created and returned an ID greater than zero.");
         }
         finally
         {
@@ -149,8 +127,7 @@ public class EmployeesApiTests : BaseApiTest
             {
                 if (employeeNumber.HasValue)
                 {
-                    Log.Info(
-                        $"Deleting test employee. Employee number: {employeeNumber.Value}.");
+                    Log.Info($"Deleting test employee. Employee number: {employeeNumber.Value}.");
 
                     TestDataCleanup.TryDelete(
                         "employee",
@@ -159,8 +136,7 @@ public class EmployeesApiTests : BaseApiTest
                 }
                 else
                 {
-                    Log.Warn(
-                        "Employee cleanup skipped because no employee number was obtained.");
+                    Log.Warn("Employee cleanup skipped because no employee number was obtained.");
                 }
 
                 Log.Info("Employee test data cleanup attempt completed.");

@@ -26,8 +26,7 @@ public class BasePage
 
     protected IWebElement FindVisibleElement(By locator)
     {
-        Log.Debug(
-            $"{GetType().Name}: waiting for visible element. Locator: {locator}.");
+        Log.Debug($"{GetType().Name}: waiting for visible element. Locator: {locator}.");
 
         try
         {
@@ -44,8 +43,7 @@ public class BasePage
                 return null;
             })!;
 
-            Log.Debug(
-                $"{GetType().Name}: visible element found. Locator: {locator}.");
+            Log.Debug($"{GetType().Name}: visible element found. Locator: {locator}.");
 
             return element;
         }
@@ -71,8 +69,7 @@ public class BasePage
 
     protected void Click(By locator)
     {
-        Log.Debug(
-            $"{GetType().Name}: waiting to click element. Locator: {locator}.");
+        Log.Debug($"{GetType().Name}: waiting to click element. Locator: {locator}.");
 
         try
         {
@@ -86,8 +83,7 @@ public class BasePage
                     {
                         element.Click();
 
-                        Log.Debug(
-                            $"{GetType().Name}: click completed. Locator: {locator}.");
+                        Log.Debug($"{GetType().Name}: click completed. Locator: {locator}.");
 
                         return true;
                     }

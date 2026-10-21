@@ -61,8 +61,7 @@ public class RecruitmentTests : UiTestBase
         var middleName = candidateData.MiddleName;
         var cvFileName = candidateData.CvFileName;
 
-        Log.Info(
-            $"Preparing candidate data. First name: {firstName}, last name: {lastName}.");
+        Log.Info($"Preparing candidate data. First name: {firstName}, last name: {lastName}.");
 
         var cvFilePath = AllureApi.Step(
             "Resolve CV file path",
@@ -75,9 +74,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify CV file exists", () =>
         {
-            Assert.That(
-                File.Exists(cvFilePath),
-                Is.True,
+            Assert.That(File.Exists(cvFilePath), Is.True,
                 $"CV file was not found: {cvFilePath}");
         });
 
@@ -156,9 +153,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify CV is selected", () =>
         {
-            Assert.That(
-                addCandidatePage.IsCvSelected(cvFileName),
-                Is.True,
+            Assert.That(addCandidatePage.IsCvSelected(cvFileName), Is.True,
                 "CV was not selected in the form.");
         });
 
@@ -174,21 +169,10 @@ public class RecruitmentTests : UiTestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(
-                    candidateDetailsPage.GetFirstName(),
-                    Is.EqualTo(firstName));
-
-                Assert.That(
-                    candidateDetailsPage.GetMiddleName(),
-                    Is.EqualTo(middleName));
-
-                Assert.That(
-                    candidateDetailsPage.GetLastName(),
-                    Is.EqualTo(lastName));
-
-                Assert.That(
-                    candidateDetailsPage.GetEmail(),
-                    Is.EqualTo(email));
+                Assert.That(candidateDetailsPage.GetFirstName(), Is.EqualTo(firstName));
+                Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(middleName));
+                Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(lastName));
+                Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email));
             });
         });
 
@@ -196,9 +180,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify uploaded CV is displayed", () =>
         {
-            Assert.That(
-                candidateDetailsPage.IsResumeDisplayed(cvFileName),
-                Is.True,
+            Assert.That(candidateDetailsPage.IsResumeDisplayed(cvFileName), Is.True,
                 "Uploaded CV was not displayed on the candidate details page.");
         });
 
@@ -206,9 +188,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify selected vacancy", () =>
         {
-            Assert.That(
-                candidateDetailsPage.GetJobVacancy(),
-                Is.EqualTo(vacancyName),
+            Assert.That(candidateDetailsPage.GetJobVacancy(), Is.EqualTo(vacancyName),
                 "Selected job vacancy does not match.");
         });
 
@@ -256,9 +236,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify CV file exists", () =>
         {
-            Assert.That(
-                File.Exists(cvFilePath),
-                Is.True,
+            Assert.That(File.Exists(cvFilePath), Is.True,
                 $"CV file was not found: {cvFilePath}");
         });
 
@@ -337,9 +315,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify CV is selected", () =>
         {
-            Assert.That(
-                addCandidatePage.IsCvSelected(cvFileName),
-                Is.True,
+            Assert.That(addCandidatePage.IsCvSelected(cvFileName), Is.True,
                 "CV was not selected in the form.");
         });
 
@@ -359,15 +335,10 @@ public class RecruitmentTests : UiTestBase
                 Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(middleName));
                 Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(lastName));
                 Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(email));
-
-                Assert.That(
-                    candidateDetailsPage.IsResumeDisplayed(cvFileName),
-                    Is.True,
+                Assert.That(candidateDetailsPage.IsResumeDisplayed(cvFileName), Is.True,
                     "Uploaded CV was not displayed on the candidate details page.");
 
-                Assert.That(
-                    candidateDetailsPage.GetJobVacancy(),
-                    Is.EqualTo(vacancyName),
+                Assert.That(candidateDetailsPage.GetJobVacancy(), Is.EqualTo(vacancyName),
                     "Selected job vacancy does not match.");
             });
         });
@@ -398,9 +369,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify candidate appears before deletion", () =>
         {
-            Assert.That(
-                candidatesPage.IsCandidateDisplayed(firstName),
-                Is.True,
+            Assert.That(candidatesPage.IsCandidateDisplayed(firstName), Is.True,
                 $"Candidate '{firstName}' was not found after filtering.");
         });
 
@@ -416,19 +385,13 @@ public class RecruitmentTests : UiTestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(
-                    candidatesPage.IsSuccessToastDisplayed(),
-                    Is.True,
+                Assert.That(candidatesPage.IsSuccessToastDisplayed(), Is.True,
                     "Success alert was not displayed.");
 
-                Assert.That(
-                    candidatesPage.GetSuccessToastTitle(),
-                    Is.EqualTo("Success"),
+                Assert.That(candidatesPage.GetSuccessToastTitle(), Is.EqualTo("Success"),
                     "Unexpected alert title.");
 
-                Assert.That(
-                    candidatesPage.GetSuccessToastMessage(),
-                    Is.EqualTo("Successfully Deleted"),
+                Assert.That(candidatesPage.GetSuccessToastMessage(), Is.EqualTo("Successfully Deleted"),
                     "Unexpected alert message.");
             });
         });
@@ -445,9 +408,7 @@ public class RecruitmentTests : UiTestBase
 
         AllureApi.Step("Verify candidate is absent after deletion", () =>
         {
-            Assert.That(
-                candidatesPage.IsCandidateDisplayed(firstName),
-                Is.False,
+            Assert.That(candidatesPage.IsCandidateDisplayed(firstName), Is.False,
                 $"Candidate '{firstName}' is still displayed after deletion.");
         });
 
@@ -477,9 +438,7 @@ public class RecruitmentTests : UiTestBase
         var vacancyName = $"QA Automation Vacancy {DateTime.Now:yyyyMMddHHmmssfff}";
         var jobTitle = "Software Engineer";
 
-        Log.Info(
-            $"Preparing vacancy data. Vacancy name: {vacancyName}, job title: {jobTitle}.");
-
+        Log.Info($"Preparing vacancy data. Vacancy name: {vacancyName}, job title: {jobTitle}.");
         Log.Info("Navigating to the OrangeHRM dashboard.");
 
         AllureApi.Step("Navigate to Dashboard", () =>
@@ -518,9 +477,7 @@ public class RecruitmentTests : UiTestBase
 
         Log.Info($"Entering vacancy name: {vacancyName}.");
 
-        AllureApi.Step(
-            "Enter vacancy name",
-            () => addVacancyPage.EnterVacancyName(vacancyName));
+        AllureApi.Step("Enter vacancy name", () => addVacancyPage.EnterVacancyName(vacancyName));
 
         Log.Info($"Selecting job title: {jobTitle}.");
 
@@ -550,23 +507,16 @@ public class RecruitmentTests : UiTestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(
-                    editVacancyPage.GetVacancyName(),
-                    Is.EqualTo(vacancyName),
+                Assert.That(editVacancyPage.GetVacancyName(), Is.EqualTo(vacancyName),
                     "Vacancy name does not match.");
 
-                Assert.That(
-                    editVacancyPage.GetJobTitle(),
-                    Is.EqualTo(jobTitle),
+                Assert.That(editVacancyPage.GetJobTitle(), Is.EqualTo(jobTitle),
                     "Job title does not match.");
 
-                Assert.That(
-                    editVacancyPage.GetHiringManager(),
-                    Is.EqualTo(hiringManager),
+                Assert.That(editVacancyPage.GetHiringManager(), Is.EqualTo(hiringManager),
                     "Hiring manager does not match.");
             });
         });
-
         Log.Info("Test passed: vacancy was created and all details were verified.");
     }
 }

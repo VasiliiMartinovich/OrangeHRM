@@ -1,6 +1,4 @@
-﻿using System;
-using RestSharp;
-using NUnit.Framework;
+﻿using RestSharp;
 
 namespace OrangeHRM.Tests.Helpers;
 

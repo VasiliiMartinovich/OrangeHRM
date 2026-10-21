@@ -31,8 +31,7 @@ public class CandidatesPage : LoadablePage
 
     public AddCandidatePage ClickAdd()
     {
-        Wait.Until(driver =>
-            _addButton.Displayed && _addButton.Enabled);
+        Wait.Until(driver => _addButton.Displayed && _addButton.Enabled);
 
         _addButton.Click();
 

@@ -12,7 +12,7 @@ Scenario: Open the employee list
     When I open the PIM employee list
     Then the employee list page should be displayed
 
-    @SearchEmployee
+@SearchEmployee
 Scenario: Search for a non-existing employee
     When I open the PIM employee list
     And I search for employee "NonExistingEmployee123"

@@ -25,9 +25,7 @@ public abstract class UiTestBase
             DriverManager.TimeoutSeconds = TestSettings.TimeoutSeconds;
         });
 
-        var browserType = Enum.Parse<BrowserType>(
-            TestSettings.Browser,
-            ignoreCase: true);
+        var browserType = Enum.Parse<BrowserType>(TestSettings.Browser, ignoreCase: true);
 
         var driver = AllureApi.Step(
             $"Create WebDriver: {browserType}",
@@ -42,14 +40,12 @@ public abstract class UiTestBase
 
         AllureApi.Step("Set browser window size", () =>
         {
-            DriverManager.Driver.Manage().Window.Size =
-                new System.Drawing.Size(1920, 1080);
+            DriverManager.Driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
         });
 
         AllureApi.Step("Open application URL", () =>
         {
-            DriverManager.Driver.Navigate().GoToUrl(
-                TestSettings.BaseUrl);
+            DriverManager.Driver.Navigate().GoToUrl(TestSettings.BaseUrl);
         });
 
         Log.Info("Browser opened and application URL loaded.");
@@ -95,10 +91,7 @@ public abstract class UiTestBase
         }
         catch (Exception exception)
         {
-            Log.Error(
-                "Could not access WebDriver to capture failure artifacts.",
-                exception);
-
+            Log.Error("Could not access WebDriver to capture failure artifacts.", exception);
             return;
         }
 
@@ -138,10 +131,7 @@ public abstract class UiTestBase
         }
         catch (Exception exception)
         {
-            // Ошибка создания вложения не должна скрывать исходную ошибку теста.
-            Log.Error(
-                $"Could not create or attach Allure artifact: {name}.",
-                exception);
+            Log.Error($"Could not create or attach Allure artifact: {name}.", exception);
         }
     }
 }

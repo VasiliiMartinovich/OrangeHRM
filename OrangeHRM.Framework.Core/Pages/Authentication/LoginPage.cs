@@ -46,8 +46,7 @@ public class LoginPage : LoadablePage
 
     public bool IsDisplayed()
     {
-        return Wait.Until(driver =>
-            _usernameField.Displayed && _passwordField.Displayed);
+        return Wait.Until(driver => _usernameField.Displayed && _passwordField.Displayed);
     }
 
     public DashboardPage Login(string username, string password)

@@ -25,8 +25,7 @@ public class RecruitmentPage : LoadablePage
 
     public CandidatesPage OpenCandidates()
     {
-        Wait.Until(driver =>
-            _candidatesTab.Displayed && _candidatesTab.Enabled);
+        Wait.Until(driver => _candidatesTab.Displayed && _candidatesTab.Enabled);
 
         _candidatesTab.Click();
 
@@ -35,8 +34,7 @@ public class RecruitmentPage : LoadablePage
 
     public VacanciesPage OpenVacancies()
     {
-        Wait.Until(driver =>
-            _vacanciesTab.Displayed && _vacanciesTab.Enabled);
+        Wait.Until(driver => _vacanciesTab.Displayed && _vacanciesTab.Enabled);
 
         _vacanciesTab.Click();
 

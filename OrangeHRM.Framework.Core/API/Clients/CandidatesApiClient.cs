@@ -14,41 +14,31 @@ public class CandidatesApiClient : IDisposable
     {
         if (string.IsNullOrWhiteSpace(accessToken))
         {
-            throw new ArgumentException(
-                "Access token cannot be empty.",
-                nameof(accessToken));
+            throw new ArgumentException("Access token cannot be empty.", nameof(accessToken));
         }
 
-        var options = new RestClientOptions(
-            "https://opensource-demo.orangehrmlive.com");
+        var options = new RestClientOptions("https://opensource-demo.orangehrmlive.com");
 
         _client = new RestClient(options);
 
-        _client.AddDefaultHeader(
-            "Authorization",
-            $"Bearer {accessToken}");
+        _client.AddDefaultHeader("Authorization", $"Bearer {accessToken}");
     }
 
     public RestResponse GetCandidates(
         int? candidateId = null,
         string? candidateName = null)
     {
-        var request = new RestRequest(
-            "/web/index.php/api/v2/recruitment/candidates",
+        var request = new RestRequest("/web/index.php/api/v2/recruitment/candidates",
             Method.Get);
 
         if (candidateId.HasValue)
         {
-            request.AddQueryParameter(
-                "candidateId",
-                candidateId.Value);
+            request.AddQueryParameter("candidateId", candidateId.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(candidateName))
         {
-            request.AddQueryParameter(
-                "candidateName",
-                candidateName);
+            request.AddQueryParameter("candidateName", candidateName);
         }
 
         return _client.Execute(request);
@@ -69,23 +59,17 @@ public class CandidatesApiClient : IDisposable
     public RestResponse CreateCandidateWithoutEmailField(
         string requestBody)
     {
-        var request = new RestRequest(
-            "/web/index.php/api/v2/recruitment/candidates",
+        var request = new RestRequest("/web/index.php/api/v2/recruitment/candidates",
             Method.Post);
 
-        request.AddStringBody(
-            requestBody,
-            DataFormat.Json);
+        request.AddStringBody(requestBody, DataFormat.Json);
 
         return _client.Execute(request);
     }
     
-    public RestResponse UpdateCandidate(
-        int candidateId,
-        UpdateCandidateRequest candidate)
+    public RestResponse UpdateCandidate(int candidateId, UpdateCandidateRequest candidate)
     {
-        var request = new RestRequest(
-            $"/web/index.php/api/v2/recruitment/candidates/{candidateId}",
+        var request = new RestRequest($"/web/index.php/api/v2/recruitment/candidates/{candidateId}",
             Method.Put);
 
         request.AddJsonBody(candidate);
@@ -95,8 +79,7 @@ public class CandidatesApiClient : IDisposable
     
     public RestResponse DeleteCandidate(int candidateId)
     {
-        var request = new RestRequest(
-            "/web/index.php/api/v2/recruitment/candidates",
+        var request = new RestRequest("/web/index.php/api/v2/recruitment/candidates",
             Method.Delete);
 
         request.AddJsonBody(new
@@ -113,8 +96,7 @@ public class CandidatesApiClient : IDisposable
         int? offset = null,
         string? sortOrder = null)
     {
-        var request = new RestRequest(
-            $"/web/index.php/api/v2/recruitment/candidates/{candidateId}/history",
+        var request = new RestRequest($"/web/index.php/api/v2/recruitment/candidates/{candidateId}/history",
             Method.Get);
 
         if (limit.HasValue)

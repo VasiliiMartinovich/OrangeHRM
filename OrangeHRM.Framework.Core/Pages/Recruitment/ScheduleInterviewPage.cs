@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Framework.Core.Drivers;
 using SeleniumExtras.PageObjects;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;

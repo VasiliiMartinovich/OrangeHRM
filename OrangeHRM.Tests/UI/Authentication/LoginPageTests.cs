@@ -30,9 +30,7 @@ public class LoginPageTests : UiTestBase
 
         AllureApi.Step("Verify login page is displayed", () =>
         {
-            Assert.That(
-                loginPage.IsDisplayed(),
-                Is.True,
+            Assert.That(loginPage.IsDisplayed(), Is.True,
                 "Login page should be displayed.");
         });
 
@@ -65,9 +63,7 @@ public class LoginPageTests : UiTestBase
 
         AllureApi.Step("Verify Dashboard is displayed", () =>
         {
-            Assert.That(
-                dashboardPage.IsDisplayed(),
-                Is.True,
+            Assert.That(dashboardPage.IsDisplayed(), Is.True,
                 "Dashboard should be displayed after successful login.");
         });
 
@@ -102,9 +98,7 @@ public class LoginPageTests : UiTestBase
 
         AllureApi.Step("Verify login error message is displayed", () =>
         {
-            Assert.That(
-                loginPage.IsErrorMessageDisplayed(),
-                Is.True,
+            Assert.That(loginPage.IsErrorMessageDisplayed(), Is.True,
                 "An error message should be displayed for invalid credentials.");
         });
 
@@ -118,9 +112,7 @@ public class LoginPageTests : UiTestBase
 
         AllureApi.Step("Verify login error message text", () =>
         {
-            Assert.That(
-                actualErrorMessage,
-                Is.EqualTo("Invalid credentials"),
+            Assert.That(actualErrorMessage, Is.EqualTo("Invalid credentials"),
                 "The error message should indicate invalid credentials.");
         });
 
@@ -141,27 +133,21 @@ public class LoginPageTests : UiTestBase
 
         AllureApi.Step("Verify application URL", () =>
         {
-            Assert.That(
-                TestSettings.BaseUrl,
-                Is.EqualTo("https://opensource-demo.orangehrmlive.com/"));
+            Assert.That(TestSettings.BaseUrl, Is.EqualTo("https://opensource-demo.orangehrmlive.com/"));
         });
 
         Log.Info("Checking the configured browser.");
 
         AllureApi.Step("Verify configured browser", () =>
         {
-            Assert.That(
-                TestSettings.Browser,
-                Is.EqualTo("Chrome"));
+            Assert.That(TestSettings.Browser, Is.EqualTo("Chrome"));
         });
 
         Log.Info("Checking the configured timeout.");
 
         AllureApi.Step("Verify configured timeout", () =>
         {
-            Assert.That(
-                TestSettings.TimeoutSeconds,
-                Is.EqualTo(10));
+            Assert.That(TestSettings.TimeoutSeconds, Is.EqualTo(10));
         });
 
         Log.Info("Test passed: application configuration values are correct.");

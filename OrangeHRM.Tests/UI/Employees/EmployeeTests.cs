@@ -60,9 +60,7 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify Employee Information page is displayed", () =>
         {
-            Assert.That(
-                employeePage.IsDisplayed(),
-                Is.True,
+            Assert.That(employeePage.IsDisplayed(), Is.True,
                 "Employee Information should be displayed.");
         });
 
@@ -107,9 +105,7 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify search returned at least one employee", () =>
         {
-            Assert.That(
-                count,
-                Is.GreaterThan(0),
+            Assert.That(count, Is.GreaterThan(0),
                 "At least one employee should be displayed after searching.");
         });
 
@@ -156,9 +152,7 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify no employees were returned", () =>
         {
-            Assert.That(
-                count,
-                Is.EqualTo(0),
+            Assert.That(count, Is.EqualTo(0),
                 "No employees should be displayed for a non-existing name.");
         });
 
@@ -211,9 +205,7 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify search returned at least one employee", () =>
         {
-            Assert.That(
-                searchCount,
-                Is.GreaterThan(0),
+            Assert.That(searchCount, Is.GreaterThan(0),
                 "Search should return at least one employee.");
         });
 
@@ -231,9 +223,7 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify reset restores the initial employee count", () =>
         {
-            Assert.That(
-                resetCount,
-                Is.EqualTo(initialCount),
+            Assert.That(resetCount, Is.EqualTo(initialCount),
                 "Reset should restore the initial employee list.");
         });
 
@@ -299,9 +289,7 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify Personal Details page is displayed", () =>
         {
-            Assert.That(
-                personalDetailsPage.IsDisplayed(),
-                Is.True,
+            Assert.That(personalDetailsPage.IsDisplayed(), Is.True,
                 "Personal Details page should be displayed after saving.");
         });
 
@@ -319,14 +307,10 @@ public class EmployeeTests : UiTestBase
 
         AllureApi.Step("Verify saved employee name fields", () =>
         {
-            Assert.That(
-                actualFirstName,
-                Is.EqualTo(firstName),
+            Assert.That(actualFirstName, Is.EqualTo(firstName),
                 "First Name should match the value entered during employee creation.");
 
-            Assert.That(
-                actualLastName,
-                Is.EqualTo(lastName),
+            Assert.That(actualLastName, Is.EqualTo(lastName),
                 "Last Name should match the value entered during employee creation.");
         });
 
