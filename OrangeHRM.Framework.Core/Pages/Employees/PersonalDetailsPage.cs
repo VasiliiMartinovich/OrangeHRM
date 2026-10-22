@@ -1,21 +1,16 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Employees;
 
 public class PersonalDetailsPage : LoadablePage
 {
     private static readonly By PersonalDetailsHeader = By.XPath("//h6[text()='Personal Details']");
-
-    [FindsBy(How = How.Name, Using = "firstName")]
-    private IWebElement _firstNameInput = null!;
-
-    [FindsBy(How = How.Name, Using = "lastName")]
-    private IWebElement _lastNameInput = null!;
-
+    private readonly TextBox _firstNameInput = new(By.Name("firstName"));
+    private readonly TextBox _lastNameInput = new(By.Name("lastName"));
+   
     public PersonalDetailsPage() : base(PersonalDetailsHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
 
     public bool IsDisplayed()
@@ -25,12 +20,12 @@ public class PersonalDetailsPage : LoadablePage
 
     public string GetFirstName()
     {
-        return _firstNameInput.GetAttribute("value") ?? string.Empty;
+        return _firstNameInput.GetValue();
     }
 
     public string GetLastName()
     {
-        return _lastNameInput.GetAttribute("value") ?? string.Empty;
+        return _lastNameInput.GetValue();
     }
 
     public string WaitForFirstName()

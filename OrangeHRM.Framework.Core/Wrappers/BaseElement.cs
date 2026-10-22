@@ -8,8 +8,7 @@ public class BaseElement
 {
     protected IWebDriver Driver => DriverManager.Driver;
 
-    protected WebDriverWait Wait => new WebDriverWait(Driver,
-            TimeSpan.FromSeconds(DriverManager.TimeoutSeconds));
+    protected WebDriverWait Wait => new WebDriverWait(Driver, TimeSpan.FromSeconds(DriverManager.TimeoutSeconds));
 
     protected By Locator { get; }
 
@@ -22,18 +21,31 @@ public class BaseElement
     {
         Wait.Until(driver =>
         {
-            var elements = driver.FindElements(Locator);
-
-            foreach (var element in elements)
+            try
             {
-                if (element.Displayed && element.Enabled)
+                var elements = driver.FindElements(Locator);
+
+                foreach (var element in elements)
                 {
+                    if (!element.Displayed || !element.Enabled)
+                    {
+                        continue;
+                    }
+
                     element.Click();
                     return true;
                 }
-            }
 
-            return false;
+                return false;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return false;
+            }
+            catch (ElementClickInterceptedException)
+            {
+                return false;
+            }
         });
     }
 
@@ -41,19 +53,29 @@ public class BaseElement
     {
         Wait.Until(driver =>
         {
-            var elements = driver.FindElements(Locator);
-
-            foreach (var element in elements)
+            try
             {
-                if (element.Displayed && element.Enabled)
+                var elements = driver.FindElements(Locator);
+
+                foreach (var element in elements)
                 {
+                    if (!element.Displayed || !element.Enabled)
+                    {
+                        continue;
+                    }
+
                     element.Clear();
                     element.SendKeys(value);
+
                     return true;
                 }
-            }
 
-            return false;
+                return false;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return false;
+            }
         });
     }
 
@@ -61,17 +83,24 @@ public class BaseElement
     {
         return Wait.Until(driver =>
         {
-            var elements = driver.FindElements(Locator);
-
-            foreach (var element in elements)
+            try
             {
-                if (element.Displayed)
-                {
-                    return element.Text;
-                }
-            }
+                var elements = driver.FindElements(Locator);
 
-            return null;
+                foreach (var element in elements)
+                {
+                    if (element.Displayed)
+                    {
+                        return element.Text;
+                    }
+                }
+
+                return null;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return null;
+            }
         })!;
     }
 

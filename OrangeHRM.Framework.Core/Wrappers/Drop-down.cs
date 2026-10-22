@@ -14,9 +14,28 @@ public class Dropdown : BaseElement
 
         var optionLocator = By.XPath(
             $"//*[contains(@class,'oxd-select-option') " +
-            $"and normalize-space()='{optionText}']");
+            $"and normalize-space()={ToXPathLiteral(optionText)}]");
 
         var option = new BaseElement(optionLocator);
         option.Click();
+    }
+
+    private static string ToXPathLiteral(string value)
+    {
+        if (!value.Contains('\''))
+        {
+            return $"'{value}'";
+        }
+
+        if (!value.Contains('"'))
+        {
+            return $"\"{value}\"";
+        }
+
+        var parts = value.Split('\'');
+
+        return "concat('" +
+               string.Join("', \"'\", '", parts) +
+               "')";
     }
 }

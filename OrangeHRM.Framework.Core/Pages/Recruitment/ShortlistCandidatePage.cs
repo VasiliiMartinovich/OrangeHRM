@@ -1,20 +1,20 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class ShortlistCandidatePage : LoadablePage
 {
-    private static readonly By ShortlistCandidateHeader = By.XPath("//h6[text()='Shortlist Candidate']");
-    
-    [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
-    private IWebElement _saveButton = null!;
-    
+    private static readonly By ShortlistCandidateHeader =
+        By.XPath("//h6[text()='Shortlist Candidate']");
+
+    private readonly Button _saveButton =
+        new(By.CssSelector("button[type='submit']"));
+
     public ShortlistCandidatePage() : base(ShortlistCandidateHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
-    
+
     public bool IsDisplayed()
     {
         return FindVisibleElement(ShortlistCandidateHeader).Displayed;
@@ -23,6 +23,7 @@ public class ShortlistCandidatePage : LoadablePage
     public CandidateDetailsPage SaveButtonClick()
     {
         _saveButton.Click();
+
         return new CandidateDetailsPage();
     }
 }

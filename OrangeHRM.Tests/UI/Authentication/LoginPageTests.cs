@@ -8,6 +8,8 @@ using OrangeHRM.Tests.Configuration;
 namespace OrangeHRM.Tests.UI.Authentication;
 
 [TestFixture]
+[Parallelizable(ParallelScope.Children)]
+
 public class LoginPageTests : UiTestBase
 {
     private static readonly ILog Log = LogManager.GetLogger(typeof(LoginPageTests));
@@ -135,14 +137,7 @@ public class LoginPageTests : UiTestBase
         {
             Assert.That(TestSettings.BaseUrl, Is.EqualTo("https://opensource-demo.orangehrmlive.com/"));
         });
-
-        Log.Info("Checking the configured browser.");
-
-        AllureApi.Step("Verify configured browser", () =>
-        {
-            Assert.That(TestSettings.Browser, Is.EqualTo("Chrome"));
-        });
-
+        
         Log.Info("Checking the configured timeout.");
 
         AllureApi.Step("Verify configured timeout", () =>

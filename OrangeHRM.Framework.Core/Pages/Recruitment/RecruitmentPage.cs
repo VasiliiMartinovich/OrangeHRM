@@ -1,21 +1,21 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class RecruitmentPage : LoadablePage
 {
-    private static readonly By RecruitmentHeader = By.XPath("//h6[text()='Recruitment']");
+    private static readonly By RecruitmentHeader =
+        By.XPath("//h6[text()='Recruitment']");
 
-    [FindsBy(How = How.XPath, Using = "//a[text()='Candidates']")]
-    private IWebElement _candidatesTab = null!;
+    private readonly Button _candidatesTab =
+        new(By.XPath("//a[text()='Candidates']"));
 
-    [FindsBy(How = How.XPath, Using = "//a[text()='Vacancies']")]
-    private IWebElement _vacanciesTab = null!;
+    private readonly Button _vacanciesTab =
+        new(By.XPath("//a[text()='Vacancies']"));
 
     public RecruitmentPage() : base(RecruitmentHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
 
     public bool IsDisplayed()
@@ -25,7 +25,9 @@ public class RecruitmentPage : LoadablePage
 
     public CandidatesPage OpenCandidates()
     {
-        Wait.Until(driver => _candidatesTab.Displayed && _candidatesTab.Enabled);
+        Wait.Until(driver =>
+            _candidatesTab.IsDisplayed() &&
+            _candidatesTab.IsEnabled());
 
         _candidatesTab.Click();
 
@@ -34,7 +36,9 @@ public class RecruitmentPage : LoadablePage
 
     public VacanciesPage OpenVacancies()
     {
-        Wait.Until(driver => _vacanciesTab.Displayed && _vacanciesTab.Enabled);
+        Wait.Until(driver =>
+            _vacanciesTab.IsDisplayed() &&
+            _vacanciesTab.IsEnabled());
 
         _vacanciesTab.Click();
 

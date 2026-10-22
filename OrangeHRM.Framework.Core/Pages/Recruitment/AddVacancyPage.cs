@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
@@ -9,59 +9,47 @@ public class AddVacancyPage : LoadablePage
     private static readonly By EditVacancyHeader = By.XPath("//h6[normalize-space()='Edit Vacancy']");
     private static readonly By ValidationErrors = By.CssSelector(".oxd-input-field-error-message");
     private static readonly By Alert = By.CssSelector(".oxd-alert-content-text");
+    private readonly TextBox _vacancyNameInput = new(By.XPath("//label[normalize-space()='Vacancy Name']" +
+                                                              "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Vacancy Name']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _vacancyNameInput = null!;
+    private readonly Dropdown _jobTitleDropdown = new(By.XPath("//label[normalize-space()='Job Title']" +
+                                                               "/ancestor::div[contains(@class,'oxd-input-group')]" +
+                                                               "//div[contains(@class,'oxd-select-text')]"));
 
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Job Title']/ancestor::div[contains(@class,'oxd-input-group')]//div[contains(@class,'oxd-select-text')]")]
-    private IWebElement _jobTitleDropdown = null!;
+    private readonly TextBox _hiringManagerInput = new(By.XPath("//label[normalize-space()='Hiring Manager']" +
+                                                                "/ancestor::div[contains(@class,'oxd-input-group')]" +
+                                                                "//input[@placeholder='Type for hints...']"));
 
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Hiring Manager']/ancestor::div[contains(@class,'oxd-input-group')]//input[@placeholder='Type for hints...']")]
-    private IWebElement _hiringManagerInput = null!;
-
-    [FindsBy(How = How.CssSelector, Using = "[type='submit']")]
-    private IWebElement _saveButton = null!;
+    private readonly Button _saveButton = new(By.CssSelector("[type='submit']"));
 
     public AddVacancyPage() : base(AddVacancyHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
 
     public void EnterVacancyName(string vacancyName)
     {
         _vacancyNameInput.Clear();
-        _vacancyNameInput.SendKeys(vacancyName);
+        _vacancyNameInput.SetValue(vacancyName);
     }
-
+   
     public void SelectJobTitle(string jobTitle)
     {
-        _jobTitleDropdown.Click();
-
-        var option = By.XPath(
-            "//div[contains(@class,'oxd-select-option')]" +
-            $"[normalize-space()={ToXPathLiteral(jobTitle)}]");
-
-        Wait.Until(driver => driver.FindElements(option).Any(element => element.Displayed));
-        Click(option);
+        _jobTitleDropdown.SelectOption(jobTitle);
     }
 
     public void SelectHiringManager(string managerName)
     {
         _hiringManagerInput.Clear();
-        _hiringManagerInput.SendKeys(managerName);
+        _hiringManagerInput.SetValue(managerName);
 
         var managerOption = By.XPath(
             "//div[contains(@class,'oxd-autocomplete-option') and " +
             $"normalize-space()={ToXPathLiteral(managerName)}]");
 
         Wait.Until(driver =>
-            driver.FindElements(managerOption).Any(element => element.Displayed)); Click(managerOption);
+            driver.FindElements(managerOption).Any(element => element.Displayed));
+
+        Click(managerOption);
     }
 
     public void Save()
@@ -69,14 +57,11 @@ public class AddVacancyPage : LoadablePage
         _saveButton.Click();
 
         Wait.Until(driver =>
-            driver.FindElements(EditVacancyHeader)
-                .Any(element => element.Displayed)
+            driver.FindElements(EditVacancyHeader).Any(element => element.Displayed)
             ||
-            driver.FindElements(ValidationErrors)
-                .Any(element => element.Displayed)
+            driver.FindElements(ValidationErrors).Any(element => element.Displayed)
             ||
-            driver.FindElements(Alert)
-                .Any(element => element.Displayed));
+            driver.FindElements(Alert).Any(element => element.Displayed));
     }
 
     private static string ToXPathLiteral(string value)
@@ -94,7 +79,6 @@ public class AddVacancyPage : LoadablePage
         var parts = value.Split('\'');
 
         return "concat('" +
-               string.Join("', \"'\", '", parts) +
-               "')";
+               string.Join("', \"'\", '", parts) + "')";
     }
 }

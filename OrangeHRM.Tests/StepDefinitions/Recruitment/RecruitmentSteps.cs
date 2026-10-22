@@ -27,8 +27,7 @@ public class RecruitmentSteps
     [Given("a vacancy is available for hiring")]
     public void GivenAVacancyIsAvailableForHiring()
     {
-        _vacancyName = new TestDataSetup()
-            .CreateVacancyForHiringManager();
+        _vacancyName = new TestDataSetup().CreateVacancyForHiringManager();
     }
 
     [When("I create a candidate with a CV and apply for the vacancy")]
@@ -175,7 +174,6 @@ public class RecruitmentSteps
                 "Success notification was not displayed.");
 
             Assert.That(_candidatesPage.GetSuccessToastTitle(), Is.EqualTo("Success"));
-
             Assert.That(_candidatesPage.GetSuccessToastMessage(), Is.EqualTo("Successfully Deleted"));
         });
     }

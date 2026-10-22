@@ -9,6 +9,7 @@ using OrangeHRM.Tests.Helpers;
 namespace OrangeHRM.Tests.API;
 
 [TestFixture]
+[Parallelizable(ParallelScope.Children)]
 public class CandidatesApiTests : BaseApiTest
 {
     private static void RunStep(string name, Action action)

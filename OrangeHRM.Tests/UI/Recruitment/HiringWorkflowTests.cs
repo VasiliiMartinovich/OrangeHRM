@@ -22,8 +22,7 @@ public class RecruitmentWorkflowTests : UiTestBase
     private const string JobTitle = "Account Assistant";
     private const string CvFileName = "candidate-cv.pdf";
 
-    private static readonly ILog Log =
-        LogManager.GetLogger(typeof(RecruitmentWorkflowTests));
+    private static readonly ILog Log = LogManager.GetLogger(typeof(RecruitmentWorkflowTests));
 
     private static void RunStep(string name, Action action)
     {

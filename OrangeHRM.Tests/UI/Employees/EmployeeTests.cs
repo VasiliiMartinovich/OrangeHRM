@@ -10,6 +10,7 @@ using OrangeHRM.Tests.Configuration;
 namespace OrangeHRM.Tests.UI.Employees;
 
 [TestFixture]
+[Parallelizable(ParallelScope.Children)]
 public class EmployeeTests : UiTestBase
 {
     private static readonly ILog Log = LogManager.GetLogger(typeof(EmployeeTests));
@@ -160,6 +161,7 @@ public class EmployeeTests : UiTestBase
     }
 
     [Test]
+    [NonParallelizable]
     [AllureName("Employees - reset search filters")]
     [AllureTag("UI", "Employees")]
     [AllureSeverity(SeverityLevel.normal)]
@@ -267,7 +269,7 @@ public class EmployeeTests : UiTestBase
         var firstName = "Test" + DateTime.Now.ToString("HHmmss");
         const string middleName = "Ivanovich";
         const string lastName = "Employee";
-        var employeeId = DateTime.Now.ToString("HHmmssfff");
+        var employeeId = DateTime.Now.ToString("HHmmss");
 
         Log.Info(
             $"Creating employee with first name: {firstName}, last name: {lastName}.");

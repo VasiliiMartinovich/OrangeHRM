@@ -14,7 +14,7 @@ public class TestDataSetup
         var firstName = $"Manager{uniqueId}";
         var middleName = "Test";
         var lastName = $"Employee{uniqueId}";
-        var employeeId = DateTime.Now.ToString("HHmmssfff");
+        var employeeId = DateTime.Now.ToString("HHmmss");
 
         var dashboardPage = new DashboardPage();
         dashboardPage.SidePanel.OpenPim();

@@ -15,9 +15,7 @@ public class BasePage
 
     protected BasePage()
     {
-        Wait = new WebDriverWait(
-            Driver,
-            TimeSpan.FromSeconds(DriverManager.TimeoutSeconds));
+        Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(DriverManager.TimeoutSeconds));
 
         Log.Debug(
             $"Page object initialized: {GetType().Name}. " +
@@ -114,8 +112,7 @@ public class BasePage
 
     protected void TypeText(By locator, string text)
     {
-        Log.Debug(
-            $"{GetType().Name}: waiting to type into element. Locator: {locator}.");
+        Log.Debug($"{GetType().Name}: waiting to type into element. Locator: {locator}.");
 
         try
         {

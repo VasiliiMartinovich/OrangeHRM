@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
@@ -8,44 +8,19 @@ public class CandidateDetailsPage : LoadablePage
     private static readonly By CandidateDetailsHeader = By.XPath("//h6[text()='Candidate Profile']");
     private static readonly By ResumeFile = By.CssSelector("p.orangehrm-file-name[title='candidate-cv.pdf']");
     private static readonly By CandidateStatus = By.CssSelector(".orangehrm-recruitment-status p");
-
-    [FindsBy(How = How.CssSelector, Using = "input[name='firstName']")]
-    private IWebElement _firstName = null!;
-
-    [FindsBy(How = How.CssSelector, Using = "input[name='middleName']")]
-    private IWebElement _middleName = null!;
-
-    [FindsBy(How = How.CssSelector, Using = "input[name='lastName']")]
-    private IWebElement _lastName = null!;
-
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Email']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _email = null!;
-
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Job Vacancy']/ancestor::div[contains(@class,'oxd-input-group')]//div[contains(@class,'oxd-select-text-input')]")]
-    private IWebElement _jobVacancy = null!;
-    
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Shortlist']")]
-    private IWebElement _shortlistButton = null!;
-    
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Schedule Interview']")]
-    private IWebElement _scheduleInterviewButton = null!;
-    
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Mark Interview Passed']")]
-    private IWebElement _markInterviewPassedButton = null!;
-    
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Offer Job']")]
-    private IWebElement _offerJobButton = null!;
-    
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Hire']")]
-    private IWebElement _hireButton = null!;
+    private readonly TextBox _firstName = new(By.CssSelector("input[name='firstName']"));
+    private readonly TextBox _middleName = new(By.CssSelector("input[name='middleName']"));
+    private readonly TextBox _lastName = new(By.CssSelector("input[name='lastName']"));
+    private readonly TextBox _email = new(By.XPath("//label[normalize-space()='Email']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
+    private readonly Label _jobVacancy = new(By.XPath("//label[normalize-space()='Job Vacancy']/ancestor::div[contains(@class,'oxd-input-group')]//div[contains(@class,'oxd-select-text-input')]"));
+    private readonly Button _shortlistButton = new(By.XPath("//button[normalize-space()='Shortlist']"));
+    private readonly Button _scheduleInterviewButton = new(By.XPath("//button[normalize-space()='Schedule Interview']"));
+    private readonly Button _markInterviewPassedButton = new(By.XPath("//button[normalize-space()='Mark Interview Passed']"));
+    private readonly Button _offerJobButton = new(By.XPath("//button[normalize-space()='Offer Job']"));
+    private readonly Button _hireButton = new(By.XPath("//button[normalize-space()='Hire']"));
 
     public CandidateDetailsPage() : base(CandidateDetailsHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
 
     public bool IsDisplayed()
@@ -55,27 +30,27 @@ public class CandidateDetailsPage : LoadablePage
 
     public string GetFirstName()
     {
-        return _firstName.GetAttribute("value") ?? string.Empty;
+        return _firstName.GetValue();
     }
 
     public string GetMiddleName()
     {
-        return _middleName.GetAttribute("value") ?? string.Empty;
+        return _middleName.GetValue();
     }
 
     public string GetLastName()
     {
-        return _lastName.GetAttribute("value") ?? string.Empty;
+        return _lastName.GetValue();
     }
 
     public string GetEmail()
     {
-        return _email.GetAttribute("value") ?? string.Empty;
+        return _email.GetValue();
     }
 
     public string GetJobVacancy()
     {
-        return _jobVacancy.Text.Trim();
+        return _jobVacancy.GetText().Trim();
     }
 
     public bool IsResumeDisplayed(string fileName)

@@ -1,34 +1,36 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class OfferJobPage : LoadablePage
 {
-    private static readonly By OfferJobHeader = By.XPath("//h6[text()='Offer Job']");
+    private static readonly By OfferJobHeader =
+        By.XPath("//h6[text()='Offer Job']");
 
-    [FindsBy(How = How.XPath,
-        Using = "//label[normalize-space()='Candidate']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _candidate = null!;
+    private readonly TextBox _candidate = new(
+        By.XPath("//label[normalize-space()='Candidate']" +
+                 "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
-    [FindsBy(How = How.XPath,
-        Using = "//label[normalize-space()='Vacancy']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _vacancy = null!;
+    private readonly TextBox _vacancy = new(
+        By.XPath("//label[normalize-space()='Vacancy']" +
+                 "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
-    [FindsBy(How = How.XPath,
-        Using = "//label[normalize-space()='Hiring Manager']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _hiringManager = null!;
+    private readonly TextBox _hiringManager = new(
+        By.XPath("//label[normalize-space()='Hiring Manager']" +
+                 "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
-    [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
-    private IWebElement _saveButton = null!;
+    private readonly Button _saveButton =
+        new(By.CssSelector("button[type='submit']"));
 
     public OfferJobPage() : base(OfferJobHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
+
     public CandidateDetailsPage SaveButtonClick()
     {
         _saveButton.Click();
+
         return new CandidateDetailsPage();
     }
 }

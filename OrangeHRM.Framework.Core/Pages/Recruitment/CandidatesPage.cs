@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
@@ -7,31 +7,22 @@ public class CandidatesPage : LoadablePage
 {
     private static readonly By CandidatesHeader = By.XPath("//h5[normalize-space()='Candidates']");
     private static readonly By TableHeader = By.CssSelector(".oxd-table-header");
-
-    private static readonly By CandidateNameFilter =
-        By.XPath(
-            "//label[normalize-space()='Candidate Name']" +
-            "/ancestor::div[contains(@class,'oxd-input-group')]//input");
-
     private static readonly By SuccessToast = By.CssSelector(".oxd-toast--success");
     private static readonly By SuccessToastTitle = By.CssSelector(".oxd-toast-content--success .oxd-text--toast-title");
     private static readonly By SuccessToastMessage = By.CssSelector(".oxd-toast-content--success .oxd-text--toast-message");
     private static readonly By ConfirmDeleteButton = By.XPath("//button[normalize-space()='Yes, Delete']");
-
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Add']")]
-    private IWebElement _addButton = null!;
-
-    [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Search']")]
-    private IWebElement _searchButton = null!;
+    private readonly Button _addButton = new(By.XPath("//button[normalize-space()='Add']"));
+    private readonly Button _searchButton = new(By.XPath("//button[normalize-space()='Search']"));
+    private readonly TextBox _candidateNameFilter = new(By.XPath("//label[normalize-space()='Candidate Name']" +
+                                                                 "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
     public CandidatesPage() : base(CandidatesHeader)
     {
-        PageFactory.InitElements(Driver, this);
     }
 
     public AddCandidatePage ClickAdd()
     {
-        Wait.Until(driver => _addButton.Displayed && _addButton.Enabled);
+        Wait.Until(driver => _addButton.IsDisplayed() && _addButton.IsEnabled());
 
         _addButton.Click();
 
@@ -48,8 +39,7 @@ public class CandidatesPage : LoadablePage
 
     public bool IsCandidateDisplayed(string candidateName)
     {
-        return Driver.FindElements(CandidateRow(candidateName))
-            .Any(element => element.Displayed);
+        return Driver.FindElements(CandidateRow(candidateName)).Any(element => element.Displayed);
     }
 
     public bool IsSuccessToastDisplayed()
@@ -69,13 +59,13 @@ public class CandidatesPage : LoadablePage
 
     public void SearchCandidate(string candidateName)
     {
-        var searchInput = FindVisibleElement(CandidateNameFilter);
+        _candidateNameFilter.Clear();
+        _candidateNameFilter.SetValue(candidateName);
 
-        searchInput.Clear();
-        searchInput.SendKeys(candidateName);
+        Wait.Until(driver => _searchButton.IsDisplayed() && _searchButton.IsEnabled());
 
-        Wait.Until(driver => _searchButton.Displayed && _searchButton.Enabled);
         _searchButton.Click();
+
         Wait.Until(driver => driver.FindElements(TableHeader).Any(element => element.Displayed));
     }
 

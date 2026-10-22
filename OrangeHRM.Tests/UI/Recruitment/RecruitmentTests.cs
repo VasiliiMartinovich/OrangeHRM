@@ -12,6 +12,7 @@ using OrangeHRM.Tests.TestData;
 namespace OrangeHRM.Tests.UI.Recruitment;
 
 [TestFixture]
+[Parallelizable(ParallelScope.Children)]
 public class RecruitmentTests : UiTestBase
 {
     private static readonly ILog Log = LogManager.GetLogger(typeof(RecruitmentTests));
@@ -222,8 +223,7 @@ public class RecruitmentTests : UiTestBase
         var email = candidateData.Email;
         var cvFileName = candidateData.CvFileName;
 
-        Log.Info(
-            $"Preparing candidate data. First name: {firstName}, last name: {lastName}.");
+        Log.Info($"Preparing candidate data. First name: {firstName}, last name: {lastName}.");
 
         var cvFilePath = AllureApi.Step(
             "Resolve CV file path",

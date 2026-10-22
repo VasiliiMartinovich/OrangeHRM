@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
@@ -7,32 +7,28 @@ public class EditVacancyPage : LoadablePage
 {
     private static readonly By EditVacancyHeader = By.XPath("//h6[normalize-space()='Edit Vacancy']");
 
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Vacancy Name']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _vacancyNameInput = null!;
+    private readonly TextBox _vacancyNameInput = new(
+        By.XPath("//label[normalize-space()='Vacancy Name']" +
+                 "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Job Title']/ancestor::div[contains(@class,'oxd-input-group')]//div[contains(@class,'oxd-select-text-input')]")]
-    private IWebElement _jobTitleDropdown = null!;
+    private readonly Label _jobTitleDropdown = new(
+        By.XPath("//label[normalize-space()='Job Title']" +
+                 "/ancestor::div[contains(@class,'oxd-input-group')]" +
+                 "//div[contains(@class,'oxd-select-text-input')]"));
 
-    [FindsBy(
-        How = How.XPath,
-        Using = "//label[normalize-space()='Hiring Manager']/ancestor::div[contains(@class,'oxd-input-group')]//input")]
-    private IWebElement _hiringManagerInput = null!;
+    private readonly TextBox _hiringManagerInput = new(
+        By.XPath("//label[normalize-space()='Hiring Manager']" +
+                 "/ancestor::div[contains(@class,'oxd-input-group')]//input"));
 
     public EditVacancyPage() : base(EditVacancyHeader)
     {
-        PageFactory.InitElements(Driver, this);
-
         Wait.Until(driver =>
-            _vacancyNameInput.Displayed
+            _vacancyNameInput.IsDisplayed()
             && !string.IsNullOrWhiteSpace(
                 _vacancyNameInput.GetAttribute("value"))
-            && _jobTitleDropdown.Displayed
-            && _jobTitleDropdown.Text.Trim() != "-- Select --"
-            && _hiringManagerInput.Displayed
+            && _jobTitleDropdown.IsDisplayed()
+            && _jobTitleDropdown.GetText().Trim() != "-- Select --"
+            && _hiringManagerInput.IsDisplayed()
             && !string.IsNullOrWhiteSpace(
                 _hiringManagerInput.GetAttribute("value")));
     }
@@ -44,7 +40,7 @@ public class EditVacancyPage : LoadablePage
 
     public string GetJobTitle()
     {
-        return _jobTitleDropdown.Text.Trim();
+        return _jobTitleDropdown.GetText().Trim();
     }
 
     public string GetHiringManager()

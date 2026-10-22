@@ -1,40 +1,29 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Authentication;
 
 public class LoginPage : LoadablePage
 {
     private static readonly By UsernameLocator = By.Name("username");
-
-    [FindsBy(How = How.Name, Using = "username")]
-    private IWebElement _usernameField = null!;
-
-    [FindsBy(How = How.Name, Using = "password")]
-    private IWebElement _passwordField = null!;
-
-    [FindsBy(How = How.CssSelector, Using = "button[type='submit']")]
-    private IWebElement _loginButton = null!;
-
-    [FindsBy(How = How.CssSelector, Using = ".oxd-alert-content")]
-    private IWebElement _errorMessage = null!;
+    private readonly TextBox _usernameField = new(By.Name("username"));
+    private readonly TextBox _passwordField = new(By.Name("password"));
+    private readonly Button _loginButton = new(By.CssSelector("button[type='submit']"));
+    private readonly Label _errorMessage = new(By.CssSelector(".oxd-alert-content"));
 
     public LoginPage() : base(UsernameLocator)
     {
-        PageFactory.InitElements(Driver, this);
     }
 
     public LoginPage EnterUsername(string username)
     {
-        _usernameField.Clear();
-        _usernameField.SendKeys(username);
+        _usernameField.SetValue(username);
         return this;
     }
 
     public LoginPage EnterPassword(string password)
     {
-        _passwordField.Clear();
-        _passwordField.SendKeys(password);
+        _passwordField.SetValue(password);
         return this;
     }
 
@@ -46,7 +35,9 @@ public class LoginPage : LoadablePage
 
     public bool IsDisplayed()
     {
-        return Wait.Until(driver => _usernameField.Displayed && _passwordField.Displayed);
+        return Wait.Until(driver =>
+            _usernameField.IsDisplayed() &&
+            _passwordField.IsDisplayed());
     }
 
     public DashboardPage Login(string username, string password)
@@ -60,13 +51,11 @@ public class LoginPage : LoadablePage
 
     public bool IsErrorMessageDisplayed()
     {
-        return Wait.Until(driver =>
-            driver.FindElements(By.CssSelector(".oxd-alert-content")).Any(element => element.Displayed));
+        return Wait.Until(driver => _errorMessage.IsDisplayed());
     }
 
     public string GetErrorMessage()
     {
-        return Wait.Until(driver =>
-            driver.FindElements(By.CssSelector(".oxd-alert-content")).FirstOrDefault(element => element.Displayed)?.Text);
+        return _errorMessage.GetText();
     }
 }
