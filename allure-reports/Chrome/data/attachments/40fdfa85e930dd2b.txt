@@ -1,0 +1,64 @@
+2026-10-22 21:58:50.292 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Starting UI test setup.
+2026-10-22 21:59:06.635 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Browser opened and application URL loaded.
+2026-10-22 21:59:06.636 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - RecruitmentTests setup: logging in to OrangeHRM.
+2026-10-22 21:59:06.636 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-22 21:59:06.636 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-22 21:59:08.251 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-22 21:59:08.833 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-22 21:59:08.833 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:59:13.901 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:59:13.901 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - RecruitmentTests setup: login completed.
+2026-10-22 21:59:13.903 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Test started: CreateVacancy.
+2026-10-22 21:59:13.904 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Creating an employee to use as the hiring manager.
+2026-10-22 21:59:13.904 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-22 21:59:13.904 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:59:13.934 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:59:13.935 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: SidePanel. Timeout: 10 seconds.
+2026-10-22 21:59:20.399 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: EmployeePage. Timeout: 10 seconds.
+2026-10-22 21:59:20.399 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: waiting for visible element. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-22 21:59:21.044 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: visible element found. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-22 21:59:22.933 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: AddEmployeePage. Timeout: 10 seconds.
+2026-10-22 21:59:22.933 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddEmployeePage: waiting for visible element. Locator: By.XPath: //h6[text()='Add Employee'].
+2026-10-22 21:59:24.014 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddEmployeePage: visible element found. Locator: By.XPath: //h6[text()='Add Employee'].
+2026-10-22 21:59:30.736 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: PersonalDetailsPage. Timeout: 10 seconds.
+2026-10-22 21:59:30.736 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: waiting for visible element. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-22 21:59:30.773 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: visible element found. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-22 21:59:30.773 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: waiting for visible element. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-22 21:59:30.803 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: visible element found. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-22 21:59:30.821 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Hiring manager created: Manager20261022215913904 Test Employee20261022215913904.
+2026-10-22 21:59:30.821 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Preparing vacancy data. Vacancy name: QA Automation Vacancy 20261022215930821, job title: Software Engineer.
+2026-10-22 21:59:30.821 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Navigating to the OrangeHRM dashboard.
+2026-10-22 21:59:31.899 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-22 21:59:31.899 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:59:32.970 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:59:32.970 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Opening the Recruitment section.
+2026-10-22 21:59:32.970 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: SidePanel. Timeout: 10 seconds.
+2026-10-22 21:59:33.001 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Framework.Core.Pages.Components.SidePanel - Current URL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+2026-10-22 21:59:33.014 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Framework.Core.Pages.Components.SidePanel - Page title: OrangeHRM
+2026-10-22 21:59:33.120 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Framework.Core.Pages.Components.SidePanel - Page source contains Recruitment: True
+2026-10-22 21:59:33.121 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Framework.Core.Pages.Components.SidePanel - Recruitment elements found: 1
+2026-10-22 21:59:33.153 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Framework.Core.Pages.Components.SidePanel - Recruitment displayed: True, enabled: True
+2026-10-22 21:59:34.517 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: RecruitmentPage. Timeout: 10 seconds.
+2026-10-22 21:59:34.517 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - RecruitmentPage: waiting for visible element. Locator: By.XPath: //h6[text()='Recruitment'].
+2026-10-22 21:59:35.228 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - RecruitmentPage: visible element found. Locator: By.XPath: //h6[text()='Recruitment'].
+2026-10-22 21:59:35.228 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Opening the vacancies list.
+2026-10-22 21:59:36.745 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: VacanciesPage. Timeout: 10 seconds.
+2026-10-22 21:59:36.746 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - VacanciesPage: waiting for visible element. Locator: By.XPath: //h5[normalize-space()='Vacancies'].
+2026-10-22 21:59:37.333 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - VacanciesPage: visible element found. Locator: By.XPath: //h5[normalize-space()='Vacancies'].
+2026-10-22 21:59:37.333 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Opening the Add Vacancy form.
+2026-10-22 21:59:38.217 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: AddVacancyPage. Timeout: 10 seconds.
+2026-10-22 21:59:38.217 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddVacancyPage: waiting for visible element. Locator: By.XPath: //h6[text()='Add Vacancy'].
+2026-10-22 21:59:38.774 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddVacancyPage: visible element found. Locator: By.XPath: //h6[text()='Add Vacancy'].
+2026-10-22 21:59:38.774 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Entering vacancy name: QA Automation Vacancy 20261022215930821.
+2026-10-22 21:59:39.071 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Selecting job title: Software Engineer.
+2026-10-22 21:59:39.872 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Selecting hiring manager: Manager20261022215913904 Test Employee20261022215913904.
+2026-10-22 21:59:41.911 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddVacancyPage: waiting to click element. Locator: By.XPath: //div[contains(@class,'oxd-autocomplete-option') and normalize-space()='Manager20261022215913904 Test Employee20261022215913904'].
+2026-10-22 21:59:42.078 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddVacancyPage: click completed. Locator: By.XPath: //div[contains(@class,'oxd-autocomplete-option') and normalize-space()='Manager20261022215913904 Test Employee20261022215913904'].
+2026-10-22 21:59:42.078 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Saving the vacancy.
+2026-10-22 21:59:45.905 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: EditVacancyPage. Timeout: 10 seconds.
+2026-10-22 21:59:45.905 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EditVacancyPage: waiting for visible element. Locator: By.XPath: //h6[normalize-space()='Edit Vacancy'].
+2026-10-22 21:59:45.935 [NUnit.Fw.ParallelWorker#1] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EditVacancyPage: visible element found. Locator: By.XPath: //h6[normalize-space()='Edit Vacancy'].
+2026-10-22 21:59:46.187 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Verifying the saved vacancy details.
+2026-10-22 21:59:46.317 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - Test passed: vacancy was created and all details were verified.
+2026-10-22 21:59:46.318 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - UI test finished: CreateVacancy. Status: Passed
+2026-10-22 21:59:46.838 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Recruitment.RecruitmentTests - WebDriver closed for test: CreateVacancy

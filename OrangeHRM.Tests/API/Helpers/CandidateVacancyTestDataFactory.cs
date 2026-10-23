@@ -10,10 +10,12 @@ public class CandidateVacancyTestDataFactory
     private readonly EmployeesApiClient _employeesClient;
     private readonly VacanciesApiClient _vacanciesClient;
     private readonly CandidatesApiClient _candidatesClient;
-
+    private readonly JobTitlesApiClient _jobTitlesClient;
+    
     public int? EmployeeId { get; private set; }
     public int? VacancyId { get; private set; }
     public int? CandidateId { get; private set; }
+    public int? JobTitleId { get; private set; }
 
     public string? VacancyName { get; private set; }
 
@@ -22,11 +24,13 @@ public class CandidateVacancyTestDataFactory
     public CandidateVacancyTestDataFactory(
         EmployeesApiClient employeesClient,
         VacanciesApiClient vacanciesClient,
-        CandidatesApiClient candidatesClient)
+        CandidatesApiClient candidatesClient,
+        JobTitlesApiClient jobTitlesClient)
     {
         _employeesClient = employeesClient;
         _vacanciesClient = vacanciesClient;
         _candidatesClient = candidatesClient;
+        _jobTitlesClient = jobTitlesClient;
     }
 
     public int CreateEmployee()
@@ -54,7 +58,7 @@ public class CandidateVacancyTestDataFactory
         return EmployeeId.Value;
     }
 
-    public int CreateVacancy(int employeeId)
+    public int CreateVacancy(int employeeId, int jobTitleId)
     {
         VacancyName = $"ApiTest Vacancy {Guid.NewGuid().ToString("N")[..8]}";
 
@@ -62,7 +66,7 @@ public class CandidateVacancyTestDataFactory
         {
             Name = VacancyName,
             Status = true,
-            JobTitleId = 22,
+            JobTitleId = jobTitleId,
             IsPublished = true,
             Description = "Vacancy created by API automation test",
             NumOfPositions = 1,
@@ -119,5 +123,32 @@ public class CandidateVacancyTestDataFactory
         Console.WriteLine($"Created candidate ID: {CandidateId}");
 
         return result;
+    }
+    
+    public int CreateJobTitle()
+    {
+        var request = new CreateJobTitleRequest
+        {
+            Title = $"ApiTest Job {Guid.NewGuid().ToString("N")[..8]}",
+            Description = "Job title created by API automation test",
+            Note = "Created during automated testing"
+        };
+
+        var response = _jobTitlesClient.CreateJobTitle(request);
+
+        Assert.That(response.IsSuccessful, Is.True,
+            $"Job title creation failed. HTTP: {(int)response.StatusCode}. " +
+            $"Body: {response.Content}");
+
+        var result =
+            JsonSerializer.Deserialize<CreateJobTitleResponse>(response.Content!);
+
+        Assert.That(result?.Data, Is.Not.Null);
+
+        JobTitleId = result!.Data!.Id;
+
+        Console.WriteLine($"Created job title ID: {JobTitleId}");
+
+        return JobTitleId.Value;
     }
 }

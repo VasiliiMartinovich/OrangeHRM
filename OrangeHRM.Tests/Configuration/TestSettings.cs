@@ -36,4 +36,9 @@ public static class TestSettings
 
     public static int TimeoutSeconds =>
         Configuration.GetValue<int>("TimeoutSeconds");
+    
+    public static string AccessToken =>
+        Configuration["ORANGEHRM_ACCESS_TOKEN"]
+        ?? throw new InvalidOperationException(
+            "Environment variable ORANGEHRM_ACCESS_TOKEN is not set.");
 }

@@ -40,15 +40,10 @@ public class CandidatesApiTests : BaseApiTest
 
         Log.Info($"GET candidates returned HTTP {(int)response.StatusCode}.");
 
-        RunStep("Verify HTTP status code is 200", () =>
-        {
-            Assert.That((int)response.StatusCode, Is.EqualTo(200));
-        });
+        RunStep("Verify HTTP status code is 200", () => { Assert.That((int)response.StatusCode, Is.EqualTo(200)); });
 
-        RunStep("Verify response body is not empty", () =>
-        {
-            Assert.That(response.Content, Is.Not.Null.And.Not.Empty);
-        });
+        RunStep("Verify response body is not empty",
+            () => { Assert.That(response.Content, Is.Not.Null.And.Not.Empty); });
 
         var result = RunStep(
             "Deserialize candidates response",
@@ -64,8 +59,7 @@ public class CandidatesApiTests : BaseApiTest
             Assert.That(result.Rels, Is.Not.Null);
         });
 
-        Log.Info(
-            $"Test passed: candidates response structure is valid. Total: {result!.Meta!.Total}.");
+        Log.Info($"Test passed: candidates response structure is valid. Total: {result!.Meta!.Total}.");
     }
 
     [Test]
@@ -84,15 +78,10 @@ public class CandidatesApiTests : BaseApiTest
             "Send GET request to retrieve candidates",
             () => client.GetCandidates());
 
-        RunStep("Verify HTTP status code is 200", () =>
-        {
-            Assert.That((int)response.StatusCode, Is.EqualTo(200));
-        });
+        RunStep("Verify HTTP status code is 200", () => { Assert.That((int)response.StatusCode, Is.EqualTo(200)); });
 
-        RunStep("Verify response body is not empty", () =>
-        {
-            Assert.That(response.Content, Is.Not.Null.And.Not.Empty);
-        });
+        RunStep("Verify response body is not empty",
+            () => { Assert.That(response.Content, Is.Not.Null.And.Not.Empty); });
 
         var result = RunStep(
             "Deserialize candidates response",
@@ -134,8 +123,7 @@ public class CandidatesApiTests : BaseApiTest
             "Send GET request without authorization",
             () => client.GetCandidates());
 
-        Log.Info(
-            $"Unauthorized candidates request returned HTTP {(int)response.StatusCode}.");
+        Log.Info($"Unauthorized candidates request returned HTTP {(int)response.StatusCode}.");
 
         RunStep("Verify the API rejects the unauthorized request", () =>
         {
@@ -153,14 +141,11 @@ public class CandidatesApiTests : BaseApiTest
         string propertyName,
         bool allowNull = false)
     {
-        Assert.That(
-            candidate.TryGetProperty(propertyName, out var property),
-            Is.True,
+        Assert.That(candidate.TryGetProperty(propertyName, out var property), Is.True,
             $"Candidate should contain {propertyName}.");
 
         var isString = property.ValueKind == JsonValueKind.String;
-        var isAllowedNull = allowNull &&
-                            property.ValueKind == JsonValueKind.Null;
+        var isAllowedNull = allowNull && property.ValueKind == JsonValueKind.Null;
 
         Assert.That(
             isString || isAllowedNull,
@@ -191,9 +176,7 @@ public class CandidatesApiTests : BaseApiTest
 
         RunStep("Verify response Content-Type is not JSON", () =>
         {
-            Assert.That(
-                response.ContentType,
-                Does.Not.Contain("application/json"),
+            Assert.That(response.ContentType, Does.Not.Contain("application/json"),
                 "Unexpected JSON response for an invalid token.");
         });
 
@@ -289,8 +272,7 @@ public class CandidatesApiTests : BaseApiTest
 
                 Assert.That(
                     result.Data,
-                    Has.All.Matches<CandidateDto>(
-                        candidate => candidate.Id == candidateId.Value));
+                    Has.All.Matches<CandidateDto>(candidate => candidate.Id == candidateId.Value));
 
                 Assert.That(
                     result.Data.Any(candidate =>
@@ -484,10 +466,8 @@ public class CandidatesApiTests : BaseApiTest
         Log.Info(
             $"Create candidate without firstName returned HTTP {(int)response.StatusCode}.");
 
-        RunStep("Verify HTTP 422 validation response", () =>
-        {
-            Assert.That((int)response.StatusCode, Is.EqualTo(422));
-        });
+        RunStep("Verify HTTP 422 validation response",
+            () => { Assert.That((int)response.StatusCode, Is.EqualTo(422)); });
 
         var error = RunStep(
             "Deserialize firstName validation error",
@@ -531,10 +511,8 @@ public class CandidatesApiTests : BaseApiTest
         Log.Info(
             $"Create candidate without lastName returned HTTP {(int)response.StatusCode}.");
 
-        RunStep("Verify HTTP 422 validation response", () =>
-        {
-            Assert.That((int)response.StatusCode, Is.EqualTo(422));
-        });
+        RunStep("Verify HTTP 422 validation response",
+            () => { Assert.That((int)response.StatusCode, Is.EqualTo(422)); });
 
         var error = RunStep(
             "Deserialize lastName validation error",
@@ -580,10 +558,8 @@ public class CandidatesApiTests : BaseApiTest
         Log.Info(
             $"Create candidate without email returned HTTP {(int)response.StatusCode}.");
 
-        RunStep("Verify HTTP 422 validation response", () =>
-        {
-            Assert.That((int)response.StatusCode, Is.EqualTo(422));
-        });
+        RunStep("Verify HTTP 422 validation response",
+            () => { Assert.That((int)response.StatusCode, Is.EqualTo(422)); });
 
         var error = RunStep(
             "Deserialize email validation error",
@@ -802,14 +778,12 @@ public class CandidatesApiTests : BaseApiTest
 
                 Assert.That(
                     result.Data,
-                    Has.All.Matches<CandidateDto>(
-                        candidate => candidate.FirstName == uniqueName),
+                    Has.All.Matches<CandidateDto>(candidate => candidate.FirstName == uniqueName),
                     "Search returned candidates that do not match the requested name.");
 
                 Assert.That(
                     result.Data,
-                    Has.Some.Matches<CandidateDto>(
-                        candidate => candidate.Id == candidateId),
+                    Has.Some.Matches<CandidateDto>(candidate => candidate.Id == candidateId),
                     "The newly created candidate was not found.");
             });
 
@@ -930,10 +904,8 @@ public class CandidatesApiTests : BaseApiTest
         Log.Info(
             $"GET candidate after deletion returned HTTP {(int)getResponse.StatusCode}.");
 
-        RunStep("Verify lookup after deletion succeeds", () =>
-        {
-            Assert.That((int)getResponse.StatusCode, Is.EqualTo(200));
-        });
+        RunStep("Verify lookup after deletion succeeds",
+            () => { Assert.That((int)getResponse.StatusCode, Is.EqualTo(200)); });
 
         var candidatesAfterDeletion = RunStep(
             "Deserialize response after deletion",
@@ -1043,11 +1015,13 @@ public class CandidatesApiTests : BaseApiTest
         using var employeesClient = new EmployeesApiClient(AccessToken);
         using var vacanciesClient = new VacanciesApiClient(AccessToken);
         using var candidatesClient = new CandidatesApiClient(AccessToken);
+        using var jobTitlesClient = new JobTitlesApiClient(AccessToken);
 
         var factory = new CandidateVacancyTestDataFactory(
             employeesClient,
             vacanciesClient,
-            candidatesClient);
+            candidatesClient,
+            jobTitlesClient);
 
         try
         {
@@ -1057,9 +1031,13 @@ public class CandidatesApiTests : BaseApiTest
 
             Log.Info($"Test employee created. ID: {employeeId}.");
 
+            var jobTitleId = RunStep(
+                "Create job title for vacancy",
+                () => factory.CreateJobTitle());
+            
             var vacancyId = RunStep(
                 "Create vacancy for candidate history test",
-                () => factory.CreateVacancy(employeeId));
+                () => factory.CreateVacancy(employeeId, jobTitleId));
 
             Log.Info($"Test vacancy created. ID: {vacancyId}.");
 
@@ -1147,7 +1125,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
     [AllureDescription(
-        "Creates an employee, vacancy, and candidate application, validates the candidate information and application history records, and attempts to clean up all created test data.")]
+        "Creates a job title, employee, vacancy, and candidate application, validates the candidate information and application history records, and attempts to clean up all created test data.")]
     public void CreateCandidateForVacancy_ShouldReturnCandidateInformationAndHistory()
     {
         Log.Info(
@@ -1156,14 +1134,22 @@ public class CandidatesApiTests : BaseApiTest
         using var employeesClient = new EmployeesApiClient(AccessToken);
         using var vacanciesClient = new VacanciesApiClient(AccessToken);
         using var candidatesClient = new CandidatesApiClient(AccessToken);
+        using var jobTitlesClient = new JobTitlesApiClient(AccessToken);
 
         var factory = new CandidateVacancyTestDataFactory(
             employeesClient,
             vacanciesClient,
-            candidatesClient);
+            candidatesClient,
+            jobTitlesClient);
 
         try
         {
+            var jobTitleId = RunStep(
+                "Create job title for vacancy",
+                () => factory.CreateJobTitle());
+
+            Log.Info($"Test job title created. ID: {jobTitleId}.");
+
             var employeeId = RunStep(
                 "Create employee for vacancy workflow",
                 () => factory.CreateEmployee());
@@ -1172,7 +1158,7 @@ public class CandidatesApiTests : BaseApiTest
 
             var vacancyId = RunStep(
                 "Create vacancy for candidate application",
-                () => factory.CreateVacancy(employeeId));
+                () => factory.CreateVacancy(employeeId, jobTitleId));
 
             Log.Info($"Test vacancy created. ID: {vacancyId}.");
 
@@ -1312,6 +1298,11 @@ public class CandidatesApiTests : BaseApiTest
                     "employee",
                     factory.EmployeeId,
                     id => employeesClient.DeleteEmployee(id));
+
+                TestDataCleanup.TryDelete(
+                    "job title",
+                    factory.JobTitleId,
+                    id => jobTitlesClient.DeleteJobTitle(id));
 
                 Log.Info("Candidate-vacancy workflow cleanup attempts completed.");
             });

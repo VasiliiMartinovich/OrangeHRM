@@ -1,0 +1,25 @@
+2026-10-22 21:58:01.863 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Starting UI test setup.
+2026-10-22 21:58:06.495 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Browser opened and application URL loaded.
+2026-10-22 21:58:06.496 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - EmployeeTests setup: logging in to OrangeHRM.
+2026-10-22 21:58:06.496 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-22 21:58:06.496 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-22 21:58:07.058 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-22 21:58:07.412 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-22 21:58:07.412 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:58:08.992 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:58:08.992 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - EmployeeTests setup: login completed.
+2026-10-22 21:58:08.993 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Test started: OpenEmployeeListPage.
+2026-10-22 21:58:08.993 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-22 21:58:08.993 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:58:09.019 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-22 21:58:09.019 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Opening PIM from the side panel.
+2026-10-22 21:58:09.020 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: SidePanel. Timeout: 10 seconds.
+2026-10-22 21:58:10.674 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Checking that the Employee Information page is displayed.
+2026-10-22 21:58:10.675 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: EmployeePage. Timeout: 10 seconds.
+2026-10-22 21:58:10.675 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: waiting for visible element. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-22 21:58:11.228 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: visible element found. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-22 21:58:11.229 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: waiting for visible element. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-22 21:58:11.252 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: visible element found. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-22 21:58:11.264 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Test passed: Employee Information page is displayed.
+2026-10-22 21:58:11.265 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - UI test finished: OpenEmployeeListPage. Status: Passed
+2026-10-22 21:58:11.715 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - WebDriver closed for test: OpenEmployeeListPage

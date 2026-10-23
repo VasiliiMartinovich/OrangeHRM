@@ -1,0 +1,13 @@
+2026-10-22 21:55:33.132 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Starting UI test setup.
+2026-10-22 21:56:24.446 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Browser opened and application URL loaded.
+2026-10-22 21:56:24.448 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Test started: LoginWithInvalidCredentials.
+2026-10-22 21:56:24.448 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-22 21:56:24.448 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-22 21:56:26.811 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-22 21:56:26.811 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Entering invalid login credentials.
+2026-10-22 21:56:27.393 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Checking that the login error message is displayed.
+2026-10-22 21:56:34.803 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Reading the login error message.
+2026-10-22 21:56:34.862 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Login error message received: Invalid credentials
+2026-10-22 21:56:34.864 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Test passed: invalid credentials were rejected.
+2026-10-22 21:56:34.864 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - UI test finished: LoginWithInvalidCredentials. Status: Passed
+2026-10-22 21:56:35.358 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - WebDriver closed for test: LoginWithInvalidCredentials
