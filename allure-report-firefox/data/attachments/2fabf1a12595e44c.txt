@@ -1,0 +1,35 @@
+2026-10-25 11:47:49.450 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Starting UI test setup.
+2026-10-25 11:48:01.446 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Browser opened and application URL loaded.
+2026-10-25 11:48:01.447 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - EmployeeTests setup: logging in to OrangeHRM.
+2026-10-25 11:48:01.448 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-25 11:48:01.448 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-25 11:48:02.123 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-25 11:48:03.737 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-25 11:48:03.737 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:48:04.299 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:48:04.299 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - EmployeeTests setup: login completed.
+2026-10-25 11:48:04.301 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Test started: AddEmployee.
+2026-10-25 11:48:04.301 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-25 11:48:04.301 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:48:04.327 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:48:04.327 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Opening PIM from the side panel.
+2026-10-25 11:48:04.328 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: SidePanel. Timeout: 10 seconds.
+2026-10-25 11:48:05.428 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: EmployeePage. Timeout: 10 seconds.
+2026-10-25 11:48:05.428 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: waiting for visible element. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-25 11:48:05.948 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - EmployeePage: visible element found. Locator: By.CssSelector: a[href='/web/index.php/pim/viewPimModule'].
+2026-10-25 11:48:05.949 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Opening the Add Employee page.
+2026-10-25 11:48:06.605 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: AddEmployeePage. Timeout: 10 seconds.
+2026-10-25 11:48:06.605 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddEmployeePage: waiting for visible element. Locator: By.XPath: //h6[text()='Add Employee'].
+2026-10-25 11:48:07.182 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - AddEmployeePage: visible element found. Locator: By.XPath: //h6[text()='Add Employee'].
+2026-10-25 11:48:07.182 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Creating employee with first name: Test114807, last name: Employee.
+2026-10-25 11:48:12.056 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Employee creation submitted. Checking the Personal Details page.
+2026-10-25 11:48:12.057 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: PersonalDetailsPage. Timeout: 10 seconds.
+2026-10-25 11:48:12.057 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: waiting for visible element. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-25 11:48:12.064 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: visible element found. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-25 11:48:12.064 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: waiting for visible element. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-25 11:48:12.072 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - PersonalDetailsPage: visible element found. Locator: By.XPath: //h6[text()='Personal Details'].
+2026-10-25 11:48:12.076 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Personal Details page is displayed.
+2026-10-25 11:48:12.626 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Verifying saved employee details for first name: Test114807.
+2026-10-25 11:48:12.626 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - Test passed: employee was created and the name fields match.
+2026-10-25 11:48:12.626 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - UI test finished: AddEmployee. Status: Passed
+2026-10-25 11:48:13.442 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Employees.EmployeeTests - WebDriver closed for test: AddEmployee

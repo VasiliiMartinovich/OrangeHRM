@@ -1,0 +1,16 @@
+2026-10-25 11:47:12.090 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Starting UI test setup.
+2026-10-25 11:47:22.265 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Browser opened and application URL loaded.
+2026-10-25 11:47:22.266 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Test started: SuccessLogin.
+2026-10-25 11:47:22.266 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-25 11:47:22.266 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-25 11:47:22.859 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-25 11:47:22.859 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Attempting to log in with configured valid credentials.
+2026-10-25 11:47:24.335 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-25 11:47:24.336 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:47:24.885 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:47:24.885 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Login action completed. Checking that the dashboard is displayed.
+2026-10-25 11:47:24.885 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:47:24.910 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:47:24.927 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Test passed: successful login opened the dashboard.
+2026-10-25 11:47:24.927 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - UI test finished: SuccessLogin. Status: Passed
+2026-10-25 11:47:26.338 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - WebDriver closed for test: SuccessLogin

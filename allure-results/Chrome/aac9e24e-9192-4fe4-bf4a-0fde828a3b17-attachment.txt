@@ -1,0 +1,23 @@
+2026-10-25 11:43:01.186 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Starting UI test setup.
+2026-10-25 11:43:04.223 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Browser opened and application URL loaded.
+2026-10-25 11:43:04.224 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - LogoutTests setup: logging in to OrangeHRM.
+2026-10-25 11:43:04.224 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-25 11:43:04.224 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-25 11:43:04.761 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-25 11:43:04.948 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-25 11:43:04.948 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:43:06.453 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:43:06.453 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - LogoutTests setup: login completed.
+2026-10-25 11:43:06.453 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Test started: Logout.
+2026-10-25 11:43:06.453 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: DashboardPage. Timeout: 10 seconds.
+2026-10-25 11:43:06.453 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: waiting for visible element. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:43:06.465 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - DashboardPage: visible element found. Locator: By.XPath: //h6[text()='Dashboard'].
+2026-10-25 11:43:06.466 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Opening the navigation menu.
+2026-10-25 11:43:06.554 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Logging out.
+2026-10-25 11:43:07.781 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - Page object initialized: LoginPage. Timeout: 10 seconds.
+2026-10-25 11:43:07.781 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: waiting for visible element. Locator: By.Name: username.
+2026-10-25 11:43:08.299 [NUnit.Fw.ParallelWorker#2] DEBUG OrangeHRM.Framework.Core.Pages.BasePage - LoginPage: visible element found. Locator: By.Name: username.
+2026-10-25 11:43:08.299 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Checking that the login page is displayed.
+2026-10-25 11:43:08.324 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - Test passed: logout returned the user to the login page.
+2026-10-25 11:43:08.324 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - UI test finished: Logout. Status: Passed
+2026-10-25 11:43:08.515 [NUnit.Fw.ParallelWorker#2] INFO  OrangeHRM.Tests.UI.Authentication.LogoutTests - WebDriver closed for test: Logout

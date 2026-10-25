@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-using NUnit.Framework;
-using OrangeHRM.Framework.Core.Api.Models.Responses;
 using RestSharp;
 using OrangeHRM.Framework.Core.Api.Models.Requests;
 

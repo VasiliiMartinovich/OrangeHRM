@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using NUnit.Framework;
-using OrangeHRM.Framework.Core.Api.Models.Responses;
 using RestSharp;
 using OrangeHRM.Framework.Core.Api.Models.Requests;
 
@@ -24,16 +23,7 @@ public class JobTitlesApiClient : IDisposable
         _client.AddDefaultHeader("Authorization", $"Bearer {accessToken}");
     }
 
-    // public RestResponse CreateJobTitle(CreateJobTitleRequest jobTitle)
-    // {
-    //     var request = new RestRequest("/web/index.php/api/v2/admin/job-titles",
-    //         Method.Post);
-    //
-    //     request.AddStringBody(JsonSerializer.Serialize(jobTitle), DataFormat.Json);
-    //
-    //     return _client.Execute(request);
-    // }
-    public RestResponse CreateJobTitle(CreateJobTitleRequest jobTitle)
+   public RestResponse CreateJobTitle(CreateJobTitleRequest jobTitle)
     {
         var request = new RestRequest(
             "/web/index.php/api/v2/admin/job-titles",
