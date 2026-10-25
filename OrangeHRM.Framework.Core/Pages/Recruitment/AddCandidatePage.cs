@@ -60,23 +60,4 @@ public class AddCandidatePage : LoadablePage
 
         return new CandidateDetailsPage();
     }
-
-    // private static string ToXPathLiteral(string value)
-    // {
-    //     if (!value.Contains('\''))
-    //     {
-    //         return $"'{value}'";
-    //     }
-    //
-    //     if (!value.Contains('"'))
-    //     {
-    //         return $"\"{value}\"";
-    //     }
-    //
-    //     var parts = value.Split('\'');
-    //
-    //     return "concat('" +
-    //            string.Join("', \"'\", '", parts) +
-    //            "')";
-    // }
 }

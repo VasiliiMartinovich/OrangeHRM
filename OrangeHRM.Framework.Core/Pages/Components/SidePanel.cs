@@ -23,30 +23,6 @@ public class SidePanel : BasePage
         _pimMenuItem.Click();
     }
 
-    // public void OpenRecruitment()
-    // {
-    //     var elements = Driver.FindElements(By.XPath("//span[normalize-space()='Recruitment']"));
-    //     Log.Info($"Current URL: {Driver.Url}");
-    //     Log.Info($"Page title: {Driver.Title}");
-    //     Log.Info($"Page source contains Recruitment: " +
-    //              $"{Driver.PageSource.Contains("Recruitment")}");
-    //
-    //     LogManager.GetLogger(typeof(SidePanel)).Info($"Recruitment elements found: {elements.Count}");
-    //
-    //     foreach (var element in elements)
-    //     {
-    //         LogManager.GetLogger(typeof(SidePanel)).Info(
-    //             $"Recruitment displayed: {element.Displayed}, " +
-    //             $"enabled: {element.Enabled}");
-    //     }
-    //
-    //     Wait.Until(driver =>
-    //         _recruitmentMenuItem.IsDisplayed() &&
-    //         _recruitmentMenuItem.IsEnabled());
-    //
-    //     _recruitmentMenuItem.Click();
-    // }
-
     public void OpenRecruitment()
     {
         Wait.Until(driver =>
