@@ -1,5 +1,23 @@
 bin/
 obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.iml
+*.DotSettings.user
+_ReSharper.Caches/
+packages/
+
+# Allure generated results and reports
+allure-results/
+allure-reports/
+allure-report/
+allure-report-*/
+
+# Local diagnostics and Jenkins agent
+*.log
+agent.jar
+
+# Local test output
+TestResults/
