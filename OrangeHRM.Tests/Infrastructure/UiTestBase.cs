@@ -29,9 +29,7 @@ public abstract class UiTestBase
 
         var driver = AllureApi.Step(
             $"Create WebDriver: {browserType}",
-            () => DriverFactory.CreateDriver(
-                browserType,
-                TestSettings.Headless));
+            () => DriverFactory.CreateDriver(browserType, TestSettings.Headless));
 
         AllureApi.Step("Register WebDriver instance", () =>
         {
@@ -61,17 +59,13 @@ public abstract class UiTestBase
         {
             if (result.Outcome.Status == TestStatus.Failed)
             {
-                Log.Error(
-                    $"UI test failed: {testName}. " +
-                    $"Message: {result.Message}");
+                Log.Error($"UI test failed: {testName}. " + $"Message: {result.Message}");
 
                 AttachFailureArtifacts();
             }
             else
             {
-                Log.Info(
-                    $"UI test finished: {testName}. " +
-                    $"Status: {result.Outcome.Status}");
+                Log.Info($"UI test finished: {testName}. " + $"Status: {result.Outcome.Status}");
             }
         }
         finally

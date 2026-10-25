@@ -15,5 +15,5 @@ Scenario: Open the employee list
 @SearchEmployee
 Scenario: Search for a non-existing employee
     When I open the PIM employee list
-    And I search for employee "NonExistingEmployee123"
+    And I search for non-existing employee "NonExistingEmployee123"
     Then no employees should be found

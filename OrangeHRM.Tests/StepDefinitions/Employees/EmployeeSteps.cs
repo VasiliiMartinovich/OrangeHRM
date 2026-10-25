@@ -26,7 +26,7 @@ public class EmployeeSteps
             "The employee list page should be displayed.");
     }
 
-    [When("I search for employee {string}")]
+    [When("I search for non-existing employee {string}")]
     public void WhenISearchForEmployee(string employeeName)
     {
         _employeePage.SearchByEmployeeName(employeeName);

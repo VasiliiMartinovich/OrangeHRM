@@ -67,10 +67,7 @@ public class CandidateDetailsPage : LoadablePage
     
     public string GetCandidateStatus()
     {
-        return FindVisibleElement(CandidateStatus)
-            .Text
-            .Replace("Status:", "")
-            .Trim();
+        return FindVisibleElement(CandidateStatus).Text.Replace("Status:", "").Trim();
     }
 
     public ScheduleInterviewPage ClickScheduleInterviewButton()

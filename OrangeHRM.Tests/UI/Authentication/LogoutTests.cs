@@ -35,8 +35,7 @@ public class LogoutTests : UiTestBase
     [AllureName("Logout - user returns to Login Page")]
     [AllureTag("UI",  "Smoke")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that an authenticated user can log out from the OrangeHRM Dashboard and return to the Login Page.")]
+    [AllureDescription("Verifies that an authenticated user can log out from the OrangeHRM and return to the Login Page.")]
     public void Logout()
     {
         Log.Info("Test started: Logout.");

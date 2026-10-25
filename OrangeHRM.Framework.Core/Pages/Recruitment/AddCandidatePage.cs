@@ -23,15 +23,9 @@ public class AddCandidatePage : LoadablePage
         PageFactory.InitElements(Driver, this);
     }
 
-    public void FillCandidateForm(
-        string firstName,
-        string middleName,
-        string lastName,
-        string email)
+    public void FillCandidateForm(string firstName, string middleName, string lastName, string email)
     {
-        Wait.Until(driver =>
-            _firstNameInput.IsDisplayed() &&
-            _firstNameInput.IsEnabled());
+        Wait.Until(driver => _firstNameInput.IsDisplayed() && _firstNameInput.IsEnabled());
 
         _firstNameInput.SetValue(firstName);
         _middleNameInput.SetValue(middleName);
@@ -41,9 +35,7 @@ public class AddCandidatePage : LoadablePage
     
     public void SelectVacancy(string vacancyName)
     {
-        Wait.Until(driver =>
-            _vacancyDropdown.IsDisplayed() &&
-            _vacancyDropdown.IsEnabled());
+        Wait.Until(driver => _vacancyDropdown.IsDisplayed() && _vacancyDropdown.IsEnabled());
 
         _vacancyDropdown.SelectOption(vacancyName);
     }
@@ -57,38 +49,34 @@ public class AddCandidatePage : LoadablePage
     {
         var value = _cvInput.GetAttribute("value");
 
-        return !string.IsNullOrEmpty(value) &&
-               value.EndsWith(
-                   fileName,
-                   StringComparison.OrdinalIgnoreCase);
+        return !string.IsNullOrEmpty(value) && value.EndsWith(fileName, StringComparison.OrdinalIgnoreCase);
     }
 
     public CandidateDetailsPage Save()
     {
-        Wait.Until(driver =>
-            _saveButton.IsDisplayed() && _saveButton.IsEnabled());
+        Wait.Until(driver => _saveButton.IsDisplayed() && _saveButton.IsEnabled());
 
         _saveButton.Click();
 
         return new CandidateDetailsPage();
     }
 
-    private static string ToXPathLiteral(string value)
-    {
-        if (!value.Contains('\''))
-        {
-            return $"'{value}'";
-        }
-
-        if (!value.Contains('"'))
-        {
-            return $"\"{value}\"";
-        }
-
-        var parts = value.Split('\'');
-
-        return "concat('" +
-               string.Join("', \"'\", '", parts) +
-               "')";
-    }
+    // private static string ToXPathLiteral(string value)
+    // {
+    //     if (!value.Contains('\''))
+    //     {
+    //         return $"'{value}'";
+    //     }
+    //
+    //     if (!value.Contains('"'))
+    //     {
+    //         return $"\"{value}\"";
+    //     }
+    //
+    //     var parts = value.Split('\'');
+    //
+    //     return "concat('" +
+    //            string.Join("', \"'\", '", parts) +
+    //            "')";
+    // }
 }

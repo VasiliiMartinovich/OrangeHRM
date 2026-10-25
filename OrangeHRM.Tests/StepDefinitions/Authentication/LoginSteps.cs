@@ -23,9 +23,7 @@ public class LoginSteps
     [When("I log in with valid credentials")]
     public void WhenILogInWithValidCredentials()
     {
-        _dashboardPage = _loginPage.Login(
-            TestSettings.Username,
-            TestSettings.Password);
+        _dashboardPage = _loginPage.Login(TestSettings.Username, TestSettings.Password);
     }
 
     [Then("the Dashboard page should be displayed")]

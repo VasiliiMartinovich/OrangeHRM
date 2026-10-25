@@ -18,8 +18,7 @@ public class LoginPageTests : UiTestBase
     [AllureName("Login Page - page is displayed")]
     [AllureTag("UI", "Smoke")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that the OrangeHRM login page is displayed when the application is opened.")]
+    [AllureDescription("Verifies that the OrangeHRM login page is displayed when the application is opened.")]
     public void LoginPage_ShouldBeDisplayed()
     {
         Log.Info("Test started: LoginPage_ShouldBeDisplayed.");
@@ -43,8 +42,7 @@ public class LoginPageTests : UiTestBase
     [AllureName("Login - successful login opens Dashboard")]
     [AllureTag("UI", "Smoke")]
     [AllureSeverity(SeverityLevel.critical)]
-    [AllureDescription(
-        "Verifies that a user can log in using the configured valid credentials and is redirected to the Dashboard page.")]
+    [AllureDescription("Verifies that a user can log in using valid credentials and is redirected to the Dashboard page.")]
     public void SuccessLogin()
     {
         Log.Info("Test started: SuccessLogin.");
@@ -76,8 +74,7 @@ public class LoginPageTests : UiTestBase
     [AllureName("Login - invalid credentials are rejected")]
     [AllureTag("UI", "Validation")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that submitting invalid login credentials displays the error message 'Invalid credentials'.")]
+    [AllureDescription("Verifies that submitting invalid login credentials displays the error message 'Invalid credentials'.")]
     public void LoginWithInvalidCredentials()
     {
         Log.Info("Test started: LoginWithInvalidCredentials.");
@@ -125,12 +122,10 @@ public class LoginPageTests : UiTestBase
     [AllureName("Configuration - application settings are loaded")]
     [AllureTag("UI", "Configuration")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that the application URL, browser name, and timeout match the expected test configuration.")]
+    [AllureDescription("Verifies that the application URL, browser name, and timeout match the expected test configuration.")]
     public void Configuration_ShouldBeLoaded()
     {
         Log.Info("Test started: Configuration_ShouldBeLoaded.");
-
         Log.Info("Checking the configured application URL.");
 
         AllureApi.Step("Verify application URL", () =>

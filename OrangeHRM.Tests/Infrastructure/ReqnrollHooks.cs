@@ -18,7 +18,6 @@ public sealed class ReqnrollHooks
         _scenarioContext = scenarioContext;
     }
 
-    
     [BeforeScenario]
     public void BeforeScenario()
     {
@@ -33,9 +32,7 @@ public sealed class ReqnrollHooks
 
             DriverManager.TimeoutSeconds = TestSettings.TimeoutSeconds;
 
-            var browserType = Enum.Parse<BrowserType>(
-                TestSettings.Browser,
-                ignoreCase: true);
+            var browserType = Enum.Parse<BrowserType>(TestSettings.Browser, ignoreCase: true);
 
             driver = DriverFactory.CreateDriver(browserType, TestSettings.Headless);
 
@@ -43,7 +40,7 @@ public sealed class ReqnrollHooks
             driverRegistered = true;
 
             DriverManager.Driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
-           DriverManager.Driver.Navigate().GoToUrl(TestSettings.BaseUrl);
+            DriverManager.Driver.Navigate().GoToUrl(TestSettings.BaseUrl);
 
             _log.Info("BDD scenario browser started and application opened.");
         }

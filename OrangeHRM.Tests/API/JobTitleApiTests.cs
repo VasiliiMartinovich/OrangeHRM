@@ -16,8 +16,7 @@ public class JobTitleApiTests : BaseApiTest
     [AllureName("POST Job Title - create job title and verify information")]
     [AllureTag("API", "JobTitles", "Smoke")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a job title through the API, verifies the returned ID and job title information, and attempts to delete the created record.")]
+    [AllureDescription("Creates a job title through the API, verifies the returned ID and job title information, and attempts to delete the created record.")]
     public void CreateJobTitle_ShouldReturnJobTitleInformation()
     {
         Log.Info("Starting test: CreateJobTitle_ShouldReturnJobTitleInformation.");
@@ -43,24 +42,17 @@ public class JobTitleApiTests : BaseApiTest
                     return client.CreateJobTitle(jobTitleRequest);
                 });
 
-            Log.Info(
-                $"Create job title returned HTTP {(int)response.StatusCode}.");
+            Log.Info($"Create job title returned HTTP {(int)response.StatusCode}.");
 
             AllureApi.Step("Verify job title creation response", () =>
             {
-                Assert.That(
-                    response.ErrorException,
-                    Is.Null,
+                Assert.That(response.ErrorException, Is.Null,
                     "An exception occurred while sending the request.");
 
-                Assert.That(
-                    (int)response.StatusCode,
-                    Is.EqualTo(200),
+                Assert.That((int)response.StatusCode, Is.EqualTo(200),
                     $"Expected HTTP 200. Response: {response.Content}");
 
-                Assert.That(
-                    response.Content,
-                    Is.Not.Null.And.Not.Empty,
+                Assert.That(response.Content, Is.Not.Null.And.Not.Empty,
                     "The response body was empty.");
             });
 
@@ -73,38 +65,23 @@ public class JobTitleApiTests : BaseApiTest
 
             AllureApi.Step("Verify created job title information", () =>
             {
-                Assert.That(
-                    createdJobTitle,
-                    Is.Not.Null,
+                Assert.That(createdJobTitle, Is.Not.Null,
                     "Could not deserialize the response.");
 
-                Assert.That(
-                    createdJobTitle!.Data,
-                    Is.Not.Null,
+                Assert.That(createdJobTitle!.Data, Is.Not.Null,
                     "Job title data was missing from the response.");
 
                 jobTitleId = createdJobTitle.Data!.Id;
 
-                Assert.That(
-                    jobTitleId,
-                    Is.GreaterThan(0),
+                Assert.That(jobTitleId, Is.GreaterThan(0),
                     "Expected a positive job title ID.");
 
-                Assert.That(
-                    createdJobTitle.Data.Title,
-                    Is.EqualTo(jobTitleRequest.Title));
-
-                Assert.That(
-                    createdJobTitle.Data.Description,
-                    Is.EqualTo(jobTitleRequest.Description));
-
-                Assert.That(
-                    createdJobTitle.Data.Note,
-                    Is.EqualTo(jobTitleRequest.Note));
+                Assert.That(createdJobTitle.Data.Title, Is.EqualTo(jobTitleRequest.Title));
+                Assert.That(createdJobTitle.Data.Description, Is.EqualTo(jobTitleRequest.Description));
+                Assert.That(createdJobTitle.Data.Note, Is.EqualTo(jobTitleRequest.Note));
             });
 
-            Log.Info(
-                $"Job title created successfully. ID: {jobTitleId}.");
+            Log.Info($"Job title created successfully. ID: {jobTitleId}.");
         }
         finally
         {
@@ -119,8 +96,7 @@ public class JobTitleApiTests : BaseApiTest
                 }
                 else
                 {
-                    Log.Warn(
-                        "Job title cleanup skipped because no ID was obtained.");
+                    Log.Warn("Job title cleanup skipped because no ID was obtained.");
                 }
             });
         }

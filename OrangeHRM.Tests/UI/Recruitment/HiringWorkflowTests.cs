@@ -18,8 +18,8 @@ namespace OrangeHRM.Tests.UI.Recruitment;
 [TestFixture]
 public class RecruitmentWorkflowTests : UiTestBase
 {
-    private const int JobTitleId = 22;
-    private const string JobTitle = "Account Assistant";
+    private const int JobTitleId = 2;
+    private const string JobTitle = "Chief Financial Officer";
     private const string CvFileName = "candidate-cv.pdf";
 
     private static readonly ILog Log = LogManager.GetLogger(typeof(RecruitmentWorkflowTests));
@@ -62,19 +62,16 @@ public class RecruitmentWorkflowTests : UiTestBase
     [AllureName("Recruitment Workflow - candidate is hired successfully")]
     [AllureTag("UI", "API", "EndToEnd", "HiringWorkflow")]
     [AllureSeverity(SeverityLevel.critical)]
-    [AllureDescription(
-        "Executes the end-to-end recruitment workflow. Creates a hiring manager and vacancy through the API, creates a candidate through the UI with an uploaded CV, moves the candidate through Shortlisted, Interview Scheduled, Interview Passed, and Job Offered, and verifies the final Hired status. Attempts to clean up the candidate, vacancy, and employee.")]
+    [AllureDescription("Executes the end-to-end recruitment workflow. Creates a hiring manager and vacancy through the API, creates a candidate through the UI with an uploaded CV, moves the candidate through Shortlisted, Interview Scheduled, Interview Passed, and Job Offered, and verifies the final Hired status. Attempts to clean up the candidate, vacancy, and employee.")]
     public void RecruitmentWorkflow_CandidateIsHiredSuccessfully()
     {
         Log.Info("Test started: RecruitmentWorkflow_CandidateIsHiredSuccessfully.");
 
         var runId = Guid.NewGuid().ToString("N")[..10];
-
         var employeeFirstName = $"Manager{runId}";
         var employeeLastName = "E2E";
         var employeeName = $"{employeeFirstName} {employeeLastName}";
         var vacancyName = $"E2E Vacancy {runId}";
-
         var candidateFirstName = $"Candidate{runId}";
         var candidateMiddleName = "E2E";
         var candidateLastName = "Automation";
@@ -101,7 +98,6 @@ public class RecruitmentWorkflowTests : UiTestBase
         });
 
         Log.Info("CV file exists.");
-
         Log.Info("Reading the OrangeHRM API access token from the environment.");
 
         var accessToken = RunStep(

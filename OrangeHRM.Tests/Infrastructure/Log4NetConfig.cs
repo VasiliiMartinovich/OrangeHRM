@@ -13,10 +13,7 @@ public static class Log4NetConfig
 
         GlobalContext.Properties["LogDirectory"] = logDirectory;
 
-        var configFile = new FileInfo(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "log4net.config"));
+        var configFile = new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config"));
 
         if (!configFile.Exists)
         {

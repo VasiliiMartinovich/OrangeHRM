@@ -22,9 +22,7 @@ public class CandidatesApiClient : IDisposable
         _client.AddDefaultHeader("Authorization", $"Bearer {accessToken}");
     }
 
-    public RestResponse GetCandidates(
-        int? candidateId = null,
-        string? candidateName = null)
+    public RestResponse GetCandidates(int? candidateId = null, string? candidateName = null)
     {
         var request = new RestRequest("/web/index.php/api/v2/recruitment/candidates",
             Method.Get);

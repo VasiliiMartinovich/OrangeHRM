@@ -49,44 +49,44 @@ public class EmployeePage : LoadablePage
         Wait.Until(driver => HasNoRecordsMessage(driver));
     }
 
-    public void SelectFirstEmployeeSuggestion()
-    {
-        Wait.Until(driver =>
-        {
-            foreach (var suggestion in driver.FindElements(SearchSuggestions))
-            {
-                try
-                {
-                    if (!suggestion.Displayed)
-                    {
-                        continue;
-                    }
-
-                    var text = suggestion.Text.Trim();
-
-                    if (string.IsNullOrWhiteSpace(text) ||
-                        text.Contains("Searching", StringComparison.OrdinalIgnoreCase) ||
-                        text.Contains("No Records Found", StringComparison.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
-
-                    suggestion.Click();
-                    return true;
-                }
-                catch (StaleElementReferenceException)
-                {
-                    
-                }
-                catch (ElementClickInterceptedException)
-                {
-                    
-                }
-            }
-
-            return false;
-        });
-    }
+    // public void SelectFirstEmployeeSuggestion()
+    // {
+    //     Wait.Until(driver =>
+    //     {
+    //         foreach (var suggestion in driver.FindElements(SearchSuggestions))
+    //         {
+    //             try
+    //             {
+    //                 if (!suggestion.Displayed)
+    //                 {
+    //                     continue;
+    //                 }
+    //
+    //                 var text = suggestion.Text.Trim();
+    //
+    //                 if (string.IsNullOrWhiteSpace(text) ||
+    //                     text.Contains("Searching", StringComparison.OrdinalIgnoreCase) ||
+    //                     text.Contains("No Records Found", StringComparison.OrdinalIgnoreCase))
+    //                 {
+    //                     continue;
+    //                 }
+    //
+    //                 suggestion.Click();
+    //                 return true;
+    //             }
+    //             catch (StaleElementReferenceException)
+    //             {
+    //                 
+    //             }
+    //             catch (ElementClickInterceptedException)
+    //             {
+    //                 
+    //             }
+    //         }
+    //
+    //         return false;
+    //     });
+    // }
 
     private void WaitForSearchResults()
     {

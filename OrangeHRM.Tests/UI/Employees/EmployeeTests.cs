@@ -37,8 +37,7 @@ public class EmployeeTests : UiTestBase
     [AllureName("Employees - open Employee List page")]
     [AllureTag("UI",  "Smoke")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that an authenticated user can open the PIM module and display the Employee Information page.")]
+    [AllureDescription("Verifies that an authenticated user can open the PIM module and display the Employee Information page.")]
     public void OpenEmployeeListPage()
     {
         Log.Info("Test started: OpenEmployeeListPage.");
@@ -72,8 +71,7 @@ public class EmployeeTests : UiTestBase
     [AllureName("Employees - search by existing name")]
     [AllureTag("UI", "Employees")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that searching for employees by the existing name John returns at least one employee.")]
+    [AllureDescription("Verifies that searching for employees by the existing name John returns at least one employee.")]
     public void SearchEmployeeWithExistingName()
     {
         Log.Info("Test started: SearchEmployeeWithExistingName.");
@@ -117,8 +115,7 @@ public class EmployeeTests : UiTestBase
     [AllureName("Employees - search by non-existing name")]
     [AllureTag("UI", "Employees")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that searching for a non-existing employee name returns zero search results.")]
+    [AllureDescription("Verifies that searching for a non-existing employee name returns zero search results.")]
     public void SearchEmployeeWithNonExistingName()
     {
         Log.Info("Test started: SearchEmployeeWithNonExistingName.");
@@ -165,8 +162,7 @@ public class EmployeeTests : UiTestBase
     [AllureName("Employees - reset search filters")]
     [AllureTag("UI", "Employees")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that searching by an existing employee name filters the list and resetting the search restores the initial employee count.")]
+    [AllureDescription("Verifies that searching by an existing employee name filters the list and resetting the search restores the initial employee count.")]
     public void ResetSearchShouldClearFilters()
     {
         Log.Info("Test started: ResetSearchShouldClearFilters.");
@@ -192,7 +188,6 @@ public class EmployeeTests : UiTestBase
             () => employeePage.WaitForEmployeeList());
 
         Log.Info($"Initial employee count: {initialCount}.");
-
         Log.Info("Searching employees by name: John.");
 
         AllureApi.Step(
@@ -236,8 +231,7 @@ public class EmployeeTests : UiTestBase
     [AllureName("Employees - create new employee")]
     [AllureTag("UI", "Employees")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that a new employee can be created with generated employee details and that the Personal Details page displays the submitted first and last names.")]
+    [AllureDescription("Verifies that a new employee can be created with generated employee details and that the Personal Details page displays the submitted first and last names.")]
     public void AddEmployee()
     {
         Log.Info("Test started: AddEmployee.");
@@ -271,8 +265,7 @@ public class EmployeeTests : UiTestBase
         const string lastName = "Employee";
         var employeeId = DateTime.Now.ToString("HHmmss");
 
-        Log.Info(
-            $"Creating employee with first name: {firstName}, last name: {lastName}.");
+        Log.Info($"Creating employee with first name: {firstName}, last name: {lastName}.");
 
         AllureApi.Step("Fill in and submit employee information", () =>
         {

@@ -39,13 +39,10 @@ public class RecruitmentSteps
         _email = $"candidate{DateTime.Now:HHmmssfff}@example.com";
         _cvFileName = "candidate-cv.pdf";
 
-        _cvFilePath = Path.Combine(
-            TestContext.CurrentContext.TestDirectory,
-            "TestData",
+        _cvFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData",
             _cvFileName);
 
-        Assert.That(File.Exists(_cvFilePath), Is.True,
-            $"CV file was not found: {_cvFilePath}");
+        Assert.That(File.Exists(_cvFilePath), Is.True, $"CV file was not found: {_cvFilePath}");
 
         var dashboardUrl = new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString();
 
@@ -101,8 +98,7 @@ public class RecruitmentSteps
     [Given("a candidate with a CV and vacancy exists")]
     public void GivenCandidateWithCvAndVacancyExists()
     {
-        _vacancyName = new TestDataSetup()
-            .CreateVacancyForHiringManager();
+        _vacancyName = new TestDataSetup().CreateVacancyForHiringManager();
 
         _firstName = $"Candidate{DateTime.Now:HHmmssfff}";
         _middleName = "Ivanov";
@@ -110,13 +106,9 @@ public class RecruitmentSteps
         _email = $"candidate{DateTime.Now:HHmmssfff}@example.com";
         _cvFileName = "candidate-cv.pdf";
 
-        _cvFilePath = Path.Combine(
-            TestContext.CurrentContext.TestDirectory,
-            "TestData",
-            _cvFileName);
+        _cvFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", _cvFileName);
 
-        Assert.That(File.Exists(_cvFilePath), Is.True,
-            $"CV file was not found: {_cvFilePath}");
+        Assert.That(File.Exists(_cvFilePath), Is.True, $"CV file was not found: {_cvFilePath}");
 
         var dashboardUrl = new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString();
 

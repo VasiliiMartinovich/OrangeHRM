@@ -15,9 +15,7 @@ public class DriverFactory
             BrowserType.Firefox => CreateFirefox(headless),
             BrowserType.Safari => CreateSafari(),
             _ => throw new ArgumentOutOfRangeException(
-                nameof(browserType),
-                browserType,
-                "Unsupported browser type")
+                nameof(browserType), browserType, "Unsupported browser type")
         };
     }
 

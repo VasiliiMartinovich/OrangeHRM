@@ -9,6 +9,7 @@ namespace OrangeHRM.Tests.Infrastructure;
 public class TestDataSetup
 {
     private string AccessToken => TestSettings.AccessToken;
+
     public string CreateEmployeeForHiringManager()
     {
         var employee = CreateEmployee();
@@ -25,7 +26,7 @@ public class TestDataSetup
         var vacancyName = $"QA Automation Vacancy {uniqueId}";
 
         using var jobTitlesApiClient = new JobTitlesApiClient(AccessToken);
-        Console.WriteLine($"Creating Job Title: '{jobTitleName}'");
+        //Console.WriteLine($"Creating Job Title: '{jobTitleName}'");
         var jobTitleResponse = jobTitlesApiClient.CreateJobTitle(
             new CreateJobTitleRequest
             {
@@ -47,23 +48,21 @@ public class TestDataSetup
 
         if (jobTitle?.Data == null || jobTitle.Data.Id <= 0)
         {
-            throw new InvalidOperationException(
-                "Job Title was created, but its ID could not be read.");
+            throw new InvalidOperationException("Job Title was created, but its ID could not be read.");
         }
 
         using var vacanciesApiClient = new VacanciesApiClient(AccessToken);
 
-        var vacancyResponse = vacanciesApiClient.CreateVacancy(
-            new CreateVacancyRequest
-            {
-                Name = vacancyName,
-                Status = true,
-                JobTitleId = jobTitle.Data.Id,
-                IsPublished = false,
-                Description = "Vacancy for automated tests",
-                NumOfPositions = 1,
-                EmployeeId = employee.EmpNumber
-            });
+        var vacancyResponse = vacanciesApiClient.CreateVacancy(new CreateVacancyRequest
+        {
+            Name = vacancyName,
+            Status = true,
+            JobTitleId = jobTitle.Data.Id,
+            IsPublished = false,
+            Description = "Vacancy for automated tests",
+            NumOfPositions = 1,
+            EmployeeId = employee.EmpNumber
+        });
 
         if (!vacancyResponse.IsSuccessful)
         {
@@ -96,14 +95,13 @@ public class TestDataSetup
 
         using var employeesApiClient = new EmployeesApiClient(AccessToken);
 
-        var response = employeesApiClient.CreateEmployee(
-            new CreateEmployeeRequest
-            {
-                FirstName = firstName,
-                MiddleName = middleName,
-                LastName = lastName,
-                EmployeeId = employeeId
-            });
+        var response = employeesApiClient.CreateEmployee(new CreateEmployeeRequest
+        {
+            FirstName = firstName,
+            MiddleName = middleName,
+            LastName = lastName,
+            EmployeeId = employeeId
+        });
 
         if (!response.IsSuccessful)
         {

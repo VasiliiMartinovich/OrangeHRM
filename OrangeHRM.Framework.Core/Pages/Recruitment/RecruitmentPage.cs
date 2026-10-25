@@ -5,14 +5,9 @@ namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class RecruitmentPage : LoadablePage
 {
-    private static readonly By RecruitmentHeader =
-        By.XPath("//h6[text()='Recruitment']");
-
-    private readonly Button _candidatesTab =
-        new(By.XPath("//a[text()='Candidates']"));
-
-    private readonly Button _vacanciesTab =
-        new(By.XPath("//a[text()='Vacancies']"));
+    private static readonly By RecruitmentHeader = By.XPath("//h6[text()='Recruitment']");
+    private readonly Button _candidatesTab = new(By.XPath("//a[text()='Candidates']"));
+    private readonly Button _vacanciesTab = new(By.XPath("//a[text()='Vacancies']"));
 
     public RecruitmentPage() : base(RecruitmentHeader)
     {
@@ -25,9 +20,7 @@ public class RecruitmentPage : LoadablePage
 
     public CandidatesPage OpenCandidates()
     {
-        Wait.Until(driver =>
-            _candidatesTab.IsDisplayed() &&
-            _candidatesTab.IsEnabled());
+        Wait.Until(driver => _candidatesTab.IsDisplayed() && _candidatesTab.IsEnabled());
 
         _candidatesTab.Click();
 
@@ -36,9 +29,7 @@ public class RecruitmentPage : LoadablePage
 
     public VacanciesPage OpenVacancies()
     {
-        Wait.Until(driver =>
-            _vacanciesTab.IsDisplayed() &&
-            _vacanciesTab.IsEnabled());
+        Wait.Until(driver => _vacanciesTab.IsDisplayed() && _vacanciesTab.IsEnabled());
 
         _vacanciesTab.Click();
 

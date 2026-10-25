@@ -5,11 +5,8 @@ namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 
 public class ShortlistCandidatePage : LoadablePage
 {
-    private static readonly By ShortlistCandidateHeader =
-        By.XPath("//h6[text()='Shortlist Candidate']");
-
-    private readonly Button _saveButton =
-        new(By.CssSelector("button[type='submit']"));
+    private static readonly By ShortlistCandidateHeader = By.XPath("//h6[text()='Shortlist Candidate']");
+    private readonly Button _saveButton = new(By.CssSelector("button[type='submit']"));
 
     public ShortlistCandidatePage() : base(ShortlistCandidateHeader)
     {

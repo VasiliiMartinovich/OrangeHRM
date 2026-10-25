@@ -32,8 +32,7 @@ public class EmployeesApiTests : BaseApiTest
                 return client.GetEmployees();
             });
 
-        Log.Info(
-            $"GET employees response received. HTTP status: {(int)response.StatusCode}.");
+        Log.Info($"GET employees response received. HTTP status: {(int)response.StatusCode}.");
 
         AllureApi.Step("Verify employees API response", () =>
         {

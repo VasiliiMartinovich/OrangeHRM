@@ -39,8 +39,7 @@ public class RecruitmentTests : UiTestBase
     [AllureName("Recruitment - create candidate with CV and vacancy")]
     [AllureTag("UI", "Recruitment", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that a candidate can be created with first name, middle name, last name, email, a selected vacancy, and an uploaded CV. The saved candidate details are checked against the submitted data.")]
+    [AllureDescription("Verifies that a candidate can be created with first name, middle name, last name, email, a selected vacancy, and an uploaded CV. The saved candidate details are checked against the submitted data.")]
     public void CreateCandidate()
     {
         Log.Info("Test started: CreateCandidate.");
@@ -90,7 +89,6 @@ public class RecruitmentTests : UiTestBase
             () => testDataSetup.CreateVacancyForHiringManager());
 
         Log.Info($"Vacancy created: {vacancyName}.");
-
         Log.Info("Navigating to the OrangeHRM dashboard.");
 
         AllureApi.Step("Navigate to Dashboard", () =>
@@ -200,8 +198,7 @@ public class RecruitmentTests : UiTestBase
     [AllureName("Recruitment - delete created candidate")]
     [AllureTag("UI", "Recruitment", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a candidate with an uploaded CV and a selected vacancy, verifies the candidate appears in search results, deletes the candidate, checks the success notification, and verifies the candidate is no longer displayed.")]
+    [AllureDescription("Creates a candidate with an uploaded CV and a selected vacancy, verifies the candidate appears in search results, deletes the candidate, checks the success notification, and verifies the candidate is no longer displayed.")]
     public void DeleteCreatedCandidate()
     {
         Log.Info("Test started: DeleteCreatedCandidate.");
@@ -251,7 +248,6 @@ public class RecruitmentTests : UiTestBase
             () => testDataSetup.CreateVacancyForHiringManager());
 
         Log.Info($"Vacancy created: {vacancyName}.");
-
         Log.Info("Navigating to the OrangeHRM dashboard.");
 
         AllureApi.Step("Navigate to Dashboard", () =>
@@ -397,7 +393,6 @@ public class RecruitmentTests : UiTestBase
         });
 
         Log.Info("Deletion success notification verified.");
-
         Log.Info($"Searching for candidate {firstName} after deletion.");
 
         AllureApi.Step(
@@ -419,8 +414,7 @@ public class RecruitmentTests : UiTestBase
     [AllureName("Recruitment - create vacancy")]
     [AllureTag("UI", "Recruitment", "Vacancies")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates an employee to use as the hiring manager, creates a vacancy with the specified job title, and verifies the saved vacancy name, job title, and hiring manager.")]
+    [AllureDescription("Creates an employee to use as the hiring manager, creates a vacancy with the specified job title, and verifies the saved vacancy name, job title, and hiring manager.")]
     public void CreateVacancy()
     {
         Log.Info("Test started: CreateVacancy.");

@@ -15,8 +15,7 @@ public class VacanciesApiTests : BaseApiTest
     [AllureName("POST Vacancy - create vacancy and verify information")]
     [AllureTag("API", "Vacancies")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates an employee and an active job title, creates a vacancy, verifies the vacancy information, and attempts to clean up all created test data.")]
+    [AllureDescription("Creates an employee and an active job title, creates a vacancy, verifies the vacancy information, and attempts to clean up all created test data.")]
     public void CreateVacancy_ShouldReturnVacancyInformation()
     {
         Log.Info("Starting test: CreateVacancy_ShouldReturnVacancyInformation.");
@@ -168,29 +167,14 @@ public class VacanciesApiTests : BaseApiTest
                 Assert.That(vacancyId, Is.GreaterThan(0),
                     "The created vacancy ID should be greater than zero.");
 
-                Assert.That(
-                    createdVacancy.Data.Name,
-                    Is.EqualTo(vacancyRequest.Name));
-
-                Assert.That(
-                    createdVacancy.Data.Status,
-                    Is.EqualTo(vacancyRequest.Status));
-
-                Assert.That(
-                    createdVacancy.Data.IsPublished,
-                    Is.EqualTo(vacancyRequest.IsPublished));
-
-                Assert.That(
-                    createdVacancy.Data.JobTitle?.Id,
-                    Is.EqualTo(jobTitleId.Value));
-
-                Assert.That(
-                    createdVacancy.Data.HiringManager?.Id,
-                    Is.EqualTo(employeeNumber.Value));
+                Assert.That(createdVacancy.Data.Name, Is.EqualTo(vacancyRequest.Name));
+                Assert.That(createdVacancy.Data.Status, Is.EqualTo(vacancyRequest.Status));
+                Assert.That(createdVacancy.Data.IsPublished, Is.EqualTo(vacancyRequest.IsPublished));
+                Assert.That(createdVacancy.Data.JobTitle?.Id, Is.EqualTo(jobTitleId.Value));
+                Assert.That(createdVacancy.Data.HiringManager?.Id, Is.EqualTo(employeeNumber.Value));
             });
 
-            Log.Info(
-                $"Test passed: vacancy information was verified. Vacancy ID: {vacancyId.Value}.");
+            Log.Info($"Test passed: vacancy information was verified. Vacancy ID: {vacancyId.Value}.");
         }
         finally
         {

@@ -1,5 +1,4 @@
-﻿
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OrangeHRM.Framework.Core.Wrappers;
 
 namespace OrangeHRM.Framework.Core.Pages.Recruitment;
@@ -22,7 +21,6 @@ public class ScheduleInterviewPage : LoadablePage
                  "//input[@placeholder='Type for hints...']"));
 
     private readonly Button _saveButton = new(By.CssSelector("button[type='submit']"));
-
     private readonly TextBox _dateInput = new(DateInput);
 
     public ScheduleInterviewPage() : base(ScheduleInterviewHeader)
@@ -73,8 +71,7 @@ public class ScheduleInterviewPage : LoadablePage
     {
         var dateText = date.ToString("yyyy-dd-MM");
 
-        Wait.Until(driver =>
-            _dateInput.IsDisplayed() && _dateInput.IsEnabled());
+        Wait.Until(driver => _dateInput.IsDisplayed() && _dateInput.IsEnabled());
 
         _dateInput.Click();
         _dateInput.Clear();
@@ -99,11 +96,8 @@ public class ScheduleInterviewPage : LoadablePage
 
     public string GetInterviewer()
     {
-        var interviewer = _interviewerInput.GetAttribute("value")
-                          ?? string.Empty;
+        var interviewer = _interviewerInput.GetAttribute("value") ?? string.Empty;
 
-        return string.Join(
-            " ",
-            interviewer.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+        return string.Join(" ", interviewer.Split(' ', StringSplitOptions.RemoveEmptyEntries));
     }
 }

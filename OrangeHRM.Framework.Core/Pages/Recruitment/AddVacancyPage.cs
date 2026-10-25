@@ -46,8 +46,7 @@ public class AddVacancyPage : LoadablePage
             "//div[contains(@class,'oxd-autocomplete-option') and " +
             $"normalize-space()={ToXPathLiteral(managerName)}]");
 
-        Wait.Until(driver =>
-            driver.FindElements(managerOption).Any(element => element.Displayed));
+        Wait.Until(driver => driver.FindElements(managerOption).Any(element => element.Displayed));
 
         Click(managerOption);
     }

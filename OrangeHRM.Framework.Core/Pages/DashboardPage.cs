@@ -7,14 +7,9 @@ namespace OrangeHRM.Framework.Core.Pages;
 
 public class DashboardPage : LoadablePage
 {
-    private static readonly By DashboardHeader =
-        By.XPath("//h6[text()='Dashboard']");
-
-    private readonly Button _navigationMenu =
-        new(By.CssSelector("span.oxd-userdropdown-tab"));
-
-    private readonly Button _logoutButton =
-        new(By.XPath("//a[normalize-space()='Logout']"));
+    private static readonly By DashboardHeader = By.XPath("//h6[text()='Dashboard']");
+    private readonly Button _navigationMenu = new(By.CssSelector("span.oxd-userdropdown-tab"));
+    private readonly Button _logoutButton = new(By.XPath("//a[normalize-space()='Logout']"));
 
     public DashboardPage() : base(DashboardHeader)
     {

@@ -140,8 +140,7 @@ public class CandidateVacancyTestDataFactory
             $"Job title creation failed. HTTP: {(int)response.StatusCode}. " +
             $"Body: {response.Content}");
 
-        var result =
-            JsonSerializer.Deserialize<CreateJobTitleResponse>(response.Content!);
+        var result = JsonSerializer.Deserialize<CreateJobTitleResponse>(response.Content!);
 
         Assert.That(result?.Data, Is.Not.Null);
 
