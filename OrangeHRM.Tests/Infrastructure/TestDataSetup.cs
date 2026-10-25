@@ -92,7 +92,7 @@ public class TestDataSetup
         var firstName = $"Manager{uniqueId}";
         var middleName = "Test";
         var lastName = $"Employee{uniqueId}";
-        var employeeId = DateTime.Now.ToString("HHmmss");
+        var employeeId = Guid.NewGuid().ToString("N")[..8];
 
         using var employeesApiClient = new EmployeesApiClient(AccessToken);
 
