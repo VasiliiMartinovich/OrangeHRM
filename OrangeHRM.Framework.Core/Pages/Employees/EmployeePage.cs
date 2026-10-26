@@ -7,7 +7,6 @@ public class EmployeePage : LoadablePage
 {
     private static readonly By EmployeeListHeader = By.CssSelector("a[href='/web/index.php/pim/viewPimModule']");
     private static readonly By EmployeeTableRows = By.CssSelector(".oxd-table-body .oxd-table-card");
-    private static readonly By SearchSuggestions = By.CssSelector(".oxd-autocomplete-option");
     private static readonly By NoRecordsMessage = By.XPath("//*[normalize-space()='No Records Found']");
     private readonly TextBox _employeeNameInput = new(By.XPath("//label[text()='Employee Name']/../following-sibling::div//input"));
     private readonly Button _searchButton = new(By.CssSelector("button[type='submit']"));

@@ -26,7 +26,6 @@ public class TestDataSetup
         var vacancyName = $"QA Automation Vacancy {uniqueId}";
 
         using var jobTitlesApiClient = new JobTitlesApiClient(AccessToken);
-        //Console.WriteLine($"Creating Job Title: '{jobTitleName}'");
         var jobTitleResponse = jobTitlesApiClient.CreateJobTitle(
             new CreateJobTitleRequest
             {

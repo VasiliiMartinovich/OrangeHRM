@@ -18,8 +18,8 @@ Automated UI, API, and BDD tests for the [OrangeHRM demo application](https://op
 
 The solution separates reusable automation components from test scenarios:
 
-- **OrangeHRM.Framework.Core** — shared UI automation components, browser management, page objects, element wrappers, and API clients/models.
-- **OrangeHRM.Tests** — UI and API tests, Reqnroll feature files and step definitions, test configuration, hooks, logging, and test-data helpers.
+- **OrangeHRM.Framework.Core** — shared UI automation components, browser management, page objects, element wrappers and API clients/models.
+- **OrangeHRM.Tests** — UI and API tests, Reqnroll feature files and step definitions, test configuration, hooks, logging and test-data helpers.
 
 Solution file: `OrangeHRM.sln`.
 
@@ -41,8 +41,8 @@ Solution file: `OrangeHRM.sln`.
 
 Located mainly in `OrangeHRM.Tests`.
 
-- **UI tests** describe and verify user-facing workflows.
-- **API tests** verify endpoints, response status codes, response data, validation, and candidate operations.
+- **UI tests** describe and verify user workflows.
+- **API tests** verify endpoints, response status codes, response data, validation and operations.
 - **BDD features** describe behavior in Gherkin; step definitions connect the scenarios to page objects and test-data setup.
 - **Assertions** check expected application behavior and API responses.
 
@@ -50,11 +50,11 @@ Located mainly in `OrangeHRM.Tests`.
 
 Located mainly in `OrangeHRM.Framework.Core`, with test infrastructure in `OrangeHRM.Tests`.
 
-- **Drivers** — `DriverFactory`, `DriverManager`, and `BrowserType` create and manage browser sessions.
+- **Drivers** — `DriverFactory`, `DriverManager` and `BrowserType` create and manage browser sessions.
 - **Pages and components** — Page Object classes encapsulate page locators and actions. `BasePage` and `LoadablePage` provide shared page behavior; `SidePanel` is a reusable navigation component.
-- **Element wrappers** — `BaseElement`, `Button`, `TextBox`, `Label`, and `Drop-down` provide reusable element interactions.
+- **Element wrappers** — `BaseElement`, `Button`, `TextBox`, `Label` and `Drop-down` provide reusable element interactions.
 - **API clients and models** — API clients are grouped by resource (employees, job titles, vacancies, and candidates); request and response models represent payloads.
-- **Test infrastructure** — settings, Reqnroll hooks, UI test base, logging, Allure attachments, and API test-data helpers support test execution and diagnostics.
+- **Test infrastructure** — settings, Reqnroll hooks, UI test base, logging, Allure attachments and API test-data helpers support test execution and diagnostics.
 
 ## Test coverage
 
@@ -64,7 +64,7 @@ Current UI test areas include:
 
 - Authentication: successful and unsuccessful login, logout.
 - Employees / PIM: employee-related workflows and employee list search.
-- Recruitment: candidates, vacancies, and hiring workflow.
+- Recruitment: candidates, vacancies and hiring workflow.
 
 ### API tests
 
@@ -83,7 +83,6 @@ Gherkin feature files currently cover:
 - **Employee list** — opening the list and searching for a non-existing employee.
 - **Recruitment** — creating a candidate with a CV and vacancy, deleting a candidate, and creating a vacancy with a hiring manager.
 
-Test coverage can change as the project evolves; see the test classes and `.feature` files for the current scenarios.
 
 ## Prerequisites
 
@@ -166,8 +165,6 @@ allure generate OrangeHRM.Tests/bin/Debug/net10.0/allure-results --clean -o allu
 allure open allure-report-local
 ```
 
-The repository also contains previously generated Allure report folders. These are snapshots from earlier executions and may not represent the latest local test run.
-
 ## Cross-browser execution
 
 Run the supplied PowerShell script from the repository root:
@@ -176,7 +173,7 @@ Run the supplied PowerShell script from the repository root:
 .\run-ui-cross-browser.ps1
 ```
 
-The script runs UI tests in **Chrome** and **Firefox**, keeps the results for each browser under `allure-results/Chrome` and `allure-results/Firefox`, and returns a non-zero exit code if a browser run fails.
+The script runs UI tests in **Chrome** and **Firefox**, keeps the results for each browser under `allure-results/Chrome` and `allure-results/Firefox` and returns a non-zero exit code if a browser run fails.
 
 The repository includes `Test.runsettings` and `Test.Parallel.runsettings` with different NUnit worker settings. Select the runsettings file deliberately when running tests; parallel execution should be verified against the current test setup and shared test data.
 

@@ -26,8 +26,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidates - valid response structure")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that the candidates API returns HTTP 200 and a valid response structure containing candidate data, metadata, and relationship information.")]
+    [AllureDescription("Verifies that the candidates API returns HTTP 200 and a valid response structure containing candidate data, metadata, and relationship information.")]
     public void GetCandidates_ShouldReturnValidResponseStructure()
     {
         Log.Info("Starting test: GetCandidates_ShouldReturnValidResponseStructure.");
@@ -65,8 +64,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidates - candidates contain required fields")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that the candidates API returns a successful response and that every returned candidate has a positive ID.")]
+    [AllureDescription("Verifies that the candidates API returns a successful response and that every returned candidate has a positive ID.")]
     public void GetCandidates_ShouldReturnCandidatesWithRequiredFields()
     {
         Log.Info("Starting test: GetCandidates_ShouldReturnCandidatesWithRequiredFields.");
@@ -111,8 +109,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidates - request without token is rejected")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that the candidates API rejects a request sent without an authorization token by returning HTTP 401 or 403.")]
+    [AllureDescription("Verifies that the candidates API rejects a request sent without an authorization token by returning HTTP 401 or 403.")]
     public void GetCandidates_WithoutToken_ShouldRejectRequest()
     {
         Log.Info("Starting test: GetCandidates_WithoutToken_ShouldRejectRequest.");
@@ -134,30 +131,11 @@ public class CandidatesApiTests : BaseApiTest
         Log.Info("Test passed: API rejected the request without authorization.");
     }
 
-    // private static void AssertStringProperty(
-    //     JsonElement candidate,
-    //     string propertyName,
-    //     bool allowNull = false)
-    // {
-    //     Assert.That(candidate.TryGetProperty(propertyName, out var property), Is.True,
-    //         $"Candidate should contain {propertyName}.");
-    //
-    //     var isString = property.ValueKind == JsonValueKind.String;
-    //     var isAllowedNull = allowNull && property.ValueKind == JsonValueKind.Null;
-    //
-    //     Assert.That(
-    //         isString || isAllowedNull,
-    //         Is.True,
-    //         $"Property {propertyName} should be a string" +
-    //         (allowNull ? " or null." : "."));
-    // }
-
     [Test]
     [AllureName("GET Candidates - invalid token does not return JSON")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that a request using an invalid authorization token does not return a response with the application/json content type.")]
+    [AllureDescription("Verifies that a request using an invalid authorization token does not return a response with the application/json content type.")]
     public void GetCandidates_WithInvalidToken_ShouldNotReturnJson()
     {
         Log.Info("Starting test: GetCandidates_WithInvalidToken_ShouldNotReturnJson.");
@@ -185,8 +163,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidate - retrieve candidate by ID")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a candidate, retrieves it by ID, and verifies that the response contains the expected candidate and matching first name, last name, and email. Deletes the test candidate during cleanup.")]
+    [AllureDescription("Creates a candidate, retrieves it by ID, and verifies that the response contains the expected candidate and matching first name, last name, and email. Deletes the test candidate during cleanup.")]
     public void GetCandidates_WithCandidateId_ShouldReturnMatchingCandidate()
     {
         Log.Info("Starting test: GetCandidates_WithCandidateId_ShouldReturnMatchingCandidate.");
@@ -291,8 +268,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidate - non-existing ID returns empty list")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that querying the candidates API with a non-existing candidate ID returns HTTP 200 with an empty data list.")]
+    [AllureDescription("Verifies that querying the candidates API with a non-existing candidate ID returns HTTP 200 with an empty data list.")]
     public void GetCandidates_WithNonExistingCandidateId_ShouldReturnEmptyList()
     {
         Log.Info("Starting test: GetCandidates_WithNonExistingCandidateId_ShouldReturnEmptyList.");
@@ -332,8 +308,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidates - non-existing name returns empty list")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that searching for a candidate name that does not exist returns HTTP 200 with an empty data list.")]
+    [AllureDescription("Verifies that searching for a candidate name that does not exist returns HTTP 200 with an empty data list.")]
     public void GetCandidates_WithNonExistingCandidateName_ShouldReturnEmptyList()
     {
         Log.Info("Starting test: GetCandidates_WithNonExistingCandidateName_ShouldReturnEmptyList.");
@@ -373,8 +348,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("POST Candidate - create candidate successfully")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Verifies that a candidate can be created through the API and that the returned ID, first name, last name, and email match the request.")]
+    [AllureDescription("Verifies that a candidate can be created through the API and that the returned ID, first name, last name, and email match the request.")]
     public void CreateCandidate_ShouldReturnCreatedCandidate()
     {
         Log.Info("Starting test: CreateCandidate_ShouldReturnCreatedCandidate.");
@@ -422,8 +396,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("POST Candidate - missing firstName returns validation error")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that creating a candidate without firstName returns HTTP 422 and identifies firstName in the validation error.")]
+    [AllureDescription("Verifies that creating a candidate without firstName returns HTTP 422 and identifies firstName in the validation error.")]
     public void CreateCandidate_WithoutFirstName_ShouldReturnValidationError()
     {
         Log.Info("Starting test: CreateCandidate_WithoutFirstName_ShouldReturnValidationError.");
@@ -465,8 +438,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("POST Candidate - missing lastName returns validation error")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that creating a candidate without lastName returns HTTP 422 and identifies lastName in the validation error.")]
+    [AllureDescription("Verifies that creating a candidate without lastName returns HTTP 422 and identifies lastName in the validation error.")]
     public void CreateCandidate_WithoutLastName_ShouldReturnValidationError()
     {
         Log.Info("Starting test: CreateCandidate_WithoutLastName_ShouldReturnValidationError.");
@@ -508,8 +480,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("POST Candidate - missing email returns validation error")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that creating a candidate without email returns HTTP 422 and identifies email in the validation error.")]
+    [AllureDescription("Verifies that creating a candidate without email returns HTTP 422 and identifies email in the validation error.")]
     public void CreateCandidate_WithoutEmailField_ShouldReturnValidationError()
     {
         Log.Info("Starting test: CreateCandidate_WithoutEmailField_ShouldReturnValidationError.");
@@ -553,8 +524,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("PUT Candidate - update candidate information")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a candidate, updates its first name, middle name, last name, and email, verifies the changes through a subsequent GET request, and deletes the test candidate.")]
+    [AllureDescription("Creates a candidate, updates its first name, middle name, last name, and email, verifies the changes through a subsequent GET request, and deletes the test candidate.")]
     public void UpdateCandidate_ShouldUpdateCandidateInformation()
     {
         Log.Info("Starting test: UpdateCandidate_ShouldUpdateCandidateInformation.");
@@ -672,8 +642,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("GET Candidates - search by candidate name")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a candidate, searches by its generated first name, verifies that the candidate is included in the results, and deletes the test candidate.")]
+    [AllureDescription("Creates a candidate, searches by its generated first name, verifies that the candidate is included in the results, and deletes the test candidate.")]
     public void GetCandidates_WithCandidateName_ShouldReturnMatchingCandidates()
     {
         Log.Info("Starting test: GetCandidates_WithCandidateName_ShouldReturnMatchingCandidates.");
@@ -783,8 +752,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("DELETE Candidate - delete existing candidate")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a candidate, deletes it, verifies the deletion response contains the candidate ID, and confirms the candidate is no longer returned by a subsequent GET request.")]
+    [AllureDescription("Creates a candidate, deletes it, verifies the deletion response contains the candidate ID, and confirms the candidate is no longer returned by a subsequent GET request.")]
     public void DeleteCandidate_ShouldDeleteExistingCandidate()
     {
         Log.Info("Starting test: DeleteCandidate_ShouldDeleteExistingCandidate.");
@@ -879,8 +847,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("DELETE Candidate - non-existing ID returns not found")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.minor)]
-    [AllureDescription(
-        "Verifies that deleting a candidate with a non-existing ID returns HTTP 404 and the expected Records Not Found error.")]
+    [AllureDescription("Verifies that deleting a candidate with a non-existing ID returns HTTP 404 and the expected Records Not Found error.")]
     public void DeleteCandidate_WithNonExistingId_ShouldReturnNotFound()
     {
         Log.Info("Starting test: DeleteCandidate_WithNonExistingId_ShouldReturnNotFound.");
@@ -916,47 +883,11 @@ public class CandidatesApiTests : BaseApiTest
         Log.Info("Test passed: API returned 404 for a non-existing candidate.");
     }
 
-    private int CreateTestCandidate(CandidatesApiClient client)
-    {
-        var candidateId = RunStep(
-            "Create test candidate for history-related tests",
-            () =>
-            {
-                var request = new CreateCandidateRequest
-                {
-                    FirstName = $"History{Guid.NewGuid().ToString("N")[..8]}",
-                    LastName = "ApiTest",
-                    Email = $"history.{Guid.NewGuid():N}@example.com"
-                };
-
-                var response = client.CreateCandidate(request);
-
-                Log.Info($"Helper candidate creation returned HTTP {(int)response.StatusCode}.");
-
-                Assert.That((int)response.StatusCode, Is.EqualTo(200),
-                    "Candidate creation failed.");
-
-                var createdCandidate =
-                    JsonSerializer.Deserialize<CreateCandidateResponse>(
-                        response.Content!);
-
-                Assert.That(createdCandidate, Is.Not.Null);
-                Assert.That(createdCandidate!.Data, Is.Not.Null);
-
-                return createdCandidate.Data!.Id;
-            });
-
-        Log.Info($"Helper created candidate. Candidate ID: {candidateId}.");
-
-        return candidateId;
-    }
-
     [Test]
     [AllureName("GET Candidate History - valid response")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates an employee, vacancy, and candidate, retrieves the candidate history, and verifies response metadata and the required fields of each history record. Attempts to clean up the test data afterward.")]
+    [AllureDescription("Creates an employee, vacancy, and candidate, retrieves the candidate history, and verifies response metadata and the required fields of each history record. Attempts to clean up the test data afterward.")]
     public void GetCandidateHistory_ShouldReturnValidResponse()
     {
         Log.Info("Starting test: GetCandidateHistory_ShouldReturnValidResponse.");
@@ -1072,8 +1003,7 @@ public class CandidatesApiTests : BaseApiTest
     [AllureName("POST Candidate for Vacancy - candidate information and history")]
     [AllureTag("API", "Candidates")]
     [AllureSeverity(SeverityLevel.normal)]
-    [AllureDescription(
-        "Creates a job title, employee, vacancy, and candidate application, validates the candidate information and application history records, and attempts to clean up all created test data.")]
+    [AllureDescription("Creates a job title, employee, vacancy, and candidate application, validates the candidate information and application history records, and attempts to clean up all created test data.")]
     public void CreateCandidateForVacancy_ShouldReturnCandidateInformationAndHistory()
     {
         Log.Info("Starting test: CreateCandidateForVacancy_ShouldReturnCandidateInformationAndHistory.");

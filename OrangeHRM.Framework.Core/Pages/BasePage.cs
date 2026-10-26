@@ -7,8 +7,7 @@ namespace OrangeHRM.Framework.Core.Pages;
 
 public class BasePage
 {
-    private static readonly ILog Log =
-        LogManager.GetLogger(typeof(BasePage));
+    private static readonly ILog Log = LogManager.GetLogger(typeof(BasePage));
 
     protected IWebDriver Driver => DriverManager.Driver;
     protected WebDriverWait Wait { get; }

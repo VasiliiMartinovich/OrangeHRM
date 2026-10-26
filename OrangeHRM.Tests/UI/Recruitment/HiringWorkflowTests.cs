@@ -18,8 +18,6 @@ namespace OrangeHRM.Tests.UI.Recruitment;
 [TestFixture]
 public class RecruitmentWorkflowTests : UiTestBase
 {
-    private const int JobTitleId = 2;
-    private const string JobTitle = "Chief Financial Officer";
     private const string CvFileName = "candidate-cv.pdf";
 
     private static readonly ILog Log = LogManager.GetLogger(typeof(RecruitmentWorkflowTests));
@@ -62,16 +60,25 @@ public class RecruitmentWorkflowTests : UiTestBase
     [AllureName("Recruitment Workflow - candidate is hired successfully")]
     [AllureTag("UI", "API", "EndToEnd", "HiringWorkflow")]
     [AllureSeverity(SeverityLevel.critical)]
-    [AllureDescription("Executes the end-to-end recruitment workflow. Creates a hiring manager and vacancy through the API, creates a candidate through the UI with an uploaded CV, moves the candidate through Shortlisted, Interview Scheduled, Interview Passed, and Job Offered, and verifies the final Hired status. Attempts to clean up the candidate, vacancy, and employee.")]
+    [AllureDescription(
+        "Executes the end-to-end recruitment workflow. Creates a hiring manager " +
+        "and job title through the API, creates a vacancy through the API, " +
+        "creates a candidate through the UI with an uploaded CV, moves the candidate " +
+        "through Shortlisted, Interview Scheduled, Interview Passed, and Job Offered, " +
+        "and verifies the final Hired status. Attempts to clean up test data.")]
     public void RecruitmentWorkflow_CandidateIsHiredSuccessfully()
     {
         Log.Info("Test started: RecruitmentWorkflow_CandidateIsHiredSuccessfully.");
 
         var runId = Guid.NewGuid().ToString("N")[..10];
+
         var employeeFirstName = $"Manager{runId}";
         var employeeLastName = "E2E";
         var employeeName = $"{employeeFirstName} {employeeLastName}";
+
+        var jobTitle = $"E2E Job {runId}";
         var vacancyName = $"E2E Vacancy {runId}";
+
         var candidateFirstName = $"Candidate{runId}";
         var candidateMiddleName = "E2E";
         var candidateLastName = "Automation";
@@ -80,6 +87,7 @@ public class RecruitmentWorkflowTests : UiTestBase
         Log.Info($"Generated unique test data. Run ID: {runId}.");
         Log.Info($"Candidate: {candidateFirstName} {candidateLastName}.");
         Log.Info($"Hiring manager: {employeeName}.");
+        Log.Info($"Job title: {jobTitle}.");
         Log.Info($"Vacancy: {vacancyName}.");
 
         var cvFilePath = RunStep(
@@ -89,21 +97,17 @@ public class RecruitmentWorkflowTests : UiTestBase
                 "TestData",
                 CvFileName));
 
-        Log.Info($"Checking that the CV file exists: {CvFileName}.");
-
         RunStep("Verify candidate CV file exists", () =>
         {
             Assert.That(File.Exists(cvFilePath), Is.True,
                 $"Candidate CV was not found: {cvFilePath}");
         });
 
-        Log.Info("CV file exists.");
         Log.Info("Reading the OrangeHRM API access token from the environment.");
 
         var accessToken = RunStep(
             "Read API access token from environment",
-            () => Environment.GetEnvironmentVariable(
-                "ORANGEHRM_ACCESS_TOKEN"));
+            () => Environment.GetEnvironmentVariable("ORANGEHRM_ACCESS_TOKEN"));
 
         RunStep("Verify API access token is configured", () =>
         {
@@ -111,13 +115,13 @@ public class RecruitmentWorkflowTests : UiTestBase
                 "Environment variable ORANGEHRM_ACCESS_TOKEN is not set.");
         });
 
-        Log.Info("API access token is available.");
-
         using var employeesApi = new EmployeesApiClient(accessToken!);
+        using var jobTitlesApi = new JobTitlesApiClient(accessToken!);
         using var vacanciesApi = new VacanciesApiClient(accessToken!);
         using var candidatesApi = new CandidatesApiClient(accessToken!);
 
         int? employeeId = null;
+        int? jobTitleId = null;
         int? vacancyId = null;
 
         try
@@ -136,10 +140,6 @@ public class RecruitmentWorkflowTests : UiTestBase
             var employeeResponse = RunStep(
                 "Create hiring manager through API",
                 () => employeesApi.CreateEmployee(employeeRequest));
-
-            Log.Info(
-                $"Employee creation API response received. " +
-                $"HTTP status: {(int)employeeResponse.StatusCode}.");
 
             RunStep("Verify hiring manager creation response", () =>
             {
@@ -172,6 +172,52 @@ public class RecruitmentWorkflowTests : UiTestBase
             });
 
             Log.Info($"Hiring manager created and verified. Employee ID: {employeeId.Value}.");
+
+            Log.Info($"Creating job title through the API: {jobTitle}.");
+
+            var jobTitleRequest = RunStep(
+                "Prepare job title request",
+                () => new CreateJobTitleRequest
+                {
+                    Title = jobTitle,
+                    Description = "Job title created for the E2E recruitment workflow.",
+                    Note = "Created by automated test."
+                });
+
+            var jobTitleResponse = RunStep(
+                "Create job title through API",
+                () => jobTitlesApi.CreateJobTitle(jobTitleRequest));
+
+            RunStep("Verify job title creation response", () =>
+            {
+                Assert.That(jobTitleResponse.IsSuccessful, Is.True,
+                    $"Job title creation failed. HTTP: " +
+                    $"{(int)jobTitleResponse.StatusCode}. " +
+                    $"Body: {jobTitleResponse.Content}");
+            });
+
+            var createdJobTitle = RunStep(
+                "Deserialize created job title response",
+                () => JsonSerializer.Deserialize<CreateJobTitleResponse>(
+                    jobTitleResponse.Content!));
+
+            RunStep("Verify created job title data", () =>
+            {
+                Assert.That(createdJobTitle?.Data, Is.Not.Null);
+            });
+
+            jobTitleId = createdJobTitle!.Data!.Id;
+
+            RunStep("Verify created job title fields", () =>
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(jobTitleId.Value, Is.GreaterThan(0));
+                    Assert.That(createdJobTitle.Data.Title, Is.EqualTo(jobTitle));
+                });
+            });
+
+            Log.Info($"Job title created and verified. Job title ID: {jobTitleId.Value}.");
             Log.Info($"Creating vacancy through the API: {vacancyName}.");
 
             var vacancyRequest = RunStep(
@@ -180,7 +226,7 @@ public class RecruitmentWorkflowTests : UiTestBase
                 {
                     Name = vacancyName,
                     Status = true,
-                    JobTitleId = JobTitleId,
+                    JobTitleId = jobTitleId.Value,
                     IsPublished = true,
                     Description = "Vacancy created for the E2E recruitment workflow.",
                     NumOfPositions = 1,
@@ -190,10 +236,6 @@ public class RecruitmentWorkflowTests : UiTestBase
             var vacancyResponse = RunStep(
                 "Create vacancy through API",
                 () => vacanciesApi.CreateVacancy(vacancyRequest));
-
-            Log.Info(
-                $"Vacancy creation API response received. " +
-                $"HTTP status: {(int)vacancyResponse.StatusCode}.");
 
             RunStep("Verify vacancy creation response", () =>
             {
@@ -222,8 +264,8 @@ public class RecruitmentWorkflowTests : UiTestBase
                 {
                     Assert.That(vacancyId.Value, Is.GreaterThan(0));
                     Assert.That(vacancyData.Name, Is.EqualTo(vacancyName));
-                    Assert.That(vacancyData.JobTitle?.Id, Is.EqualTo(JobTitleId));
-                    Assert.That(vacancyData.JobTitle?.Title, Is.EqualTo(JobTitle));
+                    Assert.That(vacancyData.JobTitle?.Id, Is.EqualTo(jobTitleId.Value));
+                    Assert.That(vacancyData.JobTitle?.Title, Is.EqualTo(jobTitle));
                     Assert.That(vacancyData.HiringManager?.Id, Is.EqualTo(employeeId.Value),
                         "Vacancy is linked to the wrong Hiring Manager.");
                     Assert.That(vacancyData.HiringManager?.FirstName, Is.EqualTo(employeeFirstName));
@@ -232,21 +274,15 @@ public class RecruitmentWorkflowTests : UiTestBase
             });
 
             Log.Info($"Vacancy created and verified. Vacancy ID: {vacancyId.Value}.");
-            Log.Info("Navigating to the OrangeHRM dashboard.");
 
             RunStep("Navigate to Dashboard", () =>
             {
-                DriverManager.Driver.Navigate().GoToUrl(
-                    new Uri(
-                        new Uri(TestSettings.BaseUrl),
-                        "web/index.php/dashboard/index").ToString());
+                DriverManager.Driver.Navigate().GoToUrl(new Uri(new Uri(TestSettings.BaseUrl), "web/index.php/dashboard/index").ToString());
             });
 
             var dashboardPage = RunStep(
                 "Create DashboardPage object",
                 () => new DashboardPage());
-
-            Log.Info("Opening the Recruitment section.");
 
             RunStep(
                 "Open Recruitment section",
@@ -262,20 +298,13 @@ public class RecruitmentWorkflowTests : UiTestBase
                     "Recruitment page was not displayed.");
             });
 
-            Log.Info("Recruitment page is displayed.");
-            Log.Info("Opening the candidates list.");
-
             var candidatesPage = RunStep(
                 "Open candidates list",
                 () => recruitmentPage.OpenCandidates());
 
-            Log.Info("Opening the Add Candidate form.");
-
             var addCandidatePage = RunStep(
                 "Open Add Candidate form",
                 () => candidatesPage.ClickAdd());
-
-            Log.Info("Filling in the candidate form.");
 
             RunStep("Fill in candidate information", () =>
             {
@@ -286,33 +315,25 @@ public class RecruitmentWorkflowTests : UiTestBase
                     candidateEmail);
             });
 
-            Log.Info($"Selecting vacancy: {vacancyName}.");
-
             RunStep(
                 "Select vacancy for candidate",
                 () => addCandidatePage.SelectVacancy(vacancyName));
-
-            Log.Info($"Uploading CV file: {CvFileName}.");
 
             RunStep(
                 "Upload candidate CV",
                 () => addCandidatePage.UploadCv(cvFilePath));
 
-            Log.Info("Checking that the CV is selected in the form.");
-
             RunStep("Verify CV is selected", () =>
             {
-                Assert.That(addCandidatePage.IsCvSelected(CvFileName), Is.True,
+                Assert.That(
+                    addCandidatePage.IsCvSelected(CvFileName),
+                    Is.True,
                     "CV was not selected in the Add Candidate form.");
             });
-
-            Log.Info("CV is selected. Saving the candidate.");
 
             var candidateDetailsPage = RunStep(
                 "Save candidate",
                 () => addCandidatePage.Save());
-
-            Log.Info("Verifying candidate details after creation. Expected status: Application Initiated.");
 
             RunStep(
                 "Verify candidate profile: Application Initiated",
@@ -325,9 +346,6 @@ public class RecruitmentWorkflowTests : UiTestBase
                     vacancyName,
                     "Application Initiated"));
 
-            Log.Info("Candidate created and verified.");
-            Log.Info("Moving the candidate to the Shortlisted stage.");
-
             var shortlistPage = RunStep(
                 "Open Shortlist Candidate form",
                 () => candidateDetailsPage.ShortlistButtonClick());
@@ -338,13 +356,9 @@ public class RecruitmentWorkflowTests : UiTestBase
                     "Shortlist Candidate page was not displayed.");
             });
 
-            Log.Info("Shortlist Candidate page is displayed. Saving the stage.");
-
             candidateDetailsPage = RunStep(
                 "Save Shortlisted stage",
                 () => shortlistPage.SaveButtonClick());
-
-            Log.Info("Verifying candidate details after shortlisting.");
 
             RunStep(
                 "Verify candidate profile: Shortlisted",
@@ -357,9 +371,6 @@ public class RecruitmentWorkflowTests : UiTestBase
                     vacancyName,
                     "Shortlisted"));
 
-            Log.Info("Candidate successfully reached the Shortlisted stage.");
-            Log.Info("Opening the Schedule Interview form.");
-
             var scheduleInterviewPage = RunStep(
                 "Open Schedule Interview form",
                 () => candidateDetailsPage.ClickScheduleInterviewButton());
@@ -369,8 +380,6 @@ public class RecruitmentWorkflowTests : UiTestBase
                 Assert.That(scheduleInterviewPage.IsDisplayed(), Is.True,
                     "Schedule Interview page was not displayed.");
             });
-
-            Log.Info($"Selecting interviewer: {employeeName}.");
 
             RunStep(
                 "Select hiring manager as interviewer",
@@ -382,30 +391,20 @@ public class RecruitmentWorkflowTests : UiTestBase
                     "The selected interviewer does not match the created employee.");
             });
 
-            Log.Info("Interviewer selection verified.");
-
             var interviewDate = DateTime.Today.AddDays(1);
             var interviewTitle = $"Technical Interview {runId}";
-
-            Log.Info($"Selecting interview date: {interviewDate:yyyy-MM-dd}.");
 
             RunStep(
                 "Select interview date",
                 () => scheduleInterviewPage.SelectDate(interviewDate));
 
-            Log.Info($"Entering interview title: {interviewTitle}.");
-
             RunStep(
                 "Enter interview title",
                 () => scheduleInterviewPage.EnterInterviewTitle(interviewTitle));
 
-            Log.Info("Saving the scheduled interview.");
-
             candidateDetailsPage = RunStep(
                 "Save scheduled interview",
                 () => scheduleInterviewPage.SaveButtonClick());
-
-            Log.Info("Verifying candidate status after scheduling the interview.");
 
             RunStep(
                 "Verify candidate profile: Interview Scheduled",
@@ -418,20 +417,13 @@ public class RecruitmentWorkflowTests : UiTestBase
                     vacancyName,
                     "Interview Scheduled"));
 
-            Log.Info("Candidate successfully reached the Interview Scheduled stage.");
-            Log.Info("Opening the Mark Interview Passed form.");
-
             var markInterviewPassedPage = RunStep(
                 "Open Mark Interview Passed form",
                 () => candidateDetailsPage.ClickMarkInterviewPassedButton());
 
-            Log.Info("Saving the interview result.");
-
             candidateDetailsPage = RunStep(
                 "Save interview result",
                 () => markInterviewPassedPage.SaveButtonClick());
-
-            Log.Info("Verifying candidate status after the interview.");
 
             RunStep(
                 "Verify candidate profile: Interview Passed",
@@ -444,20 +436,13 @@ public class RecruitmentWorkflowTests : UiTestBase
                     vacancyName,
                     "Interview Passed"));
 
-            Log.Info("Candidate successfully reached the Interview Passed stage.");
-            Log.Info("Opening the Offer Job form.");
-
             var offerJobPage = RunStep(
                 "Open Offer Job form",
                 () => candidateDetailsPage.ClickOfferJobButton());
 
-            Log.Info("Saving the job offer.");
-
             candidateDetailsPage = RunStep(
                 "Save job offer",
                 () => offerJobPage.SaveButtonClick());
-
-            Log.Info("Verifying candidate status after the job offer.");
 
             RunStep(
                 "Verify candidate profile: Job Offered",
@@ -470,20 +455,13 @@ public class RecruitmentWorkflowTests : UiTestBase
                     vacancyName,
                     "Job Offered"));
 
-            Log.Info("Candidate successfully reached the Job Offered stage.");
-            Log.Info("Opening the Hire Candidate form.");
-
             var hireCandidatePage = RunStep(
                 "Open Hire Candidate form",
                 () => candidateDetailsPage.ClickHireButton());
 
-            Log.Info("Saving the hiring decision.");
-
             candidateDetailsPage = RunStep(
                 "Save hiring decision",
                 () => hireCandidatePage.SaveButtonClick());
-
-            Log.Info("Verifying candidate status after hiring.");
 
             RunStep(
                 "Verify candidate profile: Hired",
@@ -510,8 +488,6 @@ public class RecruitmentWorkflowTests : UiTestBase
                     candidateLastName);
             });
 
-            Log.Info("Cleaning up the test vacancy.");
-
             RunStep("Clean up vacancy test data", () =>
             {
                 TestDataCleanup.TryDelete(
@@ -520,7 +496,13 @@ public class RecruitmentWorkflowTests : UiTestBase
                     vacanciesApi.DeleteVacancy);
             });
 
-            Log.Info("Cleaning up the test hiring manager.");
+            RunStep("Clean up job title test data", () =>
+            {
+                TestDataCleanup.TryDelete(
+                    "job title",
+                    jobTitleId,
+                    jobTitlesApi.DeleteJobTitle);
+            });
 
             RunStep("Clean up hiring manager test data", () =>
             {
@@ -560,19 +542,14 @@ public class RecruitmentWorkflowTests : UiTestBase
 
                 Assert.That(candidateDetailsPage.GetMiddleName(), Is.EqualTo(expectedMiddleName),
                     "Candidate middle name does not match.");
-
                 Assert.That(candidateDetailsPage.GetLastName(), Is.EqualTo(expectedLastName),
                     "Candidate last name does not match.");
-
                 Assert.That(candidateDetailsPage.GetEmail(), Is.EqualTo(expectedEmail),
                     "Candidate email does not match.");
-
                 Assert.That(candidateDetailsPage.GetJobVacancy(), Is.EqualTo(expectedVacancy),
                     "Candidate is linked to the wrong vacancy.");
-
                 Assert.That(candidateDetailsPage.IsResumeDisplayed(CvFileName), Is.True,
                     "Uploaded CV is not displayed on the candidate profile.");
-
                 Assert.That(candidateDetailsPage.GetCandidateStatus(), Is.EqualTo(expectedStatus),
                     $"Expected candidate status '{expectedStatus}'.");
             });
@@ -590,8 +567,6 @@ public class RecruitmentWorkflowTests : UiTestBase
 
         try
         {
-            Log.Info("Searching for the candidate through the API.");
-
             var response = RunStep(
                 "Find candidate for cleanup through API",
                 () => candidatesApi.GetCandidates(candidateName: firstName));
@@ -620,7 +595,8 @@ public class RecruitmentWorkflowTests : UiTestBase
             if (matchingCandidates is null ||
                 matchingCandidates.Count == 0)
             {
-                Log.Warn("Candidate cleanup skipped: no matching candidate was found.");
+                Log.Warn(
+                    "Candidate cleanup skipped: no matching candidate was found.");
 
                 return;
             }

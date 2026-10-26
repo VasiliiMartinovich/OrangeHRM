@@ -7,7 +7,6 @@ namespace OrangeHRM.Framework.Core.Pages.Recruitment;
 public class AddCandidatePage : LoadablePage
 {
     private static readonly By AddCandidateHeader = By.XPath("//h6[text()='Add Candidate']");
-    private static readonly By VacancyOptions = By.XPath("//div[contains(@class,'oxd-select-option')]");
     private readonly TextBox _firstNameInput = new(By.Name("firstName"));
     private readonly TextBox _middleNameInput = new(By.Name("middleName"));
     private readonly TextBox _lastNameInput = new(By.Name("lastName"));
