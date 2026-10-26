@@ -1,8 +1,0 @@
-2026-10-22 22:09:39.205 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Starting UI test setup.
-2026-10-22 22:10:28.212 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Browser opened and application URL loaded.
-2026-10-22 22:10:28.213 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Test started: Configuration_ShouldBeLoaded.
-2026-10-22 22:10:28.213 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Checking the configured application URL.
-2026-10-22 22:10:28.213 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Checking the configured timeout.
-2026-10-22 22:10:28.214 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - Test passed: application configuration values are correct.
-2026-10-22 22:10:28.215 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - UI test finished: Configuration_ShouldBeLoaded. Status: Passed
-2026-10-22 22:10:30.333 [NUnit.Fw.ParallelWorker#1] INFO  OrangeHRM.Tests.UI.Authentication.LoginPageTests - WebDriver closed for test: Configuration_ShouldBeLoaded
